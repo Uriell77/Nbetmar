@@ -624,8 +624,9 @@ function hiden() {
     for (item of caja) {
         //console.log(item.childNodes[1].childNodes[1].childNodes[1].src);
         if (item.childNodes[1].childNodes[1].childNodes[1].src == 'http://localhost:8000/static/img/.-.jpeg') {
-            console.log(item);
+            console.log(item.childNodes);
             item.classList.toggle('is-hidden');
+
         }
     }
 
