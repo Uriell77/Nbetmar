@@ -1,0 +1,73 @@
+{% block contenido %}
+<div class="collumns is-one-third is-centered">
+		<div class="collumn is-half">
+				<!--<h1>Registro</h1>-->
+
+		</div>
+		<div class="section">
+				<div class="container">
+						<div class="columns is-centered">
+								<div class="column is-half">
+										<div class="card card-shadow is-rounded">
+												<div class="card-content" align="center">
+														<form method="post" class="">
+
+																<label class="label" for="name">Nombre:&nbsp&nbsp<label>
+																				<div class="field">
+																						<p class="control has-icons-left">
+																						<input type="text" id="nombre" name="nombre" class="input is-primary" placeholder="Nombre de Usuario"><br><br>
+																						<span class=" icon is-small is-left">
+																								<i class="material-icons">perm_identity</i>
+																						</p>
+																				</div>
+
+																				<label class="label" for="email">Email:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+																					<div class="field">
+																						<p class="control has-icons-left">
+																						<input type="email" placeholder"Email" id="correo" name="correo"class="input is-primary" placeholder="Correo Electronico"><br><br>
+																						<span class=" icon is-small is-left">
+																						<i class="material-icons">email</i>
+																						</p>
+																				</div>
+
+																				<label class="label" for="password">Password:</label>
+																				<div class="field">
+																				<p class="control has-icons-left">
+																				<input type="password" id="password" name="password"class="input is-primary" placeholder="Password"><br><br>
+																				<span class=" icon is-small is-left">
+																				<i class="material-icons">password</i>
+																				</p>
+																				</div>
+
+																				<label class="label" for="tlf">Celular</label>
+																				<div class="field">
+																				<p class="control has-icons-left">
+																				<input type="tel" id="tlf" name="tlf"class="input is-primary" placeholder="Numero WhatSapp"><br><br>
+																				<span class=" icon is-small is-left">
+																				<i class="material-icons">settings_phone</i>
+																				</p>
+																				</div>
+
+																				<label class="label" for="vendedor">Vendedor</label>
+																				<div>
+																						<div class="select vendedores is-primary">
+																								<select class='vendedores' name='vendedor' placeholder="Vendedor Referido">
+																										{% for vendedor in vendedores %}
+																										<option>{{vendedor[1]}}</option>
+																										{% endfor %}
+																								</select>
+																						</div>
+																				</div><br><br>
+
+																				<input type="submit" value="Registrar" class="button is-primary is-size-6 has-text-weight-bold"></input>
+																				<a type="submit" value="Cancelar" class="button is-primary" href="/"><p class="is-size-6">Cancelar</p></a>
+														</form>
+												</div>
+										</div>
+								</div>
+						</div>
+				</div>
+		</div>
+
+		{% endblock %}
+

@@ -1,0 +1,35 @@
+<div class="container">
+				{% if servi is string %}
+				{% set service = ' ' %}
+				<div>nada</div>
+				{% else%}
+
+				{% for services in servi %}
+				{#	{% if services|length == 1%}
+				{% set center = 'is-offset-4'%}
+				{% endif %}#}
+
+		<div class="columns">
+						{% for service in services%}
+						<div class="column is-narrow">
+								<div class="card sombra"id="{{service[1]}}" onclick="ClickCard(this.id)">
+								<div class="card-image">
+										<figure class="image">
+												<img src="{{url_for('static', filename='img/img/{}.png'.format(service[1]))}}", alt="image">
+										</figure>
+								</div>
+								<div class="card-content">
+										<div class="content">
+												<div>Servicio: {{service[1]}}</div>
+												<div>Precio: $ {{service[2]}}</div>
+												<div>Categoria: {{service[3]}}</div>
+										</div>
+								</div>
+						</div>
+				</div>
+						{%endfor%}
+		</div>
+				{% endfor %}
+				{% endif %}
+				<br>
+</div>

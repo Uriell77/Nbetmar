@@ -1,0 +1,6 @@
+{% block contenido %}
+
+<div class="notification is-link">aqui estoy en el contenido del home
+</div>
+
+{% endblock%}

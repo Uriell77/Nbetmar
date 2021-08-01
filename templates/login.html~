@@ -1,0 +1,46 @@
+{% block contenido %}
+<div class="collumns is-one-third is-centered">
+    <div class="collumn is-half">
+        <!--<h1>ESTO ES UN LOGIN</h1>-->
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="card card-shadow is-rounded">
+                        <div class="card-content" align="center">
+                            <form method="post" class="" id="log">
+
+                                <label class="label" for="name">Email:&nbsp&nbsp</label>
+								<div class="field">
+										<p class="control has-icons-left">
+                                <input type="text" id="nombre" name="nombre" class="input is-primary" placeholder="Correo Electronico"><br><br>
+								<span class="icon is-small is-left">
+										<i class="material-icons">email</i>
+								</span>
+								</p>
+								</div>
+
+                                <label class="label" for="password">Password:</label>
+								<div class="field">
+										<p class="control has-icons-left">
+                                <input type="password" id="password" name="password" class="input is-primary"><br><br>
+								<span class="icon is-small is-left">
+										<i class="material-icons">password</i>
+								</span>
+								</p>
+								</div>
+
+								<input type="submit" value="Entrar" class="button is-primary is-size-6 has-text-weight-bold" id="entrar"></input>
+                                <a type="submit" value="Cancelar" class="button is-primary" href="/"><p class="is-size-6 has-text-weight-bold">Cancelar</p></a>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    {% endblock %}

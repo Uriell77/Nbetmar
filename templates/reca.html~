@@ -1,0 +1,35 @@
+<div class="container">
+				{% if reca is string %}
+				{% set service = ' ' %}
+				<div>nada</div>
+				{% else%}
+
+				{% for servicesr in reca %}
+				{#	{% if services|length == 1%}
+				{% set center = 'is-offset-4'%}
+				{% endif %}#}
+
+		<div class="columns">
+						{% for servicer in servicesr%}
+						<div class="column is-narrow">
+								<div class="card" id="{{servicer[1]}}" onclick="ClickCard(this.id)">
+								<div class="card-image">
+										<figure class="image">
+												<img src="{{url_for('static', filename='img/img/{}.png'.format(servicer[1]))}}", alt="image">
+										</figure>
+								</div>
+								<div class="card-content">
+										<div class="content">
+												Servicio: {{servicer[1]}}<br>
+												Porcentaje: {{servicer[4]}}%<br>
+												Categoria: {{servicer[3]}}
+												<br>
+										</div>
+								</div>
+						</div>
+				</div>
+						{%endfor%}
+		</div>
+				{% endfor %}
+				{% endif %}
+</div>
