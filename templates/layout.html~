@@ -45,7 +45,7 @@
 				<!--inicio del modal-->
 				<div class="modal" id="modal1">
 						<div class="modal-background" id="modalback"></div>
-						<div class="modal-card">
+						<div class="modal-card is-size-6-mobile">
 								<header class="modal-card-head">
 										<p class="modal-card-title">{{cont[1]|safe}}</p>
 										<button class="delete" id="del" aria-label="close"></button>
@@ -92,7 +92,7 @@
 		</body>
 
 
-		<script src="https://cdn.jsdelivr.net/npm/autonumeric@4.5.4"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.1.0/autoNumeric.min.js"></script>
 		<script src="{{url_for('static', filename='js/java.js')}}"></script>
 		<script>
 				borrado();

@@ -12,7 +12,7 @@
 		<div class="columns">
 						{% for servicer in servicesr%}
 						<div class="column is-narrow">
-								<div class="card" id="{{servicer[1]}}" onclick="ClickCard(this.id)">
+								<div class="card sombra" id="{{servicer[1]}}" onclick="ClickCard(this.id)">
 								<div class="card-image">
 										<figure class="image">
 												<img src="{{url_for('static', filename='img/img/{}.png'.format(servicer[1]))}}", alt="image">

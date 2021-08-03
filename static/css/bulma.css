@@ -11660,10 +11660,17 @@ input{
 }
 
 
+.card_boom{
+}
 
-.card:hover,
-.card:focus {
+.card_boom:hover,
+.card_boom:focus {
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
   box-shadow:0px 15px 15px 0px #48C774; 
+}
+
+
+.tdlow{
+		word-wrap:break-word;
 }

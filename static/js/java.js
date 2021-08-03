@@ -359,7 +359,7 @@ function ClickCard(aidi) {
 
         var monto = document.getElementById('monto');
 
-        new AutoNumeric(monto, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+        var mont = new AutoNumeric(monto, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
 
         servfooter.onclick = function() {
             var operadora = document.getElementById('operadora');
@@ -369,9 +369,10 @@ function ClickCard(aidi) {
 
             ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Factura de ${servicio} ${aidi}`;
             ventana.childNodes[3].childNodes[3].innerHTML = `
-    <div class="content">
-
-        <table class="table">
+            <div class="card m-0 p-0">
+            <div class="card-content m-0 p-0">
+            <div class="content m-0 p-0">
+        <table class="table is-striped is-bordered is-size-7-mobile is-narrow m-0">
             <thead>
                 <tr>
                     <th>Operadora</th>
@@ -380,6 +381,7 @@ function ClickCard(aidi) {
                     <th>Porcentaje</th>
                 </tr>
             </thead>
+    
             <tbody>
                 <tr>
                     <td>${operadora.value}</td>
@@ -390,39 +392,42 @@ function ClickCard(aidi) {
                 <tr><td></td><td></td><td></td><td></td></tr>
                 <tr>
                     <td>Total</td>
+                    <td id="porcentaje"> ${mont.getNumber() * parseInt(porcent)/100}</td>
+                    <td class="has-text-weight-bold" id="precioR">${mont.getNumber() + mont.getNumber()*porcent/100}</td>
                     <td></td>
-                    <td id="porcentaje"> ${monto.value.slice(2).replace('.','') * porcent/100}</td>
-                    <td class="has-text-weight-bold" id="precioR">${parseInt(monto.value.slice(2).replace('.','')) + parseInt(monto.value.slice(2).replace('.',''))*porcent/100}</td>
                 </tr>
             </tbody>
         </table>
-        
-    
+        </div>
+        </div>
+        </div>
 
     <form id="formula" method="POST">
-    <input class="input is-primary" type="text" name="solicitud" value="${operadora.value},${numero.value},${parseFloat(monto.value.slice(2).replace('.','')) + ((parseFloat(monto.value.slice(2).replace('.',''))*porcent)/100)}" readonly id="servicioa">
+    <input class="input is-primary" type="text" name="solicitud" value="${operadora.value},${numero.value},${mont.getNumber() + mont.getNumber()*porcent/100}" readonly id="servicioa">
     <div class="hero is-link">Datos de Deposito</div>
-    <div class="box p-0">
-        <label class="label" for="vendedor">Deposito en Banco</label>
+    <div class="box">
+        <label class="label is-size-6" for="vendedor">Deposito en Banco</label>
         <div class="select vendedores is-primary">
-            <select class='vendedores' name='vendedor' id="bancosladmin">
+            <select class='vendedores' name='vendedor' id="bancosladmin" placeholder="Elige un Banco">
             ${bancolistadmin}
             </select>
         </div>
-        <div class="box" id="dbancoadmin"></div>
+        <div class="m-0 p-0" id="dbancoadmin"></div>
     </div>
     
-    <label class="label">Referencia Bancaria</label>
+    <label class="is-size-6">Referencia Bancaria</label>
     <input class="input is-primary" type="text" name="solicitud" required placeholder="Referencia de Deposito"></input>
-    </form>
-    </div>`;
+    </form>`;
             var tasadmin = document.getElementById('bancosladmin');
             var dbancoadmin = document.getElementById('dbancoadmin');
             tasadmin.addEventListener("change", function() {
                 bangadmin = listadmin[bancoptionadmin.indexOf(tasadmin.value)];
                 console.log(bangadmin);
-                bancoadmin = `<div class="box p-1 sombra">
-        <table class="table is-size-7-mobile is-narrow ">
+                bancoadmin = `
+        <div class="card sombra m-0 p-0">
+        <div class"card-content m-0 p-0">
+        <div class="content m-0 p-0">
+        <table class="table is-size-7-mobile is-striped is-narrow is-bordered">
         <tbody>
         <tr>
             <td>Titular: <p class="has-text-weight-semibold">${bangadmin[1]}</p></td>
@@ -431,11 +436,13 @@ function ClickCard(aidi) {
         </tr>
         <tr>
             <td>Tipo de Cuenta: <p class="has-text-weight-semibold	">${bangadmin[6]}</p></td>
-            <td>Cuenta: <p class="has-text-weight-semibold	">${bangadmin[5]}</p></td>
+            <td class="tdlow">Cuenta: <p class="has-text-weight-semibold	">${bangadmin[5]}</p></td>
             <td>Celular: <p class="has-text-weight-semibold	">${bangadmin[7]}</p></td>
         </tr>
             </tbody>
             </table>
+            </div>
+            </div>
             </div>`
                 dbancoadmin.innerHTML = bancoadmin;
             });
@@ -459,7 +466,7 @@ function ClickCard(aidi) {
     <div class="content">
 
         <div class="box">
-        <table class="table">
+        <table class="table is-size-7-mobile">
             <thead>
                 <tr>
                     <th>Servicio</th>
@@ -504,11 +511,13 @@ function ClickCard(aidi) {
     </div>`;
             var tas = document.getElementById('bancosl');
             var dbanco = document.getElementById('dbanco');
+
             tas.addEventListener("change", function() {
                 bang = lista[bancoption.indexOf(tas.value)];
                 console.log(bang);
                 banco = `<div class="box p-1 sombra">
-        <table class="table is-size-7-mobile is-narrow ">
+                <div class="content">
+        <table class="table is-size-7-mobile">
         <tbody>
         <tr>
             <td>Titular: <p class="has-text-weight-semibold">${bang[1]}</p></td>
@@ -522,6 +531,7 @@ function ClickCard(aidi) {
         </tr>
             </tbody>
             </table>
+            </div>
             </div>`
                 dbanco.innerHTML = banco;
             });
