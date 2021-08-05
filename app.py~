@@ -5,7 +5,7 @@ import bd
 app = Flask(__name__)
 app.secret_key =b'clave'
 
-a = ["<div class='box has-text-primary'>esto se genero por feo</div>", "es a"]
+a = ["<div class='box has-text-primary'>esto se genero por feo</div>", "es a", 'recarga1.html']
 b = ["<div class='card is-primary'>esto se genero por horrible</div>", "es b"]
 
 
@@ -25,7 +25,8 @@ def home():
 def registro():
     """pagina de registro para usuarios nuevos"""
     vendedores = bd.vendedores()
-    if request.method == 'POST': datos = []
+    if request.method == 'POST': 
+        datos = []
         nombre = request.form['nombre']
         correo = request.form['correo']
         password = request.form['password']
@@ -86,6 +87,11 @@ def user(user):
     if request.method == 'POST':
         user = user
         solicitudes = request.form['solicitud']
+        ref = request.form['referencia']
+        vend = request.form['vendedor']
+        print(solicitudes)
+        print(vend)
+        print(ref)
         formulario = request.form
         if formulario['action'] == 'recarga':
             bd.recarga(userdat[0], solicitudes)

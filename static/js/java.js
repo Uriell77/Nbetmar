@@ -278,9 +278,7 @@ function actu() {
 };
 
 
-
-
-
+//funcion para el pago
 function ClickCard(aidi) {
     var bancoption = []
     var lista = [];
@@ -294,13 +292,11 @@ function ClickCard(aidi) {
     var bancolistadmin = '<option></option> ';
     var bangadmin = [];
     //console.log(recas[0][0]);
-    var serv = document.getElementById(aidi);
-    var servfooter = document.getElementById("CardEnvio");
+    var serv = document.getElementById(aidi); //card de recargas y servicios
+    var servfooter = document.getElementById("CardEnvio"); //boton
     var recarga = 'Recarga'
     var servicio = 'Servicio'
     servfooter.innerHTML = 'Facturar';
-
-
 
     //var divisa = document.getElementById('monto')
     for (bankadmin of bancadmin) {
@@ -347,13 +343,14 @@ function ClickCard(aidi) {
     var ventana = document.getElementById('modal1');
     ventana.classList.toggle('is-active');
 
+
     if (serv.children[1].textContent.includes('recargas')) {
 
         for (op of recas[0]) {
             if (op.includes(aidi)) {
                 var porcent = op[4]
-            }
-        }
+            };
+        };
         ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Solicitud de ${recarga} ${aidi}`;
         ventana.childNodes[3].childNodes[3].innerHTML = form_recarga;
 
@@ -369,88 +366,145 @@ function ClickCard(aidi) {
 
             ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Factura de ${servicio} ${aidi}`;
             ventana.childNodes[3].childNodes[3].innerHTML = `
-            <div class="card m-0 p-0">
-            <div class="card-content m-0 p-0">
-            <div class="content m-0 p-0">
-        <table class="table is-striped is-bordered is-size-7-mobile is-narrow m-0">
-            <thead>
-                <tr>
-                    <th>Operadora</th>
-                    <th>Numero</th>
-                    <th>Monto</th>
-                    <th>Porcentaje</th>
-                </tr>
-            </thead>
+                <div class="card m-0 p-0">
+                    <div class="card-content m-0 p-0">
+                        <div class="content m-0 p-0">
+                            <table class="table is-striped is-bordered is-size-7-mobile is-narrow m-0 is-hidden-mobile">
+                                <thead>
+                                    <tr>
+                                        <th>Operadora</th>
+                                        <th>Numero</th>
+                                        <th>Monto</th>
+                                        <th>Porcentaje</th>
+                                    </tr>
+                                </thead>
     
-            <tbody>
-                <tr>
-                    <td>${operadora.value}</td>
-                    <td>${numero.value}</td>
-                    <td>${monto.value}</td>
-                    <td>${porcent}%</td>
-                </tr>
-                <tr><td></td><td></td><td></td><td></td></tr>
-                <tr>
-                    <td>Total</td>
-                    <td id="porcentaje"> ${mont.getNumber() * parseInt(porcent)/100}</td>
-                    <td class="has-text-weight-bold" id="precioR">${mont.getNumber() + mont.getNumber()*porcent/100}</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-        </div>
-        </div>
+                                <tbody>
+                                    <tr>
+                                        <td>${operadora.value}</td>
+                                        <td>${numero.value}</td>
+                                        <td>${monto.value}</td>
+                                        <td id="porcentaje"> ${mont.getNumber() * parseInt(porcent)/100}</td>
+                                    </tr>
+                                    <tr><td></td><td></td><td></td><td></td></tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        
+                                        <td class="has-text-weight-bold" id="precioR">${mont.getNumber() + mont.getNumber()*porcent/100}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-    <form id="formula" method="POST">
-    <input class="input is-primary" type="text" name="solicitud" value="${operadora.value},${numero.value},${mont.getNumber() + mont.getNumber()*porcent/100}" readonly id="servicioa">
-    <div class="hero is-link">Datos de Deposito</div>
-    <div class="box">
-        <label class="label is-size-6" for="vendedor">Deposito en Banco</label>
-        <div class="select vendedores is-primary">
-            <select class='vendedores' name='vendedor' id="bancosladmin" placeholder="Elige un Banco">
-            ${bancolistadmin}
-            </select>
-        </div>
-        <div class="m-0 p-0" id="dbancoadmin"></div>
-    </div>
+
+                            <table class="table is-striped is-bordered is-size-7-mobile is-narrow m-0 is-hidden-desktop">
+                                <thead>
+                                    <tr>
+                                        <th>Operadora</th>
+                                        <th>Numero</th>
+                                    </tr>
+                                </thead>
     
-    <label class="is-size-6">Referencia Bancaria</label>
-    <input class="input is-primary" type="text" name="solicitud" required placeholder="Referencia de Deposito"></input>
-    </form>`;
+                                <tbody>
+                                    <tr>
+                                        <td>${operadora.value}</td>
+                                        <td>${numero.value}</td>
+                                    </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Monto</th>
+                                        <th>Porcentaje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${monto.value}</td>
+                                        <td id="porcentaje2"> ${mont.getNumber() * parseInt(porcent)/100}</td>
+                                    </tr>
+                                </tbody>
+                                    <tr><td></td><td></td></tr>
+                                    <tr>
+                                        <td>Total</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="has-text-weight-bold" id="precioR2">${mont.getNumber() + mont.getNumber()*porcent/100}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <form id="formula" method="POST">
+                    <input class="input is-primary" type="text" name="solicitud" value="${operadora.value},${numero.value},${mont.getNumber() + mont.getNumber()*porcent/100}" readonly id="servicioa">
+                    <div class="hero is-link">Datos de Deposito</div>
+                    <div class="box">
+                        <label class="label is-size-6" for="vendedor">Deposito en Banco</label>
+                        <div class="select vendedores is-primary">
+                            <select class='vendedores' name='vendedor' id="bancosladmin" placeholder="Elige un Banco">
+                                ${bancolistadmin}
+                            </select>
+                        </div>
+                        <div class="m-0 p-0" id="dbancoadmin"></div>
+                    </div>
+    
+                    <label class="is-size-6">Referencia Bancaria</label>
+                    <input class="input is-primary" type="text" name="referencia" required placeholder="Referencia de Deposito"></input>
+                </form>`;
             var tasadmin = document.getElementById('bancosladmin');
             var dbancoadmin = document.getElementById('dbancoadmin');
             tasadmin.addEventListener("change", function() {
                 bangadmin = listadmin[bancoptionadmin.indexOf(tasadmin.value)];
                 console.log(bangadmin);
                 bancoadmin = `
-        <div class="card sombra m-0 p-0">
-        <div class"card-content m-0 p-0">
-        <div class="content m-0 p-0">
-        <table class="table is-size-7-mobile is-striped is-narrow is-bordered">
-        <tbody>
-        <tr>
-            <td>Titular: <p class="has-text-weight-semibold">${bangadmin[1]}</p></td>
-            <td>Cedula: <p class="has-text-weight-semibold	">${bangadmin[2]}</p></td>
-            <td>Banco: <p class="has-text-weight-semibold	">${bangadmin[3]}/${bangadmin[4]}</p></td>
-        </tr>
-        <tr>
-            <td>Tipo de Cuenta: <p class="has-text-weight-semibold	">${bangadmin[6]}</p></td>
-            <td class="tdlow">Cuenta: <p class="has-text-weight-semibold	">${bangadmin[5]}</p></td>
-            <td>Celular: <p class="has-text-weight-semibold	">${bangadmin[7]}</p></td>
-        </tr>
-            </tbody>
-            </table>
-            </div>
-            </div>
-            </div>`
+                    <div class="card sombra m-0 p-0">
+                        <div class"card-content m-0 p-0">
+                            <div class="content m-0 p-0">
+                                
+                                <table class="table is-size-7-mobile is-striped is-narrow is-bordered is-hidden-mobile">
+                                    <tbody>
+                                        <tr>
+                                            <td>Titular: <p class="has-text-weight-semibold">${bangadmin[1]}</p></td>
+                                            <td>Cedula: <p class="has-text-weight-semibold	">${bangadmin[2]}</p></td>
+                                            <td>Banco: <p class="has-text-weight-semibold	">${bangadmin[3]}/${bangadmin[4]}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipo de Cuenta: <p class="has-text-weight-semibold	">${bangadmin[6]}</p></td>
+                                            <td class="tdlow">Cuenta: <p class="has-text-weight-semibold	">${bangadmin[5]}</p></td>
+                                            <td>Celular: <p class="has-text-weight-semibold	">${bangadmin[7]}</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <table class="table is-size-7-mobile is-striped is-narrow is-bordered is-hidden-desktop">
+                                    <tbody>
+                                        <tr>
+                                            <td>Titular: <p class="has-text-weight-semibold">${bangadmin[1]}</p></td>
+                                            <td>Cedula: <p class="has-text-weight-semibold	">${bangadmin[2]}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Banco: <p class="has-text-weight-semibold	">${bangadmin[3]}/${bangadmin[4]}</p></td>
+                                            <td>Tipo de Cuenta: <p class="has-text-weight-semibold	">${bangadmin[6]}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdlow">Cuenta: <p class="has-text-weight-semibold	">${bangadmin[5]}</p></td>
+                                            <td>Celular: <p class="has-text-weight-semibold	">${bangadmin[7]}</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>`
                 dbancoadmin.innerHTML = bancoadmin;
             });
             servfooter.innerHTML = 'Comprar';
-            factura('recarga')
-
-
-        }
+            factura('recarga');
+        };
 
     } else {
         ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Solicitud de ${servicio} ${aidi}`;
@@ -459,89 +513,99 @@ function ClickCard(aidi) {
         servfooter.onclick = function() {
             var servicioa = document.getElementById('servicioa');
             var panta = document.getElementById('panta');
+            var pantala = panta.value
             var costoso = serv.children[1].textContent.split(' ')[3]
-
+            console.log(panta.value);
             ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Factura de ${servicio} ${aidi}`;
             ventana.childNodes[3].childNodes[3].innerHTML = `
-    <div class="content">
-
-        <div class="box">
-        <table class="table is-size-7-mobile">
-            <thead>
-                <tr>
-                    <th>Servicio</th>
-                    <th>N.Pantallas</th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>${servicioa.value}</td>
-                    <td>${panta.value}</td>
-                    <td>${parseInt(costoso.slice(0,1))}$</td>
-                </tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr>
-                    <td>Total</td>
-                    <td> ${parseInt(costoso.slice(0,1)) * panta.value}$</td>
-                    <td class="has-text-weight-bold" id="precioS">${((parseInt(costoso.slice(0,1)) * panta.value) * vendedor[9]).toFixed(0)}Bs</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-
-        <form id="formula" method="POST">
-        
-    <input class="input is-primary is-hidden" type="text" name="solicitud" value="${servicioa.value},${panta.value}, ${parseInt(costoso.slice(0,1)) * panta.value}" readonly id="servicioa">
-    
-    <div class="hero is-link">Datos de Deposito</div>
-    <div class="box p-0">
-        <label class="label" for="vendedor">Deposito en Banco</label>
-        <div class="select vendedores is-primary">
-            <select class='vendedores' name='vendedor' id="bancosl">
-            ${bancolist}
-            </select>
-        </div>
-        <div class="box" id="dbanco"></div>
-    </div>
-    
-    <label class="label">Referencia Bancaria</label>
-    <input class="input is-primary" type="text" name="solicitud" required placeholder="Referencia de Deposito"></input>
-    </form>
-    </div>`;
+                <div class="content">
+                    <div class="box">
+                        <table class="table is-size-7-mobile">
+                            <thead>
+                                <tr>
+                                    <th>Servicio</th>
+                                    <th>N.Pantallas</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${servicioa.value}</td>
+                                    <td>${pantala}</td>
+                                    <td>${parseInt(costoso.slice(0,1))}$</td>
+                                </tr>
+                                <tr><td></td><td></td><td></td></tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td> ${parseInt(costoso.slice(0,1)) * pantala}$</td>
+                                    <td class="has-text-weight-bold" id="precioS">${((parseInt(costoso.slice(0,1)) * pantala) * vendedor[9]).toFixed(0)}Bs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <form id="formula" method="POST">
+                        <input class="input is-primary " type="text" name="solicitud" value="${servicioa.value},${panta.value}, ${parseInt(costoso.slice(0,1)) * panta.value}, ${((parseInt(costoso.slice(0,1)) * pantala) * vendedor[9]).toFixed(0)}" readonly id="servicioa">
+                        <div class="hero is-link">Datos de Deposito</div>
+                        <div class="box p-0">
+                            <label class="label" for="vendedor">Deposito en Banco</label>
+                            <div class="select vendedores is-primary">
+                                <select class='vendedores' name='vendedor' id="bancosl">
+                                    ${bancolist}
+                                </select>
+                            </div>
+                            <div class="box" id="dbanco"></div>
+                        </div>
+                        <label class="label">Referencia Bancaria</label>
+                        <input class="input is-primary" type="text" name="referencia" required placeholder="Referencia de Deposito"></input>
+                    </form>
+                </div>`;
             var tas = document.getElementById('bancosl');
             var dbanco = document.getElementById('dbanco');
-
             tas.addEventListener("change", function() {
                 bang = lista[bancoption.indexOf(tas.value)];
-                console.log(bang);
-                banco = `<div class="box p-1 sombra">
-                <div class="content">
-        <table class="table is-size-7-mobile">
-        <tbody>
-        <tr>
-            <td>Titular: <p class="has-text-weight-semibold">${bang[1]}</p></td>
-            <td>Cedula: <p class="has-text-weight-semibold	">${bang[2]}</p></td>
-            <td>Banco: <p class="has-text-weight-semibold	">${bang[3]}/${bang[4]}</p></td>
-        </tr>
-        <tr>
-            <td>Tipo de Cuenta: <p class="has-text-weight-semibold	">${bang[6]}</p></td>
-            <td>Cuenta: <p class="has-text-weight-semibold	">${bang[5]}</p></td>
-            <td>Celular: <p class="has-text-weight-semibold	">${bang[7]}</p></td>
-        </tr>
-            </tbody>
-            </table>
-            </div>
-            </div>`
+                //console.log(bang);
+                banco = `
+                    <div class="box p-1 sombra">
+                        <div class="content">
+                            <table class="table is-size-7-mobile is-hidden-mobile">
+                                <tbody>
+                                    <tr>
+                                        <td>Titular: <p class="has-text-weight-semibold">${bang[1]}</p></td>
+                                        <td>Cedula: <p class="has-text-weight-semibold	">${bang[2]}</p></td>
+                                        <td>Banco: <p class="has-text-weight-semibold	">${bang[3]}/${bang[4]}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo de Cuenta: <p class="has-text-weight-semibold	">${bang[6]}</p></td>
+                                        <td>Cuenta: <p class="has-text-weight-semibold	">${bang[5]}</p></td>
+                                        <td>Celular: <p class="has-text-weight-semibold	">${bang[7]}</p></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table is-size-7-mobile is-hidden-desktop">
+                                <tbody>
+                                    <tr>
+                                        <td>Titular: <p class="has-text-weight-semibold">${bang[1]}</p></td>
+                                        <td>Cedula: <p class="has-text-weight-semibold	">${bang[2]}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Banco: <p class="has-text-weight-semibold	">${bang[3]}/${bang[4]}</p></td>
+                                        <td>Tipo de Cuenta: <p class="has-text-weight-semibold	">${bang[6]}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuenta: <p class="has-text-weight-semibold	">${bang[5]}</p></td>
+                                        <td>Celular: <p class="has-text-weight-semibold	">${bang[7]}</p></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>`
                 dbanco.innerHTML = banco;
             });
             servfooter.innerHTML = 'Comprar';
-            factura('servicio')
-
-
-
-
-        }
+            factura('servicio');
+        };
 
 
 
@@ -554,13 +618,18 @@ function factura(state) {
     var servfooter = document.getElementById("CardEnvio");
     if (state == 'servicio') {
         var valord = document.getElementById("precioS");
+        new AutoNumeric(valord, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     } else {
+        var porcenta = document.getElementById('porcentaje');
         var valord = document.getElementById("precioR");
+        var porcenta2 = document.getElementById('porcentaje2');
+        var valord2 = document.getElementById("precioR2");
+        new AutoNumeric(valord, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+        new AutoNumeric(porcenta, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+        new AutoNumeric(valord2, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+        new AutoNumeric(porcenta2, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     };
-
-    new AutoNumeric(valord, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
-    new AutoNumeric(document.getElementById('porcentaje'), { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
-
+    console.log(valord);
     servfooter.addEventListener('click', () => {
         console.log('yeah cuate');
         servfooter.setAttribute('form', 'formula');

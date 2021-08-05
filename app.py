@@ -5,7 +5,7 @@ import bd
 app = Flask(__name__)
 app.secret_key =b'clave'
 
-a = ["<div class='box has-text-primary'>esto se genero por feo</div>", "es a"]
+a = ["<div class='box has-text-primary'>esto se genero por feo</div>", "es a", 'recarga1.html']
 b = ["<div class='card is-primary'>esto se genero por horrible</div>", "es b"]
 
 
@@ -87,6 +87,11 @@ def user(user):
     if request.method == 'POST':
         user = user
         solicitudes = request.form['solicitud']
+        ref = request.form['referencia']
+        vend = request.form['vendedor']
+        print(solicitudes)
+        print(vend)
+        print(ref)
         formulario = request.form
         if formulario['action'] == 'recarga':
             bd.recarga(userdat[0], solicitudes)
@@ -109,7 +114,7 @@ def user(user):
 
         if nivel == 1:
             flash('Bienvenido' + ' '+'administrador'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi='servi', reca=reca, vendedor='admin', banca=banca, bancadmin=bancadmin)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi='servi', reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin)
     
 
 

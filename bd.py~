@@ -72,6 +72,7 @@ def vendedores():
     cursor.execute("SELECT * FROM usuarios WHERE nivel = ? OR nivel = ?", (1, 2))
     respuesta = cursor.fetchall()
     base.close()
+    respuesta.reverse()
     return respuesta
 
 
@@ -86,6 +87,7 @@ def leertodo():
     cursor.execute("SELECT * FROM usuarios")
     respuesta = cursor.fetchall()
     base.close()
+    respuesta.reverse()
     return respuesta
 
 
@@ -98,6 +100,7 @@ def leertodoservi(Vid):
     cursor.execute("SELECT * FROM servicios WHERE id ='{}'".format(Vid))
     respuesta = cursor.fetchall()
     base.close()
+    respuesta.reverse()
     return respuesta
 
 def leertodoreca(Vid):
@@ -108,6 +111,7 @@ def leertodoreca(Vid):
     cursor.execute("SELECT * FROM recas WHERE id ='{}'".format(Vid))
     respuesta = cursor.fetchall()
     base.close()
+    respuesta.reverse()
     return respuesta
 
 
@@ -231,6 +235,7 @@ def ListaRecargas(id):
 
     res = cursor.fetchall()
     base.close()
+    res.reverse()
     return res
 
 
@@ -242,6 +247,7 @@ def todarecarga():
     cursor.execute("SELECT * FROM recargas")
     respuesta = cursor.fetchall()
     base.close()
+    respuesta.reverse()
     return respuesta
 
 
@@ -267,6 +273,7 @@ def ListaCuentas(id):
 
     res = cursor.fetchall()
     base.close()
+    res.reverse()
     return res
 
 
@@ -278,6 +285,7 @@ def todacuenta():
     cursor.execute("SELECT * FROM cuentas")
     respuesta = cursor.fetchall()
     base.close()
+    respuesta.reverse()
     return respuesta
 
 
@@ -331,7 +339,8 @@ def leer_banca(dato):
     cursor = base.cursor()
 
     cursor.execute("SELECT * FROM pagobanco WHERE id = '{0}'".format(dato))
-    respuesta = cursor.fetchcall()
+    respuesta = cursor.fetchall()
     base.close()
+    respuesta.reverse()
     return respuesta
 
