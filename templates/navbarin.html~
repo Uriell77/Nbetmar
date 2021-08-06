@@ -15,37 +15,18 @@
 										<span aria-hidden="true"></span>
 								</a>
 						</div>
-
+						{% if PanelClient == 2 %}
+						{%set solovend = ''%}
+						{% else %}
+						{% set solovend = PanelClient%}
+						{% endif %}
 						<div id="navbarBasicExample" class="navbar-menu">
 								<div class="navbar-start">
-										<a class="navbar-item">
-												Home
+										<a class="navbar-item" href="/{{user}}">
+												Dashboard
 										</a>
 
-										<a class="navbar-item">
-												Documentation
-										</a>
-
-										<div class="navbar-item has-dropdown is-hoverable">
-												<a class="navbar-link">
-														More
-												</a>
-
-												<div class="navbar-dropdown">
-														<a class="navbar-item">
-																About
-														</a>
-														<a class="navbar-item">
-																Jobs
-														</a>
-														<a class="navbar-item">
-																Contact
-														</a>
-														<hr class="navbar-divider">
-														<a class="navbar-item">
-																Report an issue
-														</a>
-												</div>
+												{{solovend|safe}}
 										</div>
 								</div>
 
@@ -54,7 +35,7 @@
 												<div class="buttons">
 												<a class="label">
 														<p class="is-size-7">Valor de Divisa:</p>
-														<p id="divice">{{vendedor[9]}}</p>
+														<p id="divice" class="formateo">{{vendedor[9]}}</p>
 												</a>
 												</div>
 										</div>
