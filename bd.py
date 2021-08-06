@@ -204,7 +204,7 @@ def counteo():
 
 
 
-def recarga(id, ordenu):
+def recarga(id, ordenu, banco, ref):
     """para agregar una recarga en base de datos, la ordenu es una lista en el orden de la bd
     ejem: \'empresa,numero,monto\'
     """
@@ -213,7 +213,7 @@ def recarga(id, ordenu):
 
     datosu = leervend(id)
     time = str(datetime.datetime.now())
-    cursor.execute("INSERT INTO recargas(id,nombre,time,orden, vendedor) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')".format(datosu[0], datosu[1], time[:time.index('.')], ordenu, datosu[8]))
+    cursor.execute("INSERT INTO recargas(id,nombre,time,orden, vendedor, banco, referencia) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(datosu[0], datosu[1], time[:time.index('.')], ordenu, datosu[8], banco, ref))
     base.commit()
     base.close()
 
@@ -289,7 +289,7 @@ def todacuenta():
     return respuesta
 
 
-def cuentas(id, pantallas, empresa):
+def cuentas(id, pantallas, empresa, dolar, bolivar, banco, referencia):
     """para agregar una compra de pantallas en base de datos, la pantallas es la cantidad de pantallas a comprar y empresa es la empresa de streaming a comprar
     """
     base = sqlite3.connect('user.db', check_same_thread=False)
@@ -298,7 +298,7 @@ def cuentas(id, pantallas, empresa):
     datosu = leervend(id)
     time = datetime.datetime.now()
     fcorte = str(time + datetime.timedelta(days=30))
-    cursor.execute("INSERT INTO cuentas(id,nombre,time,orden, cantidad, fcorte, vendedor) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(datosu[0], datosu[1], str(time)[:str(time).index('.')], empresa, pantallas, fcorte[:fcorte.index('.')], datosu[8]))
+    cursor.execute("INSERT INTO cuentas(id,nombre,time,orden, cantidad, fcorte, vendedor, dolar, bolivar, banco, referencia) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}','{8}', '{9}', '{10}')".format(datosu[0], datosu[1], str(time)[:str(time).index('.')], empresa, pantallas, fcorte[:fcorte.index('.')], datosu[8], dolar, bolivar, banco, referencia))
     base.commit()
     base.close()
 

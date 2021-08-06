@@ -99,7 +99,7 @@ def user(user):
             return redirect(url_for('user', user=user))
         elif formulario['action'] == 'servicio':
             solicitudes = solicitudes.split(',')
-            bd.cuentas(userdat[0], solicitudes[1], solicitudes[0])
+            bd.cuentas(userdat[0], solicitudes[1], solicitudes[0], solicitudes[2], solicitudes[3], vend, ref)
             flash('solicitud de cuenta enviada')
             return redirect(url_for('user', user=user))
 
@@ -114,7 +114,7 @@ def user(user):
 
         if nivel == 1:
             flash('Bienvenido' + ' '+'administrador'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi='servi', reca=reca, vendedor='admin', banca=banca, bancadmin=bancadmin)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi='servi', reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin)
     
 
 

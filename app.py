@@ -94,12 +94,12 @@ def user(user):
         print(ref)
         formulario = request.form
         if formulario['action'] == 'recarga':
-            bd.recarga(userdat[0], solicitudes)
+            bd.recarga(userdat[0], solicitudes, vend, ref)
             flash('Solicitud de recarga enviada')
             return redirect(url_for('user', user=user))
         elif formulario['action'] == 'servicio':
             solicitudes = solicitudes.split(',')
-            bd.cuentas(userdat[0], solicitudes[1], solicitudes[0])
+            bd.cuentas(userdat[0], solicitudes[1], solicitudes[0], solicitudes[2], solicitudes[3], vend, ref)
             flash('solicitud de cuenta enviada')
             return redirect(url_for('user', user=user))
 
