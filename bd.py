@@ -239,6 +239,22 @@ def ListaRecargas(id):
     return res
 
 
+
+def ListaRecargasvend(id):
+    """Consulta la lista de recargas en bd de un usuario por medio del id del vendedor"""
+
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    datosu = leer(id)
+    cursor.execute("SELECT * FROM recargas")
+
+    res = cursor.fetchall()
+    base.close()
+    res.reverse()
+    return res
+
+
 def todarecarga():
     #retorna toda la bd de recargas
     base = sqlite3.connect('user.db', check_same_thread=False)
@@ -275,6 +291,22 @@ def ListaCuentas(id):
     base.close()
     res.reverse()
     return res
+
+
+def ListaCuentasvend(id):
+    """Consulta la lista de cuentass en bd de un usuario por medio del id del vendedor"""
+
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    datosu = leer(id)
+    cursor.execute("SELECT * FROM cuentas WHERE vendedor = {}".format(id))
+
+    res = cursor.fetchall()
+    base.close()
+    res.reverse()
+    return res
+
 
 
 def todacuenta():

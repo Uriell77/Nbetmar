@@ -1,4 +1,10 @@
-<form action="">
-		<label for="">dato</label>
-		<input type="text"></input>
-</form>
+
+
+<div class="card" id="NotiList">
+	{% for cuenta in listacuenta %}
+	{% if cuenta[5] == 0 %}
+	<div class="box card_boom">{{cuenta|safe}}</div>
+	{% endif%}
+	{% endfor %}
+</div>
+

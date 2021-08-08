@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, jsonify
 import bd
 
-
 app = Flask(__name__)
 app.secret_key =b'clave'
 
@@ -130,6 +129,11 @@ def user(user):
 @app.route('/<user>/clientes', methods=['GET', 'POST'])
 def UserClients(user):
     userdat = bd.leeruser(user)
+    nivel = userdat[7]
+    global listacuenta
+    listacuenta = bd.ListaCuentasvend(userdat[0])
+    global listareca
+    listareca = bd.ListaRecargasvend(userdat[0])
     global reca
     reca = bd.leertodoreca(1)
     reca = bd.tresillo(reca,3)
@@ -138,9 +142,36 @@ def UserClients(user):
     global bancadmin
     bancadmin = bd.leer_banca(1)
     panel = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a>'
-    print(user)
+    print(listacuenta)
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
-    return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panel, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin)
+    return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panel, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca)
+
+
+
+
+@app.route('/api/', methods=['GET', 'POST'])
+def api():
+    dato = request.args.get('dato')
+    if dato == 'ListaCuentasvend':
+        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status', 'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
+        cuentasN =  bd.ListaCuentasvend(7)
+        res = []
+        for cuent in cuentasN:
+            res.append(dict(zip(keysN, cuent)))
+            print(res)
+        return jsonify(res)
+    if dato == 'ListaRecargasvend':
+        keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia']
+        recargasN =  bd.ListaRecargasvend(1)
+        res = {}
+        for rec in recargasN:
+            res[recargasN.index(rec)]=dict(zip(keysN, rec))
+        return jsonify(res)
+        
+            
+
+
+
 
 app.run(host='0.0.0.0', port=5000, debug=True)
