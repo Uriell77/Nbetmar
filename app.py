@@ -72,7 +72,8 @@ def login():
 
 @app.route('/<user>', methods=['GET', 'POST'])
 def user(user):
-    panel = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a>'
+    panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
+    panelu = '<a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
     global reca
     reca = bd.leertodoreca(1)
     reca = bd.tresillo(reca,3)
@@ -115,15 +116,15 @@ def user(user):
     else:
         if nivel == 3:
             flash('Bienvenido' + ' '+ user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=2)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelu)
 
         if nivel == 2:
             flash('Bienvenido' + ' '+'vendedor'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panel)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
 
         if nivel == 1:
             flash('Bienvenido' + ' '+'administrador'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panel)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
     
 
 @app.route('/<user>/clientes', methods=['GET', 'POST'])
@@ -141,11 +142,11 @@ def UserClients(user):
     banca = bd.leer_banca(userdat[8])
     global bancadmin
     bancadmin = bd.leer_banca(1)
-    panel = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a>'
+    panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
     print(listacuenta)
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
-    return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panel, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca)
+    return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca)
 
 
 
