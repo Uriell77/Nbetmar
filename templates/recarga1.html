@@ -1,10 +1,28 @@
 
-
-<div class="card" id="NotiList">
-	{% for cuenta in listacuenta %}
-	{% if cuenta[5] == 0 %}
-	<div class="box card_boom">{{cuenta|safe}}</div>
-	{% endif%}
-	{% endfor %}
+<div class="columns">
+		<div class="column is-half">
+				<div class="card" id="NotiListcuentas">
+						<header class="">
+										<div class="hero is-link">Cuentas Pendientes</div>
+						</header>
+						{% for cuenta in listacuenta %}
+						{% if cuenta[5] == 0 %}
+						<div class="box card_boom">{{cuenta|safe}}</div>
+						{% endif%}
+						{% endfor %}
+				</div>
+		</div>
+		{#
+		<div class="column is-half">
+				<div class="card" id="NotiListrecargas">
+						<header class="">
+										<div class="hero is-link">Recargas Pendientes</div>
+						</header>
+						{% for recarga in listareca %}
+						{% if recarga[4] == 0 %}
+						<div class="box card_boom">{{recarga|safe}}</div>
+						{% endif%}
+						{% endfor %}
+				</div>
+		</div>#}
 </div>
-

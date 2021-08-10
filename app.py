@@ -123,7 +123,7 @@ def user(user):
 
         if nivel == 1:
             flash('Bienvenido' + ' '+'administrador'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi='servi', reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panel)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panel)
     
 
 @app.route('/<user>/clientes', methods=['GET', 'POST'])
