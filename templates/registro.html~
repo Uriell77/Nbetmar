@@ -8,7 +8,7 @@
 				<div class="container">
 						<div class="columns is-centered">
 								<div class="column is-half">
-										<div class="card card-shadow is-rounded">
+										<div class="card card-shadow is-rounded contraste">
 												<div class="card-content" align="center">
 														<form method="post" class="">
 
@@ -51,7 +51,7 @@
 																				<label class="label" for="vendedor">Vendedor</label>
 																				<div>
 																						<div class="select vendedores is-primary">
-																								<select class='vendedores' name='vendedor' placeholder="Vendedor Referido">
+																								<select class='vendedores' name='vendedor'>
 																										{% for vendedor in vendedores %}
 																										<option>{{vendedor[1]}}</option>
 																										{% endfor %}

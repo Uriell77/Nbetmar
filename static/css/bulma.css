@@ -2819,7 +2819,7 @@ fieldset[disabled] .button {
 }
 
 .table.is-striped tbody tr:not(.is-selected):nth-child(even) {
-  background-color: #fafafa;
+  background-color: #E8F0FF;
 }
 
 .table-container {
@@ -11656,7 +11656,7 @@ input{
 
 
 .sombra{
-		box-shadow:0px 10px 10px 0px #3273DC; 
+		box-shadow:0px 10px 10px 0px #E8F0FF; 
 }
 
 
@@ -11667,10 +11667,16 @@ input{
 .card_boom:focus {
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
-  box-shadow:0px 15px 15px 0px #48C774; 
+  box-shadow:0px 15px 15px 0px #99bbFF; 
 }
 
 
 .tdlow{
 		word-wrap:break-word;
+}
+
+
+
+.contraste {
+background: #E8F0FF;
 }

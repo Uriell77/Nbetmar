@@ -25,7 +25,7 @@
                                 <label class="label" for="password">Password:</label>
 								<div class="field">
 										<p class="control has-icons-left">
-                                <input type="password" id="password" name="password" class="input is-primary"><br><br>
+                                <input type="password" id="password" name="password" class="input is-primary" placeholder="Password"><br><br>
 								<span class="icon is-small is-left">
 										<i class="material-icons">password</i>
 								</span>

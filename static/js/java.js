@@ -639,7 +639,7 @@ function factura(state) {
             servfooter.setAttribute('value', 'recarga');
         }
         if (state == 'servicio') {
-            servfooter.setAttribute('value', 'servicio');
+
         };
 
     });
@@ -727,3 +727,36 @@ document.addEventListener('DOMContentLoaded', () => {
     var valord = document.getElementById("divice");
     new AutoNumeric(valord, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
 });
+
+
+
+
+function algo(pulsado) {
+    var serv = document.getElementById(pulsado);
+    var ventana = document.getElementById('modal1');
+    var servfooter = document.getElementById("CardEnvio");
+    servfooter.innerHTML = 'Confirmar';
+    ventana.classList.toggle('is-active');
+    var contenidos = serv.innerText.split(',')
+    ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${pulsado}`;
+    ventana.childNodes[3].childNodes[3].innerHTML = `<div id="deposit">${contenidos[9].slice(2,-1)}</div> <div>Banco: ${contenidos[10].slice(2,-1)}</div> <div>Ref: ${contenidos[11].slice(0, -1)}</div>`;
+    var depositos = document.getElementById('deposit')
+    new AutoNumeric(depositos, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+    //console.log(serv.innerText.split(','))
+};
+
+
+function algodon(pulsado2) {
+    var serv = document.getElementById(pulsado2);
+    var ventana = document.getElementById('modal1');
+    var servfooter = document.getElementById("CardEnvio");
+    servfooter.innerHTML = 'Confirmar';
+    ventana.classList.toggle('is-active');
+    var contenidos = serv.innerHTML.split(',');
+    console.log(contenidos);
+    ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${pulsado2}`;
+    ventana.childNodes[3].childNodes[3].innerHTML = `<div id="deposit">${contenidos[5].slice(0,-1)}</div><div>${contenidos[8].slice(2,-1)}</div> <div>${contenidos[9].slice(2,-2)}</div>`;
+    var depositos = document.getElementById('deposit')
+    new AutoNumeric(depositos, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+    //console.log(serv);
+};

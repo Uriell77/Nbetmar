@@ -146,9 +146,41 @@ def UserClients(user):
     print(listacuenta)
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
-    return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca)
+    if nivel == 1:
+        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
+    elif nivel == 2:
+        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
+        
 
-
+@app.route('/<user>/metricas', methods=['GET', 'POST'])
+def UserMetric(user):
+    userdat = bd.leeruser(user)
+    nivel = userdat[7]
+    global listacuenta
+    listacuenta = bd.ListaCuentasvend(userdat[0])
+    global listareca
+    listareca = bd.ListaRecargasvend(userdat[0])
+    global reca
+    reca = bd.leertodoreca(1)
+    reca = bd.tresillo(reca,3)
+    global banca
+    banca = bd.leer_banca(userdat[8])
+    global bancadmin
+    bancadmin = bd.leer_banca(1)
+    panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
+    panelu = '<a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
+    print(listacuenta)
+    vendedor = bd.leervend(userdat[8])
+    nivel = userdat[7]
+    if nivel == 1:
+        flash('estadisticas del Administrador')
+        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
+    elif nivel == 2:
+        flash('Estadisticas del vendedor')
+        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
+    elif nivel == 3:
+        flash('Estadisticas del usuario')
+        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelu, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
 
 
 @app.route('/api/', methods=['GET', 'POST'])
