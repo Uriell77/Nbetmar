@@ -438,7 +438,7 @@ function ClickCard(aidi) {
                 </div>
 
                 <form id="formula" method="POST">
-                    <input class="input is-primary" type="text" name="solicitud" value="${operadora.value},${numero.value},${mont.getNumber() + mont.getNumber()*porcent/100}" readonly id="servicioa">
+                    <input class="input is-primary is-hidden" type="text" name="solicitud" value="${operadora.value},${numero.value},${mont.getNumber() + mont.getNumber()*porcent/100}" readonly id="servicioa">
                     <div class="hero is-link">Datos de Deposito</div>
                     <div class="box">
                         <label class="label is-size-6" for="vendedor">Deposito en Banco</label>
@@ -544,7 +544,7 @@ function ClickCard(aidi) {
                         </table>
                     </div>
                     <form id="formula" method="POST">
-                        <input class="input is-primary " type="text" name="solicitud" value="${servicioa.value},${panta.value}, ${parseInt(costoso.slice(0,1)) * panta.value}, ${((parseInt(costoso.slice(0,1)) * pantala) * vendedor[9]).toFixed(0)}" readonly id="servicioa">
+                        <input class="input is-primary is-hidden" type="text" name="solicitud" value="${servicioa.value},${panta.value}, ${parseInt(costoso.slice(0,1)) * panta.value}, ${((parseInt(costoso.slice(0,1)) * pantala) * vendedor[9]).toFixed(0)}" readonly id="servicioa">
                         <div class="hero is-link">Datos de Deposito</div>
                         <div class="box p-0">
                             <label class="label" for="vendedor">Deposito en Banco</label>
