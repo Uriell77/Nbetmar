@@ -1,26 +1,36 @@
 
 		<div class="column is-half">
-				<div class="card" id="NotiListcuentas">
+				<div class="card" id="">
 						<header class="">
 										<div class="hero is-link">Cuentas Pendientes</div>
 						</header>
+						<div id="NotiListcuentas">
+						<progress class="progress is-small is-primary" max="100">15%</progress>
+								{#
 						{% for cuenta in listacuenta %}
 						{% if cuenta[5] == 0 %}
 						<div class="box card_boom contraste mt-1 mb-1" id="{{cuenta[2]}}" onclick="algo(this.id)">{{cuenta|safe}}</div>
 						{% endif%}
 						{% endfor %}
+						#}
+						</div>
 				</div>
 		</div>
 		
 		<div class="column is-half">
-				<div class="card" id="NotiListrecargas">
+				<div class="card" id="">
 						<header class="">
 										<div class="hero is-link">Recargas Pendientes</div>
 						</header>
+						<div id="NotiListrecargas">
+						<progress class="progress is-small is-primary" max="100">15%</progress>
+								{#
 						{% for recarga in listareca %}
 						{% if recarga[4] == 0 %}
 						<div class="box card_boom contraste mt-1 mb-1" id="{{recarga[2]}}" onclick="algodon(this.id)">{{recarga|safe}}</div>
 						{% endif%}
 						{% endfor %}
+						#}
+						</div>
 				</div>
 		</div>

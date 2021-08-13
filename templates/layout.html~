@@ -100,6 +100,7 @@
 				var recas = {{reca|tojson}};
 				var banca = {{banca|tojson}};
 				var bancadmin = {{bancadmin|tojson}};
-				
+				setInterval("loadcuent('NotiListcuentas', 'http://localhost:5000/api/?dato=ListaCuentasvend&ident={{userdat[0]}}')", 5000);
+				setInterval("loadrec('NotiListrecargas', 'http://localhost:5000/api/?dato=ListaRecargasvend&ident={{userdat[0]}}')", 5000);
 		</script>
 </html>

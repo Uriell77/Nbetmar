@@ -16,7 +16,7 @@ def home():
     """Home de la aplicacion"""
     flash('Bienvenido al home')
     flash('Disfruta tu estadia')
-    return render_template('index.html', navbar='navbarout.html', cont=b, contenido='home.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1)
+    return render_template('index.html', navbar='navbarout.html', cont=b, contenido='home.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
 
 
 
@@ -40,10 +40,10 @@ def registro():
             return redirect(url_for('home'))
         except:
             flash('No se pudo registrar')
-            return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1)
+            return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
     else:    
         flash('Bienvenido al registro')
-        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1)
+        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
 
 
 
@@ -66,7 +66,7 @@ def login():
             return redirect(request.path)
     else:
         flash('Ingresa a la Plataforma')
-        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='login.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1)
+        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='login.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
 
 
 
@@ -143,7 +143,6 @@ def UserClients(user):
     global bancadmin
     bancadmin = bd.leer_banca(1)
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
-    print(listacuenta)
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
     if nivel == 1:
@@ -169,7 +168,6 @@ def UserMetric(user):
     bancadmin = bd.leer_banca(1)
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
     panelu = '<a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
-    print(listacuenta)
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
     if nivel == 1:
@@ -186,20 +184,21 @@ def UserMetric(user):
 @app.route('/api/', methods=['GET', 'POST'])
 def api():
     dato = request.args.get('dato')
+    vendedorident = request.args.get('ident')
     if dato == 'ListaCuentasvend':
         keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status', 'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
-        cuentasN =  bd.ListaCuentasvend(7)
+        cuentasN =  bd.ListaCuentasvend(vendedorident)
         res = []
         for cuent in cuentasN:
             res.append(dict(zip(keysN, cuent)))
-            print(res)
         return jsonify(res)
+    
     if dato == 'ListaRecargasvend':
         keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia']
         recargasN =  bd.ListaRecargasvend(1)
-        res = {}
+        res = []
         for rec in recargasN:
-            res[recargasN.index(rec)]=dict(zip(keysN, rec))
+            res.append(dict(zip(keysN, rec)))
         return jsonify(res)
         
             

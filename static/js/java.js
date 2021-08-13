@@ -457,7 +457,7 @@ function ClickCard(aidi) {
             var dbancoadmin = document.getElementById('dbancoadmin');
             tasadmin.addEventListener("change", function() {
                 bangadmin = listadmin[bancoptionadmin.indexOf(tasadmin.value)];
-                console.log(bangadmin);
+                //console.log(bangadmin);
                 bancoadmin = `
                     <div class="card sombra m-0 p-0">
                         <div class"card-content m-0 p-0">
@@ -515,7 +515,7 @@ function ClickCard(aidi) {
             var panta = document.getElementById('panta');
             var pantala = panta.value
             var costoso = serv.children[1].textContent.split(' ')[3]
-            console.log(panta.value);
+                //console.log(panta.value);
             ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Factura de ${servicio} ${aidi}`;
             ventana.childNodes[3].childNodes[3].innerHTML = `
                 <div class="content">
@@ -629,9 +629,9 @@ function factura(state) {
         new AutoNumeric(valord2, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
         new AutoNumeric(porcenta2, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     };
-    console.log(valord);
+    //console.log(valord);
     servfooter.addEventListener('click', () => {
-        console.log('yeah cuate');
+        //console.log('yeah cuate');
         servfooter.setAttribute('form', 'formula');
         servfooter.setAttribute('name', 'action');
 
@@ -648,33 +648,61 @@ function factura(state) {
 
 
 
-//Ajax carga listado de recargas
-function loadrec(div, page) {
-    //console.log('se ejecuta');
+//Ajax carga listado de cuentas
+function loadcuent(div, page) {
+    //console.log(ident);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var content = JSON.parse(this.responseText)
             document.getElementById(div).innerHTML = '';
             for (item of content) {
-                if (item[4] == 0) {
-                    var ord = item[3].split(',');
-                    document.getElementById(div).innerHTML += `<div class="card has-background-dark has-text-light" id="${item[2]}" onclick="ClickCard(this.id,item)
-                "><div class="card-header has-background-link">&nbsp${item[1]}</div><div class="card-content" style="cursor:pointer">
-                    Fecha: ${item[2]}<br>Orden:<br>&nbsp&nbsp&nbsp
-                                     Empresa: ${ord[0]}<br>&nbsp&nbsp&nbspNumero: ${ord[1]}<br>&nbsp&nbsp&nbspMonto:
-                ${ord[2]}
-                             </div>
-                      </div><br>
-             </div>`
+                //console.log(item['vendedor']);
+                if (item['status'] == 0) {
+                    var itemer = JSON.stringify(item);
+                    //console.log(itemer);
+                    document.getElementById(div).innerHTML += `
+                        <div class="box card_boom contraste mt-1 mb-1" id="${item['time']}" onclick='algo(this.id, ${itemer} )'>
+                            <span>${item['referencia']}</span></div>
+                        </div>`
                 };
-            }
+            };
             //document.getElementById(div).innerHTML = ;
-        }
+        };
     };
     xhttp.open("GET", page, true);
     xhttp.send();
 };
+
+
+
+//Ajax carga listado de recargas
+function loadrec(div, page) {
+    //console.log(ident);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var content = JSON.parse(this.responseText)
+                //console.log(content);
+            document.getElementById(div).innerHTML = '';
+            for (item of content) {
+                //console.log(item['vendedor']);
+                if (item['status'] == 0) {
+                    var itemer2 = JSON.stringify(item);
+                    //console.log(itemer);
+                    document.getElementById(div).innerHTML += `
+                        <div class="box card_boom contraste mt-1 mb-1" id="${item['time']}" onclick='algodon(this.id, ${itemer2} )'>
+                            <span>${item['referencia']}</span></div>
+                        </div>`
+                };
+            };
+            //document.getElementById(div).innerHTML = ;
+        };
+    };
+    xhttp.open("GET", page, true);
+    xhttp.send();
+};
+
 
 function limpiar() {
     var ider = document.getElementById('ider');
@@ -685,8 +713,17 @@ function limpiar() {
 }
 
 
+function noti() {
+    var diver = document.getElementById('NotiListcuentas');
+    diver.innerHTML.addEventListener("change", function() {
+        console.log('si funcionaaaaaa');
+
+    });
+
+};
+
 function todos() {
-    loadrec('todosorden', 'http://localhost:5000/api/datos/?datos=rec');
+    loadcuent('NotiListcuentas', 'http://localhost:5000/api/datos/?datos=rec');
     loadDoc('todos', 'http://localhost:5000/api/datos/?datos=todo');
     loadDoccont('tags', 'http://localhost:5000/api/datos/?datos=cuenta');
 
@@ -732,31 +769,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-function algo(pulsado) {
-    var serv = document.getElementById(pulsado);
+function algo(pulsado, contenidos) {
+    //console.log(contenidos)
+    //var serv = document.getElementById(pulsado);
     var ventana = document.getElementById('modal1');
     var servfooter = document.getElementById("CardEnvio");
     servfooter.innerHTML = 'Confirmar';
     ventana.classList.toggle('is-active');
-    var contenidos = serv.innerText.split(',')
-    ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${pulsado}`;
-    ventana.childNodes[3].childNodes[3].innerHTML = `<div id="deposit">${contenidos[9].slice(2,-1)}</div> <div>Banco: ${contenidos[10].slice(2,-1)}</div> <div>Ref: ${contenidos[11].slice(0, -1)}</div>`;
+    //var contenidos = JSON.parse(contenidos);
+    ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = pulsado;
+    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div id="deposit">${contenidos.bolivares}</div> <div>Banco: ${contenidos.banco}</div> <div>Ref: ${contenidos.referencia}</div>`;
     var depositos = document.getElementById('deposit')
     new AutoNumeric(depositos, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     //console.log(serv.innerText.split(','))
 };
 
 
-function algodon(pulsado2) {
+function algodon(pulsado2, contenidos) {
     var serv = document.getElementById(pulsado2);
     var ventana = document.getElementById('modal1');
     var servfooter = document.getElementById("CardEnvio");
     servfooter.innerHTML = 'Confirmar';
     ventana.classList.toggle('is-active');
-    var contenidos = serv.innerHTML.split(',');
-    console.log(contenidos);
+    //var contenidos = serv.innerHTML.split(',');
+    //console.log(contenidos);
+    orden = contenidos.orden.split(',');
     ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${pulsado2}`;
-    ventana.childNodes[3].childNodes[3].innerHTML = `<div id="deposit">${contenidos[5].slice(0,-1)}</div><div>${contenidos[8].slice(2,-1)}</div> <div>${contenidos[9].slice(2,-2)}</div>`;
+    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div><span>${orden[0]} &nbsp</span><span>${orden[1]} &nbsp</span><span id="deposit">${orden[2]} &nbsp</span></div><div>${contenidos.banco}</div> <div>${contenidos.referencia}</div>`;
     var depositos = document.getElementById('deposit')
     new AutoNumeric(depositos, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     //console.log(serv);

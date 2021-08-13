@@ -1,13 +1,18 @@
 
 <div class="column">
-		<div class="card" id="NotiListcuentas">
+		<div class="card" id="">
 				<header class="">
 						<div class="hero is-link">Cuentas Pendientes</div>
 				</header>
+				<div id="NotiListcuentas">
+						<progress class="progress is-small is-primary" max="100">15%</progress>
+				{#
 				{% for cuenta in listacuenta %}
 				{% if cuenta[5] == 0 %}
 				<div class="box card_boom contraste mt-1 mb-1" id="{{cuenta[2]}}" onclick="algo(this.id)">{{cuenta|safe}}</div>
 				{% endif%}
 				{% endfor %}
+				#}
+				</div>
 		</div>
 </div>
