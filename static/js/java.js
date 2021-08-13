@@ -639,6 +639,7 @@ function factura(state) {
             servfooter.setAttribute('value', 'recarga');
         }
         if (state == 'servicio') {
+            servfooter.setAttribute('value', 'servicio');
 
         };
 

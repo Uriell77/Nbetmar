@@ -108,6 +108,7 @@ def user(user):
             flash('Solicitud de recarga enviada')
             return redirect(url_for('user', user=user))
         elif formulario['action'] == 'servicio':
+            print('aqui')
             solicitudes = solicitudes.split(',')
             bd.cuentas(userdat[0], solicitudes[1], solicitudes[0], solicitudes[2], solicitudes[3], vend, ref)
             flash('solicitud de cuenta enviada')
@@ -173,8 +174,10 @@ def UserMetric(user):
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
     if nivel == 1:
+        flash('estadisticas del Administrador')
         return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
     elif nivel == 2:
+        flash('Estadisticas del vendedor')
         return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
     elif nivel == 3:
         flash('Estadisticas del usuario')
