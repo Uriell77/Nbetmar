@@ -114,17 +114,22 @@ def user(user):
             return redirect(url_for('user', user=user))
 
     else:
-        if nivel == 3:
-            flash('Bienvenido' + ' '+ user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelu)
+        userdat = bd.leeruser(user)
+        if userdat == None:
+            pass
+        else:
+            nivel = userdat[7]
+            if nivel == 3:
+                flash('Bienvenido' + ' '+ user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelu)
 
-        if nivel == 2:
-            flash('Bienvenido' + ' '+'vendedor'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
+            if nivel == 2:
+                flash('Bienvenido' + ' '+'vendedor'+' '+user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
 
-        if nivel == 1:
-            flash('Bienvenido' + ' '+'administrador'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
+            if nivel == 1:
+                flash('Bienvenido' + ' '+'administrador'+' '+user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
     
 
 @app.route('/<user>/clientes', methods=['GET', 'POST'])
@@ -145,10 +150,23 @@ def UserClients(user):
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
-    if nivel == 1:
-        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
-    elif nivel == 2:
-        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
+    if request.method =='POST':
+        formulario = request.form
+        if formulario['action'] == 'aprobar_cuenta':
+            aprobado = request.form['por_aprobar']
+            aprobado = aprobado.split(',')
+            bd.delcuent(aprobado[1], aprobado[0])
+            return redirect (request.path)
+        else:
+            aprobado = request.form['por_aprobar']
+            aprobado = aprobado.split(',')
+            bd.delrec(aprobado[1], aprobado[0])
+            return redirect(request.path)
+    else:
+        if nivel == 1:
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
+        elif nivel == 2:
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
         
 
 @app.route('/<user>/metricas', methods=['GET', 'POST'])

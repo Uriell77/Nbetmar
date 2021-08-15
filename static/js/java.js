@@ -662,12 +662,16 @@ function loadcuent(div, page) {
                     var itemer = JSON.stringify(item);
                     //console.log(itemer);
                     document.getElementById(div).innerHTML += `
-                        <div class="box card_boom contraste mt-1 mb-1" id="${item['time']}" onclick='algo(this.id, ${itemer} )'>
+                        <article class="message is-link mb-1">
+                        <div class="message-body card_boom contraste" id="${item['time']}" onclick='algo(this.id, ${itemer} )'>
                             <span>${item['referencia']}</span></div>
-                        </div>`
+                        </div>
+                        </article>`
                 };
             };
-            //document.getElementById(div).innerHTML = ;
+            var servfooter = document.getElementById("CardEnvio");
+            servfooter.setAttribute('form', 'aprobado')
+                //document.getElementById(div).innerHTML = ;
         };
     };
     xhttp.open("GET", page, true);
@@ -691,9 +695,11 @@ function loadrec(div, page) {
                     var itemer2 = JSON.stringify(item);
                     //console.log(itemer);
                     document.getElementById(div).innerHTML += `
-                        <div class="box card_boom contraste mt-1 mb-1" id="${item['time']}" onclick='algodon(this.id, ${itemer2} )'>
+                        <article class="message is-link mb-1">
+                        <div class="message-body card_boom contraste" id="${item['time']}" onclick='algodon(this.id, ${itemer2} )'>
                             <span>${item['referencia']}</span></div>
-                        </div>`
+                        </div>
+                        </article>`
                 };
             };
             //document.getElementById(div).innerHTML = ;
@@ -778,7 +784,13 @@ function algo(pulsado, contenidos) {
     ventana.classList.toggle('is-active');
     //var contenidos = JSON.parse(contenidos);
     ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = pulsado;
-    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div id="deposit">${contenidos.bolivares}</div> <div>Banco: ${contenidos.banco}</div> <div>Ref: ${contenidos.referencia}</div>`;
+    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div id="deposit">${contenidos.bolivares}</div> <div>Banco: ${contenidos.banco}</div> <div>Ref: ${contenidos.referencia}</div> <form id="aprobado" method="POST">
+    <input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},${contenidos.nombre},${contenidos.bolivares},${contenidos.banco},${contenidos.referencia}">
+    </form>`;
+    servfooter.setAttribute('form', 'aprobado')
+    servfooter.setAttribute('name', 'action')
+    servfooter.setAttribute('value', 'aprobar_cuenta')
+
     var depositos = document.getElementById('deposit')
     new AutoNumeric(depositos, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     //console.log(serv.innerText.split(','))
@@ -795,7 +807,13 @@ function algodon(pulsado2, contenidos) {
     //console.log(contenidos);
     orden = contenidos.orden.split(',');
     ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${pulsado2}`;
-    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div><span>${orden[0]} &nbsp</span><span>${orden[1]} &nbsp</span><span id="deposit">${orden[2]} &nbsp</span></div><div>${contenidos.banco}</div> <div>${contenidos.referencia}</div>`;
+    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div><span>${orden[0]} &nbsp</span><span>${orden[1]} &nbsp</span><span id="deposit">${orden[2]} &nbsp</span></div><div>${contenidos.banco}</div> <div>${contenidos.referencia}</div></div>
+    <form id="aprobado" method="POST">
+    <input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},${contenidos.nombre},${orden[0]},${orden[1]},${orden[2]},${contenidos.banco},${contenidos.referencia}">
+    </form>`;
+    servfooter.setAttribute('form', 'aprobado')
+    servfooter.setAttribute('name', 'action')
+    servfooter.setAttribute('value', 'aprobar_recarga')
     var depositos = document.getElementById('deposit')
     new AutoNumeric(depositos, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     //console.log(serv);
