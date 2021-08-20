@@ -104,7 +104,8 @@ def user(user):
         vend = request.form['vendedor']
         formulario = request.form
         if formulario['action'] == 'recarga':
-            bd.recarga(userdat[0], solicitudes, vend, ref)
+            recarganeta = request.form['recarganeta']
+            bd.recarga(userdat[0], solicitudes, vend, ref, recarganeta)
             flash('Solicitud de recarga enviada')
             return redirect(url_for('user', user=user))
         elif formulario['action'] == 'servicio':
@@ -155,17 +156,19 @@ def UserClients(user):
         if formulario['action'] == 'aprobar_cuenta':
             aprobado = request.form['por_aprobar']
             aprobado = aprobado.split(',')
-            bd.delcuent(aprobado[1], aprobado[0])
+            bd.delcuent(aprobado[1].strip(), aprobado[0].strip())
             return redirect (request.path)
         else:
             aprobado = request.form['por_aprobar']
             aprobado = aprobado.split(',')
-            bd.delrec(aprobado[1], aprobado[0])
+            bd.delrec(aprobado[1].strip(), aprobado[0].strip())
             return redirect(request.path)
     else:
         if nivel == 1:
+            flash('bienvenido')
             return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
         elif nivel == 2:
+            flash('bienvenido')
             return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
         
 
@@ -204,7 +207,8 @@ def api():
     dato = request.args.get('dato')
     vendedorident = request.args.get('ident')
     if dato == 'ListaCuentasvend':
-        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status', 'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
+        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status',
+                'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
         cuentasN =  bd.ListaCuentasvend(vendedorident)
         res = []
         for cuent in cuentasN:
@@ -212,7 +216,7 @@ def api():
         return jsonify(res)
     
     if dato == 'ListaRecargasvend':
-        keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia']
+        keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia', 'montoneto']
         recargasN =  bd.ListaRecargasvend(1)
         res = []
         for rec in recargasN:

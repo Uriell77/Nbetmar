@@ -439,6 +439,7 @@ function ClickCard(aidi) {
 
                 <form id="formula" method="POST">
                     <input class="input is-primary is-hidden" type="text" name="solicitud" value="${operadora.value},${numero.value},${mont.getNumber() + mont.getNumber()*porcent/100}" readonly id="servicioa">
+                    <input class="input is-primary is-hidden" type="text" name="recarganeta" value="${mont.getNumber()}">
                     <div class="hero is-link">Datos de Deposito</div>
                     <div class="box">
                         <label class="label is-size-6" for="vendedor">Deposito en Banco</label>
@@ -544,7 +545,10 @@ function ClickCard(aidi) {
                         </table>
                     </div>
                     <form id="formula" method="POST">
-                        <input class="input is-primary is-hidden" type="text" name="solicitud" value="${servicioa.value},${panta.value}, ${parseInt(costoso.slice(0,1)) * panta.value}, ${((parseInt(costoso.slice(0,1)) * pantala) * vendedor[9]).toFixed(0)}" readonly id="servicioa">
+                        <input class="input is-primary is-hidden" type="text" name="solicitud" value="${servicioa.value},
+                        ${panta.value},
+                        ${parseInt(costoso.slice(0,1)) * panta.value},
+                        ${((parseInt(costoso.slice(0,1)) * pantala) * vendedor[9]).toFixed(0)}" readonly id="servicioa">
                         <div class="hero is-link">Datos de Deposito</div>
                         <div class="box p-0">
                             <label class="label" for="vendedor">Deposito en Banco</label>
@@ -667,8 +671,46 @@ function loadcuent(div, page) {
                             <span>${item['referencia']}</span></div>
                         </div>
                         </article>`
+
+                    /*if (JSON.stringify(content) != copy) {
+                        copy = JSON.stringify(content);
+                        var ventana = document.getElementById('modal1');
+                        ventana.classList.toggle('is-active');
+                        var servfooter = document.getElementById("CardEnvio");
+                        servfooter.innerHTML = "Visto";
+                        servfooter.onclick = function() {
+                            ventana.classList.toggle('is-active');
+
+                        };
+                        ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Notificacion`;
+                        ventana.childNodes[3].childNodes[3].innerHTML = `Se a creado una nueva orden de cuentas <br>Referencia: <span>${item['referencia']}</span></div>`
+
+                    };*/
                 };
+
             };
+            var lan = document.getElementById(div);
+            if (copy != lan.firstChild.nextSibling.textContent) {
+                var msg = document.getElementById("pancarta");
+                var mensaje = document.getElementById("notification");
+                msg.classList.toggle('is-link');
+                msg.className = 'intermit';
+                msg.classList.add('message', 'flasher');
+                console.log(lan.firstChild.nextSibling.textContent);
+                mensaje.style.display = "block";
+                mensaje.innerHTML = `nueva compra ${lan.firstChild.nextSibling.textContent}`;
+                //var ventana = document.getElementById('modal1');
+                //ventana.classList.toggle('is-active');
+                //ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Notificacion`;
+                //ventana.childNodes[3].childNodes[3].innerHTML = `Se a creado una nueva orden de cuentas <br>Referencia: <span>${item['referencia']}</span></div>`
+                copy = lan.firstChild.nextSibling.textContent;
+                setTimeout(() => {
+                    var mensaje = document.getElementById("notification");
+                    mensaje.style.display = "none";
+                }, 3000);
+                //msg.classList.toggle('intermit');
+            }
+
             var servfooter = document.getElementById("CardEnvio");
             servfooter.setAttribute('form', 'aprobado')
                 //document.getElementById(div).innerHTML = ;
@@ -784,8 +826,18 @@ function algo(pulsado, contenidos) {
     ventana.classList.toggle('is-active');
     //var contenidos = JSON.parse(contenidos);
     ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = pulsado;
-    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div id="deposit">${contenidos.bolivares}</div> <div>Banco: ${contenidos.banco}</div> <div>Ref: ${contenidos.referencia}</div> <form id="aprobado" method="POST">
-    <input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},${contenidos.nombre},${contenidos.bolivares},${contenidos.banco},${contenidos.referencia}">
+    ventana.childNodes[3].childNodes[3].innerHTML = `
+    <div class="message has-text-weight-semibold mb-1 card_boom">Nombre: ${contenidos.nombre}</div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Cuenta: ${contenidos.orden} Numero de Pantallas: ${contenidos.cantidad}</div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Monto Depositado: <span id="deposit">${contenidos.bolivares}</span></div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Banco Deposito: ${contenidos.banco}</div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Referencia de Deposito: ${contenidos.referencia}</div>
+    <form id="aprobado" method="POST">
+        <input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},
+            ${contenidos.nombre},
+            ${contenidos.bolivares},
+            ${contenidos.banco},
+            ${contenidos.referencia}">
     </form>`;
     servfooter.setAttribute('form', 'aprobado')
     servfooter.setAttribute('name', 'action')
@@ -807,14 +859,60 @@ function algodon(pulsado2, contenidos) {
     //console.log(contenidos);
     orden = contenidos.orden.split(',');
     ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${pulsado2}`;
-    ventana.childNodes[3].childNodes[3].innerHTML = `<div>${contenidos.nombre}</div><div><span>${orden[0]} &nbsp</span><span>${orden[1]} &nbsp</span><span id="deposit">${orden[2]} &nbsp</span></div><div>${contenidos.banco}</div> <div>${contenidos.referencia}</div></div>
+    ventana.childNodes[3].childNodes[3].innerHTML = `
+    <div class="message has-text-weight-semibold mb-1 card_boom">Nombre: ${contenidos.nombre}</div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Orden de Recarga: 
+        <span class="card_boom_red">${orden[0]} &nbsp</span>
+        <span class="card_boom_red">${orden[1]} &nbsp</span>
+        <span class="card_boom_red" id="deposit">${orden[2]} &nbsp</span>
+    </div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Monto a Recargar: <span class="card_boom_red" id="montoneto">${contenidos.montoneto}</span></div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Banco Deposito: ${contenidos.banco}</div>
+    <div class="message has-text-weight-semibold mb-1 card_boom">Referencia de Deposito: ${contenidos.referencia}</div>
     <form id="aprobado" method="POST">
-    <input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},${contenidos.nombre},${orden[0]},${orden[1]},${orden[2]},${contenidos.banco},${contenidos.referencia}">
+    <input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},
+    ${contenidos.nombre},
+    ${orden[0]},
+    ${orden[1]},
+    ${orden[2]},
+    ${contenidos.banco},
+    ${contenidos.referencia}">
     </form>`;
     servfooter.setAttribute('form', 'aprobado')
     servfooter.setAttribute('name', 'action')
     servfooter.setAttribute('value', 'aprobar_recarga')
+    var montoneto = document.getElementById('montoneto')
     var depositos = document.getElementById('deposit')
     new AutoNumeric(depositos, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+    new AutoNumeric(montoneto, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
     //console.log(serv);
+};
+
+var copy = 0;
+
+function ver() {
+    var venta = document.getElementById('NotiListcuentas');
+    var mensaje = document.getElementById("notification");
+    console.log(copy);
+    console.log(venta.childElementCount);
+    if (copy == 0) {
+        copy = venta.childElementCount;
+    } else {
+        if (copy < venta.childElementCount) {
+            //console.log(venta.childElementCount);
+            mensaje.style.display = "block";
+            mensaje.innerHTML = "nueva compra";
+            setTimeout(function() { mensaje.style.display = "none" }, 3000);
+            copy = venta.childElementCount;
+
+        } else {
+            if (copy == 1) {
+                //console.log(venta.childElementCount);
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "nueva compra";
+                setTimeout(function() { mensaje.style.display = "none" }, 3000);
+                copy = venta.childElementCount;
+            }
+        }
+    };
 };

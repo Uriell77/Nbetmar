@@ -11667,7 +11667,19 @@ input{
 .card_boom:focus {
   box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   transform: translateY(-0.25em);
-  box-shadow:0px 15px 15px 0px #E9F0FF; 
+  box-shadow:0px 15px 15px 0px #99bbFF; 
+}
+
+
+
+.card_boom_red{
+}
+
+.card_boom_red:hover,
+.card_boom_red:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.27em);
+  box-shadow:0px 15px 15px 0px #FF0D0D; 
 }
 
 
@@ -11679,4 +11691,24 @@ input{
 
 .contraste {
 background: #E8F0FF;
+}
+
+
+
+
+.intermit{
+		animation-duration:0.5s;
+		animation-name:parpadeo;
+		animation-iteration-count:infinite;
+		animation-fill-mode:
+}
+
+@keyframes parpadeo{
+		from{
+				background: #3273DC;
+		}
+		to{
+				background: #23D160;
+		}
+
 }

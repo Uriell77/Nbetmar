@@ -27,7 +27,7 @@
 				<!--inicio de mensaje flash-->
 				{% with messages = get_flashed_messages() %}
 				{% if messages %}
-				<article class="message flasher is-link">
+				<article class="message flasher is-link" id="pancarta">
 						<ul class="flashes message-body" id="notification">
 								{% for message in messages %}
 								<li>{{ message }}</li>
