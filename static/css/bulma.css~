@@ -11700,7 +11700,7 @@ background: #E8F0FF;
 		animation-duration:0.5s;
 		animation-name:parpadeo;
 		animation-iteration-count:infinite;
-		animation-fill-mode:
+		animation-fill-mode:backwards;
 }
 
 @keyframes parpadeo{
@@ -11711,4 +11711,8 @@ background: #E8F0FF;
 				background: #23D160;
 		}
 
+}
+
+#audio{ 
+		display: block; 
 }
