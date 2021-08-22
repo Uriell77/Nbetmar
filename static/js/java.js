@@ -655,71 +655,81 @@ function factura(state) {
 //Ajax carga listado de cuentas
 function loadcuent(div, page) {
     //console.log(ident);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var content = JSON.parse(this.responseText)
-            document.getElementById(div).innerHTML = '';
-            for (item of content) {
-                //console.log(item['vendedor']);
-                if (item['status'] == 0) {
-                    var itemer = JSON.stringify(item);
-                    //console.log(itemer);
-                    document.getElementById(div).innerHTML += `
+    if (div == null) {
+
+    } else {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var content = JSON.parse(this.responseText)
+                document.getElementById(div).innerHTML = '';
+                for (item of content) {
+                    //console.log(item['vendedor']);
+                    if (item['status'] == 0) {
+                        var itemer = JSON.stringify(item);
+                        //console.log(itemer);
+                        document.getElementById(div).innerHTML += `
                         <article class="message is-link mb-1">
                         <div class="message-body card_boom contraste" id="${item['time']}" onclick='algo(this.id, ${itemer} )'>
                             <span>${item['referencia']}</span></div>
                         </div>
                         </article>`
 
-                    /*if (JSON.stringify(content) != copy) {
-                        copy = JSON.stringify(content);
-                        var ventana = document.getElementById('modal1');
-                        ventana.classList.toggle('is-active');
-                        var servfooter = document.getElementById("CardEnvio");
-                        servfooter.innerHTML = "Visto";
-                        servfooter.onclick = function() {
+                        /*if (JSON.stringify(content) != copy) {
+                            copy = JSON.stringify(content);
+                            var ventana = document.getElementById('modal1');
                             ventana.classList.toggle('is-active');
+                            var servfooter = document.getElementById("CardEnvio");
+                            servfooter.innerHTML = "Visto";
+                            servfooter.onclick = function() {
+                                ventana.classList.toggle('is-active');
 
-                        };
-                        ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Notificacion`;
-                        ventana.childNodes[3].childNodes[3].innerHTML = `Se a creado una nueva orden de cuentas <br>Referencia: <span>${item['referencia']}</span></div>`
+                            };
+                            ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Notificacion`;
+                            ventana.childNodes[3].childNodes[3].innerHTML = `Se a creado una nueva orden de cuentas <br>Referencia: <span>${item['referencia']}</span></div>`
 
-                    };*/
+                        };*/
+                    };
+
                 };
-
-            };
-            var lan = document.getElementById(div);
-            if (copy != lan.firstChild.nextSibling.textContent) {
-                var msg = document.getElementById("pancarta");
-                var mensaje = document.getElementById("notification");
-                msg.classList.toggle('is-link');
-                msg.className = 'intermit';
-                msg.classList.add('message', 'flasher');
-                console.log(lan.firstChild.nextSibling.textContent);
-                mensaje.style.display = "block";
-                mensaje.innerHTML = `nueva compra ${lan.firstChild.nextSibling.textContent}`;
-                //var ventana = document.getElementById('modal1');
-                //ventana.classList.toggle('is-active');
-                //ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Notificacion`;
-                //ventana.childNodes[3].childNodes[3].innerHTML = `Se a creado una nueva orden de cuentas <br>Referencia: <span>${item['referencia']}</span></div>`
-                copy = lan.firstChild.nextSibling.textContent;
-                setTimeout(() => {
+                var lan = document.getElementById(div);
+                if (copy != lan.firstChild.nextSibling.textContent) {
+                    var msg = document.getElementById("pancarta");
                     var mensaje = document.getElementById("notification");
-                    mensaje.style.display = "none";
-                }, 3000);
-                //msg.classList.toggle('intermit');
-            }
+                    msg.classList.toggle('is-link');
+                    msg.className = 'intermit';
+                    msg.classList.add('message', 'flasher');
+                    //console.log(lan.firstChild.nextSibling.textContent);
+                    mensaje.style.display = "block";
+                    mensaje.innerHTML = `nueva compra ${lan.firstChild.nextSibling.textContent} <audio id="audio" autoplay volume=0>
+<source type="audio/wav" src="../static/sound/bell.wav">
+</audio>`;
 
-            var servfooter = document.getElementById("CardEnvio");
-            servfooter.setAttribute('form', 'aprobado')
-                //document.getElementById(div).innerHTML = ;
+                    //var ventana = document.getElementById('modal1');
+                    //ventana.classList.toggle('is-active');
+                    //ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `Notificacion`;
+                    //ventana.childNodes[3].childNodes[3].innerHTML = `Se a creado una nueva orden de cuentas <br>Referencia: <span>${item['referencia']}</span></div>`
+                    copy = lan.firstChild.nextSibling.textContent;
+                    var audio = document.getElementById("audio");
+                    audio.play();
+                    let promise = Notification.requestPermission();
+                    var notification = new Notification("Nueva Compra de Servicio", { body: `nueva compra ${lan.firstChild.nextSibling.textContent}` });
+                    setTimeout(() => {
+                        var mensaje = document.getElementById("notification");
+                        mensaje.style.display = "none";
+                    }, 3000);
+                    //msg.classList.toggle('intermit');
+                }
+
+                var servfooter = document.getElementById("CardEnvio");
+                servfooter.setAttribute('form', 'aprobado')
+                    //document.getElementById(div).innerHTML = ;
+            };
         };
+        xhttp.open("GET", page, true);
+        xhttp.send();
     };
-    xhttp.open("GET", page, true);
-    xhttp.send();
 };
-
 
 
 //Ajax carga listado de recargas
@@ -770,12 +780,13 @@ function noti() {
 
 };
 
-function todos() {
-    loadcuent('NotiListcuentas', 'http://localhost:5000/api/datos/?datos=rec');
-    loadDoc('todos', 'http://localhost:5000/api/datos/?datos=todo');
-    loadDoccont('tags', 'http://localhost:5000/api/datos/?datos=cuenta');
+function todos(vendedor) {
+    loadcuent('NotiListcuentas', `http://192.168.0.113:5000/api/?dato=ListaCuentasvend&ident=${vendedor[0]}`);
+    loadrec('NotiListrecargas', `http://192.168.0.113:5000/api/?dato=ListaRecargasvend&ident=1`);
 
-    conectado();
+    //loadDoccont('tags', 'http://localhost:5000/api/datos/?datos=cuenta');
+
+    //conectado();
 
     //loadrec('todosorden', 'http://uriell77.pythonanywhere.com/api/datos/?datos=rec');
     //loadDoc('todos', 'http://uriell77.pythonanywhere.com/api/datos/?datos=todo');
