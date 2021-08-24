@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+		<head>
+				<meta charset="UTF-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<link rel="stylesheet" href="{{url_for('static', filename='css/bulma.css')}}">
+				<link rel="preconnect" href="https://fonts.googleapis.com">
+				<link rel="preconnect" href="https://fonts.gstatic.com">
+				<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+				<link href="https://fonts.googleapis.com/css2?family=Pattaya" rel="stylesheet">
+				
+				<title>Netflix Betmar</title>
+
+		</head>
+		<body>
+
+				<!--inicio del navbar-->
+				{% include navbar %}
+				{% block navbar %}
+				{% endblock %}
+				<!--fin del navbar-->
+
+
+
+
+
+				<!--inicio de mensaje flash-->
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<article class="message flasher is-link" id="pancarta">
+						<ul class="flashes message-body" id="notification">
+								{% for message in messages %}
+								<li>{{ message }}</li>
+								{% endfor %}
+						</ul>
+				</article>
+				{% endif %}
+				{% endwith %}
+				<!-- fin del mensaje flash-->
+
+
+
+
+
+				<!--inicio del modal-->
+				<div class="modal" id="modal1">
+						<div class="modal-background" id="modalback"></div>
+						<div class="modal-card is-size-6-mobile">
+								<header class="modal-card-head">
+										<p class="modal-card-title is-size-6">{{cont[1]|safe}}</p>
+										<button class="delete" id="del" aria-label="close"></button>
+								</header>
+								<section class="modal-card-body">
+										{{cont[0]|safe}}
+										<!-- Content ... -->
+								</section>
+								<footer class="modal-card-foot">
+										<button type="submit"  id="CardEnvio" class="button is-success">Comprar</button>
+										<button class="button" id="cancel">Cancel</button>
+								</footer>
+						</div>
+				</div>
+				<!--fin del modal-->
+
+
+
+
+
+				<!--inicio del bloque contenido-->
+				<div class="content">
+				{% block content %}
+				{% endblock %}
+				</div>
+				<!--fin del bloque contenido-->
+
+
+
+				<!--inicio del footer-->
+				<footer class="footer">
+						<div class="content has-text-centered">
+								<p>
+								<strong>Netflix Betmar </strong> by <a href="">GP System C.A</a>. The source code is licensed
+								<a href="">Todos los derechos reservados</a>. The website content
+								is licensed <a href="">Todos los derechos reervados</a>.
+								</p>
+								
+						</div>
+				</footer>
+				<!--fin del footer-->
+
+
+		</body>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.1.0/autoNumeric.min.js"></script>
+		<script src="{{url_for('static', filename='js/java.js')}}"></script>
+		<script>
+				borrado();
+				var vendedor = {{vendedor|tojson}};
+				var recas = {{reca|tojson}};
+				var banca = {{banca|tojson}};
+				var bancadmin = {{bancadmin|tojson}};
+				if (window.location.protocol.indexOf('https') == 0){
+				  var el = document.createElement('meta')
+				  el.setAttribute('http-equiv', 'Content-Security-Policy')
+				  el.setAttribute('content', 'upgrade-insecure-requests')
+				  document.head.append(el)
+}
+				setInterval("loadcuent('NotiListcuentas', '192.168.0.113:5000/api/?dato=ListaCuentasvend&ident={{userdat[0]}}')", 5000);
+				setInterval("loadrec('NotiListrecargas', '192.168.0.113:5000/api/?dato=ListaRecargasvend&ident=1')", 5000);
+		</script>
+</html>

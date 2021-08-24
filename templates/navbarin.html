@@ -1,0 +1,60 @@
+{% block navbar %}
+{% if contenido == "clientes.html" or contenido == "metricas.html"%}
+{% set inilogo = "../" %}
+{% else %}
+{% set inilogo = "" %}
+{% endif %}
+				<!--inicio del navbar-->
+				<nav class="navbar is-link" role="navigation" aria-label="main navigation">
+						<div class="navbar-brand">
+								<figure class="image is-64x64 pt-2" href="/">
+									<img src="{{inilogo}}static/img/img/betmarlog.png" width="80" height="28" class="is-rounded">
+								</figure>
+
+								<a class="navbar-item has-text-danger-dark titulo is-size-4" href="/">Netflix Betmar</a>
+
+								<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+										<span aria-hidden="true"></span>
+										<span aria-hidden="true"></span>
+										<span aria-hidden="true"></span>
+								</a>
+						</div>
+						{% if PanelClient == 2 %}
+						{%set solovend = ''%}
+						{% else %}
+						{% set solovend = PanelClient%}
+						{% endif %}
+						<div id="navbarBasicExample" class="navbar-menu">
+								<div class="navbar-start">
+										<a class="navbar-item" href="/{{user}}">
+												Dashboard
+										</a>
+
+												{{solovend|safe}}
+									
+								</div>
+
+								<div class="navbar-end">
+										<div class="navbar-item">
+												<div class="buttons">
+												<a class="label">
+														<p class="is-size-7">Valor de Divisa:</p>
+														<p id="divice" class="formateo">{{vendedor[9]}}</p>
+												</a>
+												</div>
+										</div>
+										<div class="navbar-item">
+												<div class="buttons">
+														<a class="button is-light" id='login'>
+																{{user}}
+														</a>
+												</div>
+										</div>
+								</div>
+						</div>
+				</nav>
+				<!--fin del navbar-->
+
+
+
+{% endblock %}
