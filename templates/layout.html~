@@ -27,7 +27,7 @@
 				<!--inicio de mensaje flash-->
 				{% with messages = get_flashed_messages() %}
 				{% if messages %}
-				<article class="message flasher is-link">
+				<article class="message flasher is-link" id="pancarta">
 						<ul class="flashes message-body" id="notification">
 								{% for message in messages %}
 								<li>{{ message }}</li>
@@ -93,6 +93,7 @@
 
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.1.0/autoNumeric.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="{{url_for('static', filename='js/java.js')}}"></script>
 		<script>
 				borrado();
@@ -100,7 +101,14 @@
 				var recas = {{reca|tojson}};
 				var banca = {{banca|tojson}};
 				var bancadmin = {{bancadmin|tojson}};
-				setInterval("loadcuent('NotiListcuentas', 'http://localhost:5000/api/?dato=ListaCuentasvend&ident={{userdat[0]}}')", 5000);
-				setInterval("loadrec('NotiListrecargas', 'http://localhost:5000/api/?dato=ListaRecargasvend&ident={{userdat[0]}}')", 5000);
+				if (window.location.protocol.indexOf('https') == 0){
+				  var el = document.createElement('meta')
+				  el.setAttribute('http-equiv', 'Content-Security-Policy')
+				  el.setAttribute('content', 'upgrade-insecure-requests')
+				  document.head.append(el)
+}
+				setInterval("loadcuent('NotiListcuentas', '/api/?dato=ListaCuentasvend&ident={{userdat[0]}}')", 5000);
+				setInterval("loadrec('NotiListrecargas', '/api/?dato=ListaRecargasvend&ident=1')", 5000);
+setInterval("loadstatis('graficos', '/api/?dato=ListaCuentasvend&ident={{userdat[0]}}')", 5000);
 		</script>
 </html>

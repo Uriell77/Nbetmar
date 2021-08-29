@@ -6,7 +6,7 @@ def leeruserv(dato):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM usuarios WHERE nombre = '{}'".format(dato))
+    cursor.execute("SELECT * FROM usuarios WHERE nombre = '{0}'".format(dato))
     respuesta = cursor.fetchone()
     base.close()
     return respuesta
@@ -16,7 +16,7 @@ def leervend(dato):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM usuarios WHERE id = '{}'".format(dato))
+    cursor.execute("SELECT * FROM usuarios WHERE id = '{0}'".format(dato))
     respuesta = cursor.fetchone()
     base.close()
     return respuesta
@@ -42,7 +42,7 @@ def leeruser(dato):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM usuarios WHERE nombre = '{}'".format(dato))
+    cursor.execute("SELECT * FROM usuarios WHERE nombre = '{0}'".format(dato))
     respuesta = cursor.fetchone()
     base.close()
     return respuesta
@@ -57,7 +57,7 @@ def leer(dato):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM usuarios WHERE correo = '{}'".format(dato))
+    cursor.execute("SELECT * FROM usuarios WHERE correo = '{0}'".format(dato))
     respuesta = cursor.fetchone()
     base.close()
     return respuesta
@@ -97,7 +97,7 @@ def leertodoservi(Vid):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM servicios WHERE id ='{}'".format(Vid))
+    cursor.execute("SELECT * FROM servicios WHERE id ='{0}'".format(Vid))
     respuesta = cursor.fetchall()
     base.close()
     respuesta.reverse()
@@ -108,7 +108,7 @@ def leertodoreca(Vid):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM recas WHERE id ='{}'".format(Vid))
+    cursor.execute("SELECT * FROM recas WHERE id ='{0}'".format(Vid))
     respuesta = cursor.fetchall()
     base.close()
     respuesta.reverse()
@@ -130,7 +130,7 @@ def borrar(ide):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("DELETE FROM usuarios WHERE id = {}".format(ide))
+    cursor.execute("DELETE FROM usuarios WHERE id = '{0}'".format(ide))
     base.commit()
     base.close()
 
@@ -140,7 +140,7 @@ def existecorreo(datos):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM usuarios WHERE correo = '{}'".format(datos))
+    cursor.execute("SELECT * FROM usuarios WHERE correo = '{0}'".format(datos))
     if cursor.fetchone():
         base.close()
         return True
@@ -153,7 +153,7 @@ def existepassword(datos):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("SELECT * FROM usuarios WHERE password = '{}'".format(datos))
+    cursor.execute("SELECT * FROM usuarios WHERE password = '{0}'".format(datos))
     if cursor.fetchone():
         base.close()
         return True
@@ -204,7 +204,7 @@ def counteo():
 
 
 
-def recarga(id, ordenu, banco, ref):
+def recarga(id, ordenu, banco, ref, recarganeta):
     """para agregar una recarga en base de datos, la ordenu es una lista en el orden de la bd
     ejem: \'empresa,numero,monto\'
     """
@@ -213,7 +213,7 @@ def recarga(id, ordenu, banco, ref):
 
     datosu = leervend(id)
     time = str(datetime.datetime.now())
-    cursor.execute("INSERT INTO recargas(id,nombre,time,orden, vendedor, banco, referencia) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(datosu[0], datosu[1], time[:time.index('.')], ordenu, datosu[8], banco, ref))
+    cursor.execute("INSERT INTO recargas(id,nombre,time,orden, vendedor, banco, referencia, montoneto) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')".format(datosu[0], datosu[1], time[:time.index('.')], ordenu, datosu[8], banco, ref, recarganeta))
     base.commit()
     base.close()
 
@@ -231,7 +231,7 @@ def ListaRecargas(id):
     cursor = base.cursor()
 
     datosu = leer(id)
-    cursor.execute("SELECT * FROM recargas WHERE id = {}".format(id))
+    cursor.execute("SELECT * FROM recargas WHERE id = '{0}'".format(id))
 
     res = cursor.fetchall()
     base.close()
@@ -285,7 +285,7 @@ def ListaCuentas(id):
     cursor = base.cursor()
 
     datosu = leer(id)
-    cursor.execute("SELECT * FROM cuentas WHERE id = {}".format(id))
+    cursor.execute("SELECT * FROM cuentas WHERE id = '{0}'".format(id))
 
     res = cursor.fetchall()
     base.close()
@@ -300,7 +300,7 @@ def ListaCuentasvend(id):
     cursor = base.cursor()
 
     datosu = leer(id)
-    cursor.execute("SELECT * FROM cuentas WHERE vendedor = {}".format(id))
+    cursor.execute("SELECT * FROM cuentas WHERE vendedor = '{0}'".format(id))
 
     res = cursor.fetchall()
     base.close()

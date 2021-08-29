@@ -72,6 +72,7 @@ def login():
 
 @app.route('/<user>', methods=['GET', 'POST'])
 def user(user):
+    print(user)
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
     panelu = '<a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
     global reca
@@ -104,7 +105,8 @@ def user(user):
         vend = request.form['vendedor']
         formulario = request.form
         if formulario['action'] == 'recarga':
-            bd.recarga(userdat[0], solicitudes, vend, ref)
+            recarganeta = request.form['recarganeta']
+            bd.recarga(userdat[0], solicitudes, vend, ref, recarganeta)
             flash('Solicitud de recarga enviada')
             return redirect(url_for('user', user=user))
         elif formulario['action'] == 'servicio':
@@ -114,42 +116,66 @@ def user(user):
             return redirect(url_for('user', user=user))
 
     else:
-        if nivel == 3:
-            flash('Bienvenido' + ' '+ user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelu)
+        userdat = bd.leeruser(user)
+        if userdat == None:
+            pass
+        else:
+            nivel = userdat[7]
+            if nivel == 3:
+                flash('Bienvenido' + ' '+ user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelu)
 
-        if nivel == 2:
-            flash('Bienvenido' + ' '+'vendedor'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
+            if nivel == 2:
+                flash('Bienvenido' + ' '+'vendedor'+' '+user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
 
-        if nivel == 1:
-            flash('Bienvenido' + ' '+'administrador'+' '+user)
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
+            if nivel == 1:
+                flash('Bienvenido' + ' '+'administrador'+' '+user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
     
 
 @app.route('/<user>/clientes', methods=['GET', 'POST'])
 def UserClients(user):
+    print(user)
     userdat = bd.leeruser(user)
-    nivel = userdat[7]
-    global listacuenta
-    listacuenta = bd.ListaCuentasvend(userdat[0])
-    global listareca
-    listareca = bd.ListaRecargasvend(userdat[0])
-    global reca
-    reca = bd.leertodoreca(1)
-    reca = bd.tresillo(reca,3)
-    global banca
-    banca = bd.leer_banca(userdat[8])
-    global bancadmin
-    bancadmin = bd.leer_banca(1)
-    panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
-    vendedor = bd.leervend(userdat[8])
-    nivel = userdat[7]
-    if nivel == 1:
-        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
-    elif nivel == 2:
-        return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
-        
+    if userdat == None:
+        pass
+    else:
+        nivel = userdat[7]
+        global listacuenta
+        listacuenta = bd.ListaCuentasvend(userdat[0])
+        global listareca
+        listareca = bd.ListaRecargasvend(userdat[0])
+        global reca
+        reca = bd.leertodoreca(1)
+        reca = bd.tresillo(reca,3)
+        global banca
+        banca = bd.leer_banca(userdat[8])
+        global bancadmin
+        bancadmin = bd.leer_banca(1)
+        panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a>'
+        vendedor = bd.leervend(userdat[8])
+        nivel = userdat[7]
+        if request.method =='POST':
+            formulario = request.form
+            if formulario['action'] == 'aprobar_cuenta':
+                aprobado = request.form['por_aprobar']
+                aprobado = aprobado.split(',')
+                bd.delcuent(aprobado[1].strip(), aprobado[0].strip())
+                return redirect (request.path)
+            else:
+                aprobado = request.form['por_aprobar']
+                aprobado = aprobado.split(',')
+                bd.delrec(aprobado[1].strip(), aprobado[0].strip())
+                return redirect(request.path)
+        else:
+            if nivel == 1:
+                flash('Bienvenido' + ' ' +user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
+            elif nivel == 2:
+                flash('Bienvenido' + ' '+user)
+                return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
+            
 
 @app.route('/<user>/metricas', methods=['GET', 'POST'])
 def UserMetric(user):
@@ -184,9 +210,12 @@ def UserMetric(user):
 @app.route('/api/', methods=['GET', 'POST'])
 def api():
     dato = request.args.get('dato')
+    print(dato)
     vendedorident = request.args.get('ident')
+    print(vendedorident)
     if dato == 'ListaCuentasvend':
-        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status', 'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
+        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status',
+                'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
         cuentasN =  bd.ListaCuentasvend(vendedorident)
         res = []
         for cuent in cuentasN:
@@ -194,7 +223,7 @@ def api():
         return jsonify(res)
     
     if dato == 'ListaRecargasvend':
-        keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia']
+        keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia', 'montoneto']
         recargasN =  bd.ListaRecargasvend(1)
         res = []
         for rec in recargasN:
@@ -206,4 +235,4 @@ def api():
 
 
 
-app.run(host='0.0.0.0', port=5000, debug=True)
+app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
