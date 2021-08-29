@@ -762,6 +762,88 @@ function loadrec(div, page) {
 };
 
 
+//Ajax carga lista de estado1
+function loadstatis(div, page) {
+    //console.log(div);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var content = JSON.parse(this.responseText)
+                //console.log(content);
+            document.getElementById(div).innerHTML = '';
+            time = [];
+            gan = [];
+            meses = [];
+            dia = [];
+            for (item of content) {
+                //console.log(item['vendedor']);
+                if (item['status'] == 1) {
+                    var itemer2 = JSON.stringify(item);
+                    //console.log(itemer);
+                    document.getElementById(div).innerHTML += `
+                        <article class="message is-link mb-1">
+                        <div class="message-body card_boom contraste" id="${item['time']}" '>
+                            <span>${JSON.stringify(item['referencia'])}</span>
+                            </div>
+                        </div>
+                        </article>`
+
+
+                    time.push(item['time']);
+                    dia.push(item['time'].split(' ')[0] + ' ' + item['cantidad']);
+                    //meses.push(item['time'].split('-')[1]);
+                    gan.push(item['cantidad']);
+                    //console.log(meses);
+
+                };
+            };
+            dias = [];
+            ganancia = 0;
+            //console.log(dia)
+            for (var i = 0; i < dia.length + 1; i++) {
+                if (dia[i].split(' ')[0] == dia[i + 1].split(' ')[0]) {
+                    ganancia = parseInt(ganancia) + parseInt(dia[i].split(' ')[1]);
+
+
+                } else {
+                    dias.push(dia[i].split(' ')[0]);
+                    gan.push(ganancia)
+                    ganancia = 0;
+                }
+                console.log(dias);
+                console.log(gan);
+            }
+
+            const chart = Highcharts.chart(div, {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Ventas'
+                },
+                xAxis: {
+                    categories: dias
+
+                },
+                yAxis: {
+                    title: {
+                        text: 'Numero de Pantallas'
+                    }
+                },
+                series: [{
+                    name: 'Orden',
+                    data: gan
+                }]
+            });
+            //document.getElementById(div).innerHTML = ;
+        };
+    };
+    xhttp.open("GET", page, true);
+    xhttp.send();
+
+};
+
+
 function limpiar() {
     var ider = document.getElementById('ider');
     var fecha = document.getElementById('fecha');
