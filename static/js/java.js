@@ -927,3 +927,9 @@ function ver() {
         }
     };
 };
+
+
+var evtSource = new EventSource("/api/?dato=ListaCuentasvend&ident=2")
+evtSource.onmessage = function(e){
+		console.log(e);
+};
