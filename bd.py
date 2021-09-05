@@ -121,7 +121,7 @@ def editar(id, datos):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    cursor.execute("""UPDATE usuarios SET nombre ='{0}', correo='{1}', password='{2}', log='{3}', status='{4}', saldo='{5}' WHERE id = '{6}'""".format(datos[1],datos[2],datos[3],datos[4],datos[5],datos[6], id))
+    cursor.execute("""UPDATE usuarios SET nombre ='{0}', correo='{1}', password='{2}', tlf='{3}', vendedor='{4}', divisa='{5}' WHERE id = '{6}'""".format(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5], id))
     base.commit()
     base.close()
 

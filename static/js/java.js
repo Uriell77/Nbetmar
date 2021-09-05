@@ -822,7 +822,9 @@ function hiden() {
 //formatear montos de monedas
 document.addEventListener('DOMContentLoaded', () => {
     var valord = document.getElementById("divice");
+    var valord2 = document.getElementById("divise2");
     new AutoNumeric(valord, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
+    new AutoNumeric(valord2, { currencySymbol: 'Bs', decimalCharacter: ',', digitGroupSeparator: '.' });
 });
 
 
