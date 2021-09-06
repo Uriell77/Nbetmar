@@ -103,20 +103,12 @@
 										{% set a = listacompleta.extend(listaclientes) %}
 										{% for proceso in listacompleta %}
 										{% if proceso[8] == userdat[0]%}
-										<tr>
-												<td>
-														{{proceso[0]}}</td>
+										<div class="card">
+												<div class="box">
+														<span>{{proceso[0]}} {{proceso[1]}} {{proceso[2]}} {{proceso[3]}} {{proceso[4]}}</span>
+												</div>
 
-												<td>
-														{{proceso[1]}}</td>
-												<td>
-														{{proceso[2]}}</td>
-												<td>
-														{{proceso[3]}}</td>
-												<td>
-														{{proceso[4]}}</td>
-
-										</tr>
+										</div>
 										{% endif%}
 
 										{% endfor%}
