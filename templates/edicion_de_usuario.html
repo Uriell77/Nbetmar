@@ -15,7 +15,7 @@
 				</nav>
 
 				<div id="useradmin" class="box content-tab" style="display:block">
-						<form method="POST" name="usuarios" value="edicion_de_usuarios">
+						<form method="POST" id="usuarios" value="edicion_de_usuarios">
 								<div class="columns">
 										<div class="column">
 												<label class="label">Nombre de Usuario: 
@@ -45,14 +45,14 @@
 								</div>
 								<div class="columns">
 										<div class="column">
-												<label class="label">Vendedor: 
+																{% if userdat[7] == 1%}
+																{% set oculto2 = 'is-hidden'%}
+																{% endif %}
+												<label class="label {{oculto2}}">Vendedor: 
 
 														<div>
-																{% if userdat[7] == 1%}
-																{% set oculto2 = 'disabled'%}
-																{% endif %}
-																<div class="select vendedores is-link" {{oculto2}}>
-																		<select class='vendedores' name='vendedor' {{oculto2}}>
+																<div class="select vendedores is-link {{oculto2}}">
+																		<select class='vendedores' name='vendedor'>
 																				{% for vendedors in vendedores %}
 																				{% if vendedors[1] == vendedor[1]%}
 																				<option>{{vendedors[1]}}</option>
@@ -77,14 +77,14 @@
 										</div>
 								</div>
 
-								<input class="button is-primary" type="submit" name="useredit" value="Enviar">
+								<button class="button is-primary" form="usuarios" type="submit" name="accion" value="editar">Enviar</button>
 
 						</form>
 				</div>
 
 
 
-				<div id="clientes"class="box content-tab {{oculto}}" style="display:none">
+				<div id="clientes" class="box content-tab {{oculto}}" style="display:none">
 						<div class="panel-block">
 								<p class="control has-icons-left">
 								<input class="input is-primary" type="text" placeholder="Search">
@@ -101,50 +101,61 @@
 														{% set b = numbercli.append(cli) %}
 														{% endif %}
 														{% endfor %}
-														<div class="">Numero de Clientes:   {{numbercli|length -1}}</div>
+														<div class="">Numero de Clientes:   {{numbercli|length}}</div>
 
 								<div class="table-container contraste" style="max-height:240px; overflow-y:scroll">
 										<table class="table is-narrow is-striped is-size-7-mobile">
-												<tbody> {%set listacompleta=[]%}
-														{% set a = listacompleta.extend(listaclientes) %}
-														{% for proceso in listacompleta %}
-														{% if proceso[8] == proceso[0] %}
-														{% else%}
-														{% if proceso[8] == userdat[0]%}
+												<tbody id="listadotodocli"> {%set listacompleta=[]%}
+
+														{% for item in listaclientes %}
+														{% if item[8] == userdat[0] %}
 														<div class="card">
-																<div class="card-header is-size-7-mobile">ID:{{proceso[0]}}</div>
-																<div class="card-content is-size-7-mobile has-text-left">
+																<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
+																<div class="card-content is-size-7-mobile has-text-left delineado">
 																		<div class="content">
-																				<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">{{proceso[1]}}</span><br>
-																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">{{proceso[2]}}</span><br>
-																				<span class="has-text-weight-medium">Status:</span><span class="ml-4">{{proceso[4]}}</span><br>
-																				<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">{{proceso[10]}}</span>
+																				<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">{{item[1]}}</span><br>
+																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">{{item[2]}}</span><br>
+																				<span class="has-text-weight-medium">Status:</span><span class="ml-4">{{item[5]}}</span><br>
+																				<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">{{item[10]}}</span>
 
 																		</div>
 																</div>
-																{% if userdat[7] != 1 %}
-																{% set oculto3 = 'is-hidden' %}
-																{% endif %}
-																<footer class="card-footer is-size-7-mobile">
-																		<div class="card-footer-item">
-																				<label class="checkbox">
-																						<input type="checkbox">
-																						Activar Cuenta
-																				</label>
-																		</div>
-																		<div class="card-footer-item {{oculto3}}">
-																				<label class="checkbox">
-																						<input type="checkbox">
-																						Convertir en Vendedor
-																				</label>
-																		</div>
-																		<div class="card-footer-item"><button class="button is-primary" name="{{proceso[0]}}">{{proceso[0]}}Enviar</button></div>
+																{% if item[5] == 'Activo'%}
+																{% set chestatus = 'checked'%}
+																{%else%}
+																{%set chestatus = ''%}
+																{% endif%}
+																{% if item[7] == 2 or item[7] == 1%}
+																{% set  chenivel= 'checked'%}
+																{%else%}
+																{%set chenivel = ''%}
+																{% endif%}
+																<footer class="card-footer is-size-7-mobile delineadof">
+																				<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
+																				<div class="card-footer-item">
+																						<label class="checkbox">
+																								<input type="checkbox" id="onoff{{item[0]}}" {{chestatus}}>
+																								Activar Cuenta
+																						</label>
+																				</div>
+																				{% if userdat[0] != 1%}
+																				{% set oculto3 = 'is-hidden'%}
+																				{% endif %}
+																				<div class="card-footer-item {{oculto3}}">
+																						<label class="checkbox">
+																								<input type="checkbox" id="vendetor{{item[0]}}" {{chenivel}}>
+																								Convertir en Vendedor
+																						</label>
+																				</div>
+																				<div class="card-footer-item">
+
+																						<button class="button is-primary" onclick="cliedit({{item[0]}}, 'onoff{{item[0]}}', 'vendetor{{item[0]}}')">Enviar</button>
+																				</div>
 																</footer>
 
 														</div><br>
-														{% endif%}
-														{% endif %}
-														{% endfor%}
+														{%endif%}
+														{%endfor%}
 												</tbody>
 										</table>
 								</div>

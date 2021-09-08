@@ -11781,3 +11781,24 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+.card-header-contrast{
+background-color:#3273DC;
+}
+
+
+.delineado{
+		
+border-left-style:groove;
+border-right-style:groove;
+border-top-style:groove;
+}
+
+
+.delineadof{
+		
+border-left-style:groove;
+border-right-style:groove;
+border-bottom-style:groove;
+}

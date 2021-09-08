@@ -245,7 +245,7 @@ def UserAdmin(user):
     if request.method == "POST":
         ter = request.form 
         userdat = bd.leeruserv(user)
-        print(ter)
+        print(ter.keys())
         if ter['accion'] == 'editar':
             nombre = request.form['nombre']
             email = request.form['email']
@@ -264,16 +264,22 @@ def UserAdmin(user):
 
 
         elif ter['accion'] == 'cambiar':
-           aidi = request.form['aidi']
-           statuscli = request.form['status']
-           nivelcli = request.form['niveles']
-           try:
-               bd.editarSnivel(aidi, statuscli, nivelcli)
-               flash('Cambios Realizados')
-               return redirect('/'+user+'/administracion')
-           except:
-               return 'Cambios no realizados'
-
+          # aidi = request.form['aidi']
+          # datoscli = bd.leervend(aidi)
+          # aidi = datoscli[0]
+          # estadocuenta = datoscli[5]
+          # tipocuenta = datoscli[7]
+           if 'onoff' in ter:
+               estadocuenta = request.form['onoff']
+               print('aqui tambor    '+ estadocuenta)
+           else:
+               pass
+           if 'vendetor' in ter:
+               tipocuenta = request.form['vendetor']
+               print('aqui es     ', tipocuenta)
+           else:
+               pass
+           return redirect('/'+user+'/administracion')
     else:
         vendedor = bd.leervend(userdat[8])
         nivel = userdat[7]

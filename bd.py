@@ -126,6 +126,21 @@ def editar(id, datos):
     base.close()
 
 
+
+
+def editarSnivel(id, status, nivel):
+    #print(datos)
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("""UPDATE usuarios SET status ='{0}', nivel='{1}' WHERE id = '{2}'""".format(status,nivel,id))
+    base.commit()
+    base.close()
+
+
+
+
+
 def borrar(ide):
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
