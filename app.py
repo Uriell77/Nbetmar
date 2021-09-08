@@ -1,13 +1,13 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, jsonify
 import bd
-from flask_cors import CORS, cross_origin
+#from flask_cors import CORS, cross_origin
 
 
 
 app = Flask(__name__)
 app.secret_key =b'clave'
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+#cors = CORS(app)
+#app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 global user
@@ -18,7 +18,7 @@ b = ["<div class='card is-primary'>esto se genero por horrible</div>", "es b"]
 
 
 @app.route('/')
-@cross_origin()
+#@cross_origin()
 def home():
     """Home de la aplicacion"""
     flash('Bienvenido al home')
@@ -29,7 +29,7 @@ def home():
 
 
 @app.route('/registro', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def registro():
     """pagina de registro para usuarios nuevos"""
     vendedores = bd.vendedores()
@@ -56,7 +56,7 @@ def registro():
 
 
 @app.route('/login', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def login():
     """Pagina de login a la plataforma para usuarios registrados"""
     if request.method == 'POST':
@@ -80,7 +80,7 @@ def login():
 
 
 @app.route('/<user>', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def user(user):
     print(user)
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a> <a class="navbar-item" href="/'+user+'/administracion">Administracion</a>'
@@ -145,7 +145,7 @@ def user(user):
     
 
 @app.route('/<user>/clientes', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def UserClients(user):
     print(user)
     userdat = bd.leeruser(user)
@@ -189,7 +189,7 @@ def UserClients(user):
             
 
 @app.route('/<user>/metricas', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def UserMetric(user):
     userdat = bd.leeruser(user)
     nivel = userdat[7]
@@ -222,7 +222,7 @@ def UserMetric(user):
 
 
 @app.route('/<user>/administracion', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def UserAdmin(user):
     vendedores= bd.vendedores()
     userdat = bd.leeruserv(user)
@@ -294,7 +294,7 @@ def UserAdmin(user):
 
 
 @app.route('/api/', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def api():
     dato = request.args.get('dato')
    # print(dato)
