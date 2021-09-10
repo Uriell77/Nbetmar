@@ -96,8 +96,9 @@
 		<script src="{{url_for('static', filename='js/java.js')}}"></script>
 		<script>
 				borrado();
-				loaduser('listadotodocli', '/api/?dato=ListaUsers', {{userdat[0]|safe}});
-{#				var nivel = {{userdat[7]|tojson}};#}
+				loaduser('listadotodocli', '/api/?dato=ListaUsers', {{userdat[0]|safe}})
+				var aidy = {{userdat[0]|safe}};
+				{#var nivel = {{userdat[7]|tojson}};#}
 				var vendedor = {{vendedor|tojson}};
 				var recas = {{reca|tojson}};
 				var banca = {{banca|tojson}};

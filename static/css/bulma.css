@@ -11785,6 +11785,7 @@ input:checked + .slider:before {
 
 .card-header-contrast{
 background-color:#3273DC;
+color: white;
 }
 
 
@@ -11802,3 +11803,23 @@ border-left-style:groove;
 border-right-style:groove;
 border-bottom-style:groove;
 }
+
+
+.snap{
+		scroll-snap-align:start;
+}
+
+
+
+
+
+.snap-container{
+		max-height:220px;
+		overflow-y: scroll;
+		scroll-snap-type: y mandatory;
+}
+
+.corte{
+		max-height:220px;
+}
+

@@ -981,60 +981,135 @@ function cliedit(aidi, statusclin, nivelclin){
 
 //Ajax carga listado de usuarios
 function loaduser(div, page, aidi0) {
+		var donde = document.getElementById(div);
+		aidi0 = aidi0;
 		//console.log(ident);
+		listado = [];
 		if(aidi0 !=1){
 				var oculto3 = 'is-hidden';
 		};
+
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-						var content = JSON.parse(this.responseText)
-						console.log(content);
-		document.getElementById(div).replacechild('');
+						content = JSON.parse(this.responseText)
+						while (donde.firstChild) {
+								donde.removeChild(donde.firstChild);
+						};
 						for (item of content) {
 								//console.log(item['vendedor']);
-										//console.log(itemer);
-										if(item['vendedor'] == aidi0){
-										document.getElementById(div).innerHTML += `
-														<div class="card">
-																<div class="card-header is-size-7-mobile">ID:${item['id']}</div>
-																<div class="card-content is-size-7-mobile has-text-left">
+								//console.log(itemer);
+
+								if (item['status'] == 'Activo'){
+										var chestatus = 'checked'
+								}else{
+										var chestatus = ''
+								}
+								if(item['nivel'] == 2 || item['nivel'] == 1){
+										var chenivel= 'checked'}else{
+												var chenivel = ''}
+												if(item['vendedor'] == aidi0){
+														if(buscador.value == ''){
+																//console.log(item['id']);
+																donde.innerHTML += `
+
+														<div class="card snap">
+																<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
+																<div class="card-content is-size-7-mobile has-text-left delineado">
 																		<div class="content">
 																				<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">${item['nombre']}</span><br>
-																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">${item['emal']}</span><br>
+																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">${item['email']}</span><br>
 																				<span class="has-text-weight-medium">Status:</span><span class="ml-4">${item['status']}</span><br>
 																				<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">${item['tlf']}</span>
 
 																		</div>
 																</div>
-																<footer class="card-footer is-size-7-mobile">
-																		<form method="POST" id="edition${item['id']}" name="edition">
-																				<input type="text" class="input" name="aidi${item['id']}" value="${item['id']}">
-																				<div class="card-footer-item">
-																						<label class="checkbox">
-																								<input type="checkbox" name="onoff">
-																								Activar Cuenta
-																						</label>
-																				</div>
-																				<div class="card-footer-item ${oculto3}">
-																						<label class="checkbox">
-																								<input type="checkbox" name="vendetor">
-																								Convertir en Vendedor
-																						</label>
-																				</div>
-																				<div class="card-footer-item">
+																<footer class="card-footer is-size-7-mobile delineadof">
+																		<input type="text" class="input is-hidden" name="aidi${item['id']}" value="${item['id']}">
+																		<div class="card-footer-item">
+																				<label class="checkbox">
+																						<input type="checkbox" id="onoff${item['id']}" ${chestatus}>
+																						Activar Cuenta
+																				</label>
+																		</div>
+																		<div class="card-footer-item ${oculto3}">
+																				<label class="checkbox">
+																						<input type="checkbox" id="vendetor${item['id']}" ${chenivel}>
+																						Convertir en Vendedor
+																				</label>
+																		</div>
+																		<div class="card-footer-item">
 
-																						<button class="button is-primary" onclick="cliedit(${item['id']}, onoff.value, vendetor.value)">Enviar</button>
-																				</div>
-																		</form>
+																				<button class="button is-primary" onclick="cliedit(${item['id']}, 'onoff${item['id']}', 'vendetor${item['id']}')">Enviar</button>
+																		</div>
 																</footer>
 
 														</div><br>
-										`};
-						};
-						};
-						//document.getElementById(div).innerHTML = ;
+
+												`
+										}else{
+												var items =`{${item['id']} ${item['nombre']} ${item['email']} ${item['status']} ${item['tlf']}}`
+														//console.log(items);
+												if(items.toLowerCase().indexOf(buscador.value.toLowerCase())== -1){
+												}else{
+														//console.log('mierc')
+														donde.innerHTML += `
+
+														<div class="card snap">
+																<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
+																<div class="card-content is-size-7-mobile has-text-left delineado">
+																		<div class="content">
+																				<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">${item['nombre']}</span><br>
+																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">${item['email']}</span><br>
+																				<span class="has-text-weight-medium">Status:</span><span class="ml-4">${item['status']}</span><br>
+																				<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">${item['tlf']}</span>
+
+																		</div>
+																</div>
+																<footer class="card-footer is-size-7-mobile delineadof">
+																		<input type="text" class="input is-hidden" name="aidi${item['id']}" value="${item['id']}">
+																		<div class="card-footer-item">
+																				<label class="checkbox">
+																						<input type="checkbox" id="onoff${item['id']}" ${chestatus}>
+																						Activar Cuenta
+																				</label>
+																		</div>
+																		<div class="card-footer-item ${oculto3}">
+																				<label class="checkbox">
+																						<input type="checkbox" id="vendetor${item['id']}" ${chenivel}>
+																						Convertir en Vendedor
+																				</label>
+																		</div>
+																		<div class="card-footer-item">
+
+																				<button class="button is-primary" onclick="cliedit(${item['id']}, 'onoff${item['id']}', 'vendetor${item['id']}')">Enviar</button>
+																		</div>
+																</footer>
+
+														</div><br>
+
+														`
+												}
+										}
+								};
+						};//console.log('aqui');
+
 				};
+				//document.getElementById(div).innerHTML = ;
+		};
 		xhttp.open("GET", page, true);
 		xhttp.send();
 };
+
+
+
+var buscador = document.getElementById('buscador');
+var div = document.getElementById('listadotodocli');
+var contenido = div.children;
+var cont = contenido;
+const filtro = ()=>{
+		loaduser('listadotodocli', '/api/?dato=ListaUsers', aidy);
+};
+
+
+buscador.addEventListener('keyup', filtro);

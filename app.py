@@ -51,7 +51,7 @@ def registro():
             return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
     else:    
         flash('Bienvenido al registro')
-        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
+        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='a')
 
 
 
@@ -75,7 +75,7 @@ def login():
             return redirect(request.path)
     else:
         flash('Ingresa a la Plataforma')
-        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='login.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
+        return render_template('index.html', navbar='navbarout.html', cont=a, contenido='login.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='a')
 
 
 
@@ -256,7 +256,7 @@ def UserAdmin(user):
             divisa = request.form['divisa']
             divisa = divisa.replace('.','')[2:-3]
             try:
-                bd.editar(userdat[0], [nombre,email,password,mobil,vendedor[0],divisa])
+                bd.editar(userdat[0],[nombre,email,password,mobil,vendedor[0],divisa])
                 flash('aqui llego')
                 return redirect('/'+nombre+'/administracion')
             except:
@@ -317,7 +317,7 @@ def api():
             res.append(dict(zip(keysN, rec)))
         return jsonify(res)
     if dato == 'ListaUsers':
-        keysN = ['id', 'nombre', 'emal', 'password', 'log', 'status', 'saldo', 'nivel', 'vendedor', 'divisa', 'tlf']
+        keysN = ['id', 'nombre', 'email', 'password', 'log', 'status', 'saldo', 'nivel', 'vendedor', 'divisa', 'tlf']
         users =  bd.leertodo()
         res = []
         for u in users:
