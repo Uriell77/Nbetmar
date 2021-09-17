@@ -920,185 +920,244 @@ function ver() {
 		if (copy == 0) {
 				copy = venta.childElementCount;
 		} else {
-				if (copy < venta.childElementCount) {
+		if (copy < venta.childElementCount) {
+				//console.log(venta.childElementCount);
+				mensaje.style.display = "block";
+				mensaje.innerHTML = "nueva compra";
+				setTimeout(function() { mensaje.style.display = "none" }, 3000);
+				copy = venta.childElementCount;
+
+		} else {
+				if (copy == 1) {
 						//console.log(venta.childElementCount);
 						mensaje.style.display = "block";
 						mensaje.innerHTML = "nueva compra";
 						setTimeout(function() { mensaje.style.display = "none" }, 3000);
 						copy = venta.childElementCount;
-
-				} else {
-						if (copy == 1) {
-								//console.log(venta.childElementCount);
-								mensaje.style.display = "block";
-								mensaje.innerHTML = "nueva compra";
-								setTimeout(function() { mensaje.style.display = "none" }, 3000);
-								copy = venta.childElementCount;
-						}
 				}
-		};
+		}
+};
 };
 
 
 var evtSource = new EventSource("/api/?dato=ListaCuentasvend&ident=2")
 evtSource.onmessage = function(e){
-		console.log(e);
+console.log(e);
 };
 
 
 
 function cliedit(aidi, statusclin, nivelclin){
-		var statuscli = document.getElementById(statusclin);
-		console.log(statuscli.checked);
-		var nivelcli = document.getElementById(nivelclin);
-		var ventana = document.getElementById('modal1');
-		var botonenv = document.getElementById("CardEnvio");
-		botonenv.innerHTML= 'Editar';
-		botonenv.setAttribute('name', 'accion')
-		botonenv.setAttribute('value', 'cambiar')
-		botonenv.setAttribute('form', 'cambio')
-		ventana.classList.toggle('is-active');
-		if (statuscli.checked == true){
-				statuscli = 'Activo';
-		}else{ statuscli = 'Inactivo'};
-		if (nivelcli.checked == true){
-				nivelcli = '2';
-		}else{ nivelcli = '3';}
-		ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${aidi}`;
-		ventana.childNodes[3].childNodes[3].innerHTML = `
-		<div class="box">Quieres editar los atributos del usuario<br>
-						<form method="POST" id="cambio">
-							ID: ${aidi}<br>
-							<input class="input is-small is-hidden" name="aidi" value="${aidi}"><br>
-							Status de Cliente: ${statuscli}<br>
-							<input class="input is-small is-hidden" name="status" value="${statuscli}"><br>
-							Nivel de Cliente: ${nivelcli}<br>
-							<input class="input is-small is-hidden" name="niveles" value="${nivelcli}">
-							</form>
-				</div>`;
+var statuscli = document.getElementById(statusclin);
+console.log(statuscli.checked);
+var nivelcli = document.getElementById(nivelclin);
+var ventana = document.getElementById('modal1');
+var botonenv = document.getElementById("CardEnvio");
+botonenv.innerHTML= 'Editar';
+botonenv.setAttribute('name', 'accion')
+botonenv.setAttribute('value', 'cambiar')
+botonenv.setAttribute('form', 'cambio')
+ventana.classList.toggle('is-active');
+if (statuscli.checked == true){
+		statuscli = 'Activo';
+}else{ statuscli = 'Inactivo'};
+if (nivelcli.checked == true){
+		nivelcli = '2';
+}else{ nivelcli = '3';}
+ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${aidi}`;
+ventana.childNodes[3].childNodes[3].innerHTML = `
+<div class="box">Quieres editar los atributos del usuario<br>
+				<form method="POST" id="cambio">
+					ID: ${aidi}<br>
+					<input class="input is-small is-hidden" name="aidi" value="${aidi}"><br>
+					Status de Cliente: ${statuscli}<br>
+					<input class="input is-small is-hidden" name="status" value="${statuscli}"><br>
+					Nivel de Cliente: ${nivelcli}<br>
+					<input class="input is-small is-hidden" name="niveles" value="${nivelcli}">
+					</form>
+		</div>`;
 };
+
+
+
+
+
+
+function servedit(aidi, servicio, precio){
+var servicio = servicio;
+//console.log(statuscli.checked);
+var precio = precio;
+var ventana = document.getElementById('modal1');
+var botonenv = document.getElementById("CardEnvio");
+botonenv.innerHTML= 'Editar';
+botonenv.setAttribute('name', 'accion')
+botonenv.setAttribute('value', 'cambiarserv')
+botonenv.setAttribute('form', 'cambioserv')
+ventana.classList.toggle('is-active');
+//if (statuscli.checked == true){
+//		statuscli = 'Activo';
+//}else{ statuscli = 'Inactivo'};
+//if (nivelcli.checked == true){
+//		nivelcli = '2';
+//}else{ nivelcli = '3';}
+ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${aidi}`;
+ventana.childNodes[3].childNodes[3].innerHTML = `
+<div class="box"><em>Quieres editar los atributos del Servicio</em><br>
+				<form method="POST" id="cambioserv" enctype="multipart/form-data">
+					<fieldset class="fieldset"><legend align="left">Edicion</legend>ID: ${aidi}<br>
+					<input class="input is-small is-hidden" name="aidi" value="${aidi}"><br>
+					Nombre del Servicio:<br>
+					<input class="input is-small is-primary" name="servicio" title="El nombre del servicio no debe tener espacios en blanco" value="${servicio}"><br>
+					Precio en $:<br>
+					<input class="input is-small is-primary" name="precio" value="${precio}"><br><br>
+
+						<div class="file is-small is-boxed has-name is-primary is-centered">
+						  <label class="file-label">
+							<input class="file-input" type="file" name="resume" id="resume">
+							<span class="file-cta">
+							  <span class="file-icon">
+								<i class="fas fa-upload"></i>
+							  </span>
+							  <span class="file-label">
+								Imagen del Servicio
+							  </span>
+							</span>
+							<span class="file-name">
+								..............................................
+							</span>
+						  </label>
+						</div>
+
+					</fieldset>
+					</form>
+		</div>`;
+};
+
+
+
+
 
 
 //Ajax carga listado de usuarios
 function loaduser(div, page, aidi0) {
-		var donde = document.getElementById(div);
-		aidi0 = aidi0;
-		//console.log(ident);
-		listado = [];
-		if(aidi0 !=1){
-				var oculto3 = 'is-hidden';
-		};
+var donde = document.getElementById(div);
+aidi0 = aidi0;
+//console.log(ident);
+listado = [];
+if(aidi0 !=1){
+		var oculto3 = 'is-hidden';
+};
 
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-						content = JSON.parse(this.responseText)
-						while (donde.firstChild) {
-								donde.removeChild(donde.firstChild);
-						};
-						for (item of content) {
-								//console.log(item['vendedor']);
-								//console.log(itemer);
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+				content = JSON.parse(this.responseText)
+				while (donde.firstChild) {
+						donde.removeChild(donde.firstChild);
+				};
+				for (item of content) {
+						//console.log(item['vendedor']);
+						//console.log(itemer);
 
-								if (item['status'] == 'Activo'){
-										var chestatus = 'checked'
-								}else{
-										var chestatus = ''
-								}
-								if(item['nivel'] == 2 || item['nivel'] == 1){
-										var chenivel= 'checked'}else{
-												var chenivel = ''}
-												if(item['vendedor'] == aidi0){
-														if(buscador.value == ''){
-																//console.log(item['id']);
-																donde.innerHTML += `
-
-														<div class="card snap">
-																<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
-																<div class="card-content is-size-7-mobile has-text-left delineado">
-																		<div class="content">
-																				<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">${item['nombre']}</span><br>
-																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">${item['email']}</span><br>
-																				<span class="has-text-weight-medium">Status:</span><span class="ml-4">${item['status']}</span><br>
-																				<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">${item['tlf']}</span>
-
-																		</div>
-																</div>
-																<footer class="card-footer is-size-7-mobile delineadof">
-																		<input type="text" class="input is-hidden" name="aidi${item['id']}" value="${item['id']}">
-																		<div class="card-footer-item">
-																				<label class="checkbox">
-																						<input type="checkbox" id="onoff${item['id']}" ${chestatus}>
-																						Activar Cuenta
-																				</label>
-																		</div>
-																		<div class="card-footer-item ${oculto3}">
-																				<label class="checkbox">
-																						<input type="checkbox" id="vendetor${item['id']}" ${chenivel}>
-																						Convertir en Vendedor
-																				</label>
-																		</div>
-																		<div class="card-footer-item">
-
-																				<button class="button is-primary" onclick="cliedit(${item['id']}, 'onoff${item['id']}', 'vendetor${item['id']}')">Enviar</button>
-																		</div>
-																</footer>
-
-														</div><br>
-
-												`
-										}else{
-												var items =`{${item['id']} ${item['nombre']} ${item['email']} ${item['status']} ${item['tlf']}}`
-														//console.log(items);
-												if(items.toLowerCase().indexOf(buscador.value.toLowerCase())== -1){
-												}else{
-														//console.log('mierc')
+						if (item['status'] == 'Activo'){
+								var chestatus = 'checked'
+						}else{
+								var chestatus = ''
+						}
+						if(item['nivel'] == 2 || item['nivel'] == 1){
+								var chenivel= 'checked'}else{
+										var chenivel = ''}
+										if(item['vendedor'] == aidi0){
+												if(buscador.value == ''){
+														//console.log(item['id']);
 														donde.innerHTML += `
 
-														<div class="card snap">
-																<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
-																<div class="card-content is-size-7-mobile has-text-left delineado">
-																		<div class="content">
-																				<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">${item['nombre']}</span><br>
-																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">${item['email']}</span><br>
-																				<span class="has-text-weight-medium">Status:</span><span class="ml-4">${item['status']}</span><br>
-																				<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">${item['tlf']}</span>
+												<div class="card snap">
+														<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
+														<div class="card-content is-size-7-mobile has-text-left delineado">
+																<div class="content">
+																		<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">${item['nombre']}</span><br>
+																		<span class="has-text-weight-medium">Email:</span><span class="ml-4">${item['email']}</span><br>
+																		<span class="has-text-weight-medium">Status:</span><span class="ml-4">${item['status']}</span><br>
+																		<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">${item['tlf']}</span>
 
-																		</div>
 																</div>
-																<footer class="card-footer is-size-7-mobile delineadof">
-																		<input type="text" class="input is-hidden" name="aidi${item['id']}" value="${item['id']}">
-																		<div class="card-footer-item">
-																				<label class="checkbox">
-																						<input type="checkbox" id="onoff${item['id']}" ${chestatus}>
-																						Activar Cuenta
-																				</label>
-																		</div>
-																		<div class="card-footer-item ${oculto3}">
-																				<label class="checkbox">
-																						<input type="checkbox" id="vendetor${item['id']}" ${chenivel}>
-																						Convertir en Vendedor
-																				</label>
-																		</div>
-																		<div class="card-footer-item">
+														</div>
+														<footer class="card-footer is-size-7-mobile delineadof">
+																<input type="text" class="input is-hidden" name="aidi${item['id']}" value="${item['id']}">
+																<div class="card-footer-item">
+																		<label class="checkbox">
+																				<input type="checkbox" id="onoff${item['id']}" ${chestatus}>
+																				Activar Cuenta
+																		</label>
+																</div>
+																<div class="card-footer-item ${oculto3}">
+																		<label class="checkbox">
+																				<input type="checkbox" id="vendetor${item['id']}" ${chenivel}>
+																				Convertir en Vendedor
+																		</label>
+																</div>
+																<div class="card-footer-item">
 
-																				<button class="button is-primary" onclick="cliedit(${item['id']}, 'onoff${item['id']}', 'vendetor${item['id']}')">Enviar</button>
-																		</div>
-																</footer>
+																		<button class="button is-primary" onclick="cliedit(${item['id']}, 'onoff${item['id']}', 'vendetor${item['id']}')">Enviar</button>
+																</div>
+														</footer>
 
-														</div><br>
+												</div><br>
 
-														`
-												}
+										`
+								}else{
+										var items =`{${item['id']} ${item['nombre']} ${item['email']} ${item['status']} ${item['tlf']}}`
+												//console.log(items);
+										if(items.toLowerCase().indexOf(buscador.value.toLowerCase())== -1){
+										}else{
+												//console.log('mierc')
+												donde.innerHTML += `
+
+												<div class="card snap">
+														<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
+														<div class="card-content is-size-7-mobile has-text-left delineado">
+																<div class="content">
+																		<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">${item['nombre']}</span><br>
+																		<span class="has-text-weight-medium">Email:</span><span class="ml-4">${item['email']}</span><br>
+																		<span class="has-text-weight-medium">Status:</span><span class="ml-4">${item['status']}</span><br>
+																		<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">${item['tlf']}</span>
+
+																</div>
+														</div>
+														<footer class="card-footer is-size-7-mobile delineadof">
+																<input type="text" class="input is-hidden" name="aidi${item['id']}" value="${item['id']}">
+																<div class="card-footer-item">
+																		<label class="checkbox">
+																				<input type="checkbox" id="onoff${item['id']}" ${chestatus}>
+																				Activar Cuenta
+																		</label>
+																</div>
+																<div class="card-footer-item ${oculto3}">
+																		<label class="checkbox">
+																				<input type="checkbox" id="vendetor${item['id']}" ${chenivel}>
+																				Convertir en Vendedor
+																		</label>
+																</div>
+																<div class="card-footer-item">
+
+																		<button class="button is-primary" onclick="cliedit(${item['id']}, 'onoff${item['id']}', 'vendetor${item['id']}')">Enviar</button>
+																</div>
+														</footer>
+
+												</div><br>
+
+												`
 										}
-								};
-						};//console.log('aqui');
+								}
+						};
+				};//console.log('aqui');
 
-				};
-				//document.getElementById(div).innerHTML = ;
 		};
-		xhttp.open("GET", page, true);
-		xhttp.send();
+		//document.getElementById(div).innerHTML = ;
+};
+xhttp.open("GET", page, true);
+xhttp.send();
 };
 
 

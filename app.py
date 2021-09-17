@@ -235,11 +235,12 @@ def UserAdmin(user):
     listareca = bd.ListaRecargasvend(userdat[0])
     global reca
     reca = bd.leertodoreca(1)
-    reca = bd.tresillo(reca,3)
+    recal = bd.tresillo(reca,3)
     global banca
     banca = bd.leer_banca(userdat[8])
     global bancadmin
     bancadmin = bd.leer_banca(1)
+    servicios = bd.leertodoservi(userdat[0])
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a> <a class="navbar-item" href="/'+user+'/administracion">Administracion</a>'
     panelu = '<a class="navbar-item" href="/'+user+'/metricas">Metricas</a> <a class="navbar-item" href="/'+user+'/administracion">Administracion</a>'
     if request.method == "POST":
@@ -274,21 +275,40 @@ def UserAdmin(user):
            except:
                return 'Cambios no realizados'
 
+
+        elif ter['accion'] == 'cambiarserv':
+           aidi = request.form['aidi']
+           servicio = request.form['servicio']
+           precio = request.form['precio']
+           image = request.files['resume']
+           if image:
+               print(image)
+           else:
+               print('no image')
+           try:
+               bd.editarservicio(aidi, servicio, precio)
+               flash('Cambios Realizados' +' '+ servicio +' '+ precio)
+               return redirect('/'+user+'/administracion')
+           except:
+               return 'Cambios no realizados'
+
+
+
     else:
         vendedor = bd.leervend(userdat[8])
         nivel = userdat[7]
         
         if nivel == 1:
             flash('Edicion  del Administrador')
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html", vendedores=vendedores,listaclientes=listaclientes )
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html", vendedores=vendedores,listaclientes=listaclientes,listaservicios = servicios, recargas= reca)
         
         elif nivel == 2:
             flash('Edicion del vendedor')
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes=listaclientes)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes=listaclientes, listaservicios = servicios, recargas='a')
         
         elif nivel == 3:
             flash('Edicion del usuario')
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelu, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes='no')
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelu, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes='no')
 
 
 

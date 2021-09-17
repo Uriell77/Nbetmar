@@ -391,3 +391,15 @@ def leer_banca(dato):
     respuesta.reverse()
     return respuesta
 
+
+
+
+
+def editarservicio(id, servicio, precio):
+    #print(datos)
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("""UPDATE servicios SET nombre_serv ='{0}', precio='{1}' WHERE id='{2}' AND nombre_serv='{0}'""".format(servicio,precio, id))
+    base.commit()
+    base.close()

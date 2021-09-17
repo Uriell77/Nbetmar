@@ -1,11 +1,16 @@
 {% block contenido %}
-<div class="content">
-		<div class="box">
-				<div class="title is-5 hero is-link">Edicion  de {{user}}</div>
+<div class="content pr-3">
+
+				<fieldset class="fieldset is-6 mt-2">
+						<legend align="left">
+								<article class="notification pt-1 pb-1 is-link" >
+								Edicion  de {{user}}
+								</article>
+						</legend>
 				<div class="columns">
 						{% include 'edicion_de_usuario.html' %}
 				</div>
-		</div>
+				</fieldset>
 </div>
 
 {% endblock %}

@@ -177,13 +177,7 @@
 								{% set b = numberserv.append(serv) %}
 								{% endif %}
 								{% endfor %}
-								{% if userdat[0] != 1%}
-								{% set oculto3 = 'is-hidden'%}
-								{% endif %}
-
-								<div class="is-primary">Numero de Servicios Disponibles:   {{numberserv|length}} <button class="button is-primary {{oculto3}}"><span class="material-icons">
-add
-</span></button></div>
+								<div class="">Numero de Servicios Disponibles:   {{numberserv|length}}</div>
 
 								<div class="table-container contraste snap-container snap-containermax">
 										<div id="listadotodovent" class=""> {%set listaserv=[]%}
@@ -202,13 +196,8 @@ add
 																						<span class="has-text-weight-medium">Categoria:</span><span class="ml-4">{{item[3]}}</span>
 																				</div>
 																				<div class="column m-0">
-																						{% if userdat[0] != 1%}
-																						{% set imagelen = '32x32'%}
-																						{% else %}
-																						{% set imagelen = '64x64' %}
-																						{% endif %}
-																						<figure class="" >
-																								<img src="{{url_for('static', filename='img/img/{}.png'.format(item[1]))}}", alt="image" width="250" height="200">
+																						<figure class="image 64x64 m-0" >
+																								<img src="{{url_for('static', filename='img/img/{}.png'.format(item[1]))}}", alt="image" >
 																						</figure>
 																				</div>
 																		</div>
@@ -233,10 +222,10 @@ add
 
 
 
+						<div class="column">
 						{% if userdat[0] != 1%}
 						{% set oculto3 = 'is-hidden'%}
 						{% endif %}
-						<div class="column {{oculto3}}">
 
 						<div class="box p-0 pb-2 {{oculto3}}">
 								{% set numberrec = []%}
@@ -246,7 +235,7 @@ add
 								{% endif %}
 								{% endfor %}
 								<div class="">Numero de Recargas Disponibles:   {{numberrec|length}}</div>
-								<div class="table-container contraste snap-container snap-containermax">
+								<div class="table-container contraste snap-container">
 										<div id="listadotodorec" class=""> {%set listarec=[]%}
 
 												{% for item in recargas %}
