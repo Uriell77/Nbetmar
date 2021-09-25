@@ -403,3 +403,70 @@ def editarservicio(id, servicio, precio):
     cursor.execute("""UPDATE servicios SET nombre_serv ='{0}', precio='{1}' WHERE id='{2}' AND nombre_serv='{0}'""".format(servicio,precio, id))
     base.commit()
     base.close()
+
+
+
+
+
+def AddServicio(id, servicio, precio):
+    """para agregar un servicio nuevo en base de datos
+    """
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("INSERT INTO servicios(id,nombre_serv,precio,categoria) VALUES ('{0}', '{1}', '{2}', '{3}')".format(id, servicio,precio,'cuentas'))
+    base.commit()
+    base.close()
+
+
+
+
+def DelServicio(id, servicio, precio):
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("DELETE FROM servicios WHERE id = '{0}' AND nombre_serv='{1}' ".format(id, servicio))
+    base.commit()
+    base.close()
+
+
+
+
+
+
+
+
+    
+def editarrecarga(id, recarga, precio, porcentaje):
+    #print(datos)
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("""UPDATE recas SET nombre_serv ='{0}', precio='{1}', porcentaje='{2}' WHERE id='{3}' AND nombre_serv='{0}'""".format(recarga,precio,porcentaje,id))
+    base.commit()
+    base.close()
+
+
+
+
+
+def AddRecarga(id, recarga, precio, porcentaje):
+    """para agregar un servicio nuevo en base de datos
+    """
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("INSERT INTO recas(id,nombre_serv,precio,categoria,porcentaje) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')".format(id, recarga,precio,'recargas',porcentaje))
+    base.commit()
+    base.close()
+
+
+
+
+def DelRecarga(id, recarga, precio, porcentaje):
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("DELETE FROM recas WHERE id = '{0}' AND nombre_serv='{1}' ".format(id, recarga))
+    base.commit()
+    base.close()

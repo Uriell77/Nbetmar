@@ -1,92 +1,95 @@
 <div class="column">
 		<div class="card contraste p-0 ">
 
-												{% if userdat[7] == 3%}
-												{% set oculto = 'is-hidden'%}
-										{% endif %}
+				{% if userdat[7] == 3%}
+				{% set oculto = 'is-hidden'%}
+				{% endif %}
 				<div class="hero is-link mb-3">
-				<nav class="breadcrumb is-centered is-small-mobile has-bullet-separator is-size-7-mobile" aria-label="breadcrumbs">
-						<ul id="tabs">
-								<li class="tab is-active" onclick="openTab(event,'useradmin')"><a href="#">Datos de Usuario</a></li>
-								<li class="tab {{oculto}}" onclick="openTab(event, 'clientes')"><a href="#">Clientes</a></li>
-								<li class="tab {{oculto}}" onclick="openTab(event, 'ventas')"><a href="#">Ventas</a></li>
-								<li class="tab {{oculto}}" onclick="openTab(event, 'pagos')"><a href="#" aria-current="page">Metodos de Pago</a></li>
-						</ul>
-				</nav>
+						<nav class="breadcrumb is-centered is-small-mobile has-bullet-separator is-size-7-mobile" aria-label="breadcrumbs">
+								<ul id="tabs">
+										<li class="tab is-active" onclick="openTab(event,'useradmin')"><a href="#">Datos de Usuario</a></li>
+										<li class="tab {{oculto}}" onclick="openTab(event, 'clientes')"><a href="#">Clientes</a></li>
+										<li class="tab {{oculto}}" onclick="openTab(event, 'ventas')"><a href="#">Ventas</a></li>
+										<li class="tab {{oculto}}" onclick="openTab(event, 'pagos')"><a href="#" aria-current="page">Metodos de Pago</a></li>
+								</ul>
+						</nav>
 				</div>
 
+				<!--Edicion de datos de Usuario-->
 				<div id="useradmin" class="box content-tab p-0 mr-0" style="display:block">
 						<div class="card p-0 pb-2">
-						<form method="POST" id="usuarios" value="edicion_de_usuarios">
-								<div class="columns">
-										<div class="column">
-												<label class="label">Nombre de Usuario: 
-														<input class="input is-link" type="text" name="nombre" placeholder={{user}} value={{user}}>
-												</label>
-										</div>
-										<div class="column">
-												<label class="label">Email: 
-														<input class="input is-link" type="text" name="email" placeholder={{userdat[2]}} value={{userdat[2]}}>
-												</label>
-										</div>
-								</div>
-
-
-								<div class="columns">
-										<div class="column">
-												<label class="label">Password: 
-														<input class="input is-link" type="text" name="password" placeholder={{userdat[3]}} value={{userdat[3]}}>
-												</label>
+								<form method="POST" id="usuarios" value="edicion_de_usuarios">
+										<div class="columns">
+												<div class="column">
+														<label class="label">Nombre de Usuario: 
+																<input class="input is-link" type="text" name="nombre" placeholder={{user}} value={{user}}>
+														</label>
+												</div>
+												<div class="column">
+														<label class="label">Email: 
+																<input class="input is-link" type="text" name="email" placeholder={{userdat[2]}} value={{userdat[2]}}>
+														</label>
+												</div>
 										</div>
 
-										<div class="column">
-												<label class="label">Telefono Movil: 
-														<input class="input is-link" type="text" name="mobil" placeholder={{userdat[10]}} value={{userdat[10]}}>
-												</label>
+
+										<div class="columns">
+												<div class="column">
+														<label class="label">Password: 
+																<input class="input is-link" type="text" name="password" placeholder={{userdat[3]}} value={{userdat[3]}}>
+														</label>
+												</div>
+
+												<div class="column">
+														<label class="label">Telefono Movil: 
+																<input class="input is-link" type="text" name="mobil" placeholder={{userdat[10]}} value={{userdat[10]}}>
+														</label>
+												</div>
 										</div>
-								</div>
-								<div class="columns">
-										<div class="column">
-																{% if userdat[7] == 1%}
-																{% set oculto2 = 'is-hidden'%}
-																{% endif %}
-												<label class="label {{oculto2}}">Vendedor: 
+				
 
-														<div>
-																<div class="select vendedores is-link {{oculto2}}">
-																		<select class='vendedores' name='vendedor'>
-																				{% for vendedors in vendedores %}
-																				{% if vendedors[1] == vendedor[1]%}
-																				<option>{{vendedors[1]}}</option>
-																				{% endif %}
-																				{% endfor %}
+										<div class="columns">
+												<div class="column">
+														{% if userdat[7] == 1%}
+														{% set oculto2 = 'is-hidden'%}
+														{% endif %}
+														<label class="label {{oculto2}}">Vendedor: 
 
-																				{% for vendedors in vendedores %}
-																				{% if vendedors[1] != vendedor[1]%}
-																				<option>{{vendedors[1]}}</option>
-																				{% endif %}
-																				{% endfor %}
-																		</select>
+																<div>
+																		<div class="select vendedores is-link {{oculto2}}">
+																				<select class='vendedores' name='vendedor'>
+																						{% for vendedors in vendedores %}
+																						{% if vendedors[1] == vendedor[1]%}
+																						<option>{{vendedors[1]}}</option>
+																						{% endif %}
+																						{% endfor %}
+
+																						{% for vendedors in vendedores %}
+																						{% if vendedors[1] != vendedor[1]%}
+																						<option>{{vendedors[1]}}</option>
+																						{% endif %}
+																						{% endfor %}
+																				</select>
+																		</div>
+														</label>
 																</div>
-												</label>
-														</div>
+												</div>
+
+												<div class="column">
+														<label class="label {{oculto}}">Valor de Divisa: 
+																<input class="input is-link {{oculto}}" type="text" name="divisa" placeholder={{userdat[9]}} value={{userdat[9]}} id="divise2">
+														</label>
+												</div>
 										</div>
 
-										<div class="column">
-												<label class="label {{oculto}}">Valor de Divisa: 
-														<input class="input is-link {{oculto}}" type="text" name="divisa" placeholder={{userdat[9]}} value={{userdat[9]}} id="divise2">
-												</label>
-										</div>
-								</div>
+										<button class="button is-primary" form="usuarios" type="submit" name="accion" value="editar">Enviar</button>
 
-								<button class="button is-primary" form="usuarios" type="submit" name="accion" value="editar">Enviar</button>
-
-						</form>
+								</form>
 						</div>
 				</div>
 
 
-
+				<!--Edicion de datos de Clientes-->
 				<div id="clientes" class="box content-tab {{oculto}} p-0 mr-0" style="display:none">
 						<div class="panel-block">
 								<p class="control has-icons-left">
@@ -98,176 +101,60 @@
 						</div>
 
 						<div class="box p-0 pb-2">
-														{% set numbercli = []%}
-														{% for cli in listaclientes %}
-														{% if cli[8] == userdat[0]%}
-														{% set b = numbercli.append(cli) %}
-														{% endif %}
-														{% endfor %}
-														<div class="">Numero de Clientes:   {{numbercli|length}}</div>
+								{% set numbercli = []%}
+								{% for cli in listaclientes %}
+								{% if cli[8] == userdat[0]%}
+								{% set b = numbercli.append(cli) %}
+								{% endif %}
+								{% endfor %}
+								<div class="">Numero de Clientes:   {{numbercli|length}}</div>
 
 								<div class="table-container contraste snap-container">
-												<div id="listadotodocli" class=""> {%set listacompleta=[]%}
+										<div id="listadotodocli" class=""> {%set listacompleta=[]%}
 
-														{% for item in listaclientes %}
-														{% if item[8] == userdat[0] %}
-														<div class="card snap">
-																<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
-																<div class="card-content is-size-7-mobile has-text-left delineado">
-																		<div class="content">
-																				<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">{{item[1]}}</span><br>
-																				<span class="has-text-weight-medium">Email:</span><span class="ml-4">{{item[2]}}</span><br>
-																				<span class="has-text-weight-medium">Status:</span><span class="ml-4">{{item[5]}}</span><br>
-																				<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">{{item[10]}}</span>
-
-																		</div>
-																</div>
-																{% if item[5] == 'Activo'%}
-																{% set chestatus = 'checked'%}
-																{%else%}
-																{%set chestatus = ''%}
-																{% endif%}
-																{% if item[7] == 2 or item[7] == 1%}
-																{% set  chenivel= 'checked'%}
-																{%else%}
-																{%set chenivel = ''%}
-																{% endif%}
-																<footer class="card-footer is-size-7-mobile delineadof">
-																		<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
-																		<div class="card-footer-item">
-																				<label class="checkbox">
-																						<input type="checkbox" id="onoff{{item[0]}}" {{chestatus}}>
-																						Activar Cuenta
-																				</label>
-																		</div>
-																		{% if userdat[0] != 1%}
-																		{% set oculto3 = 'is-hidden'%}
-																		{% endif %}
-																		<div class="card-footer-item {{oculto3}}">
-																				<label class="checkbox">
-																						<input type="checkbox" id="vendetor{{item[0]}}" {{chenivel}}>
-																						Convertir en Vendedor
-																				</label>
-																		</div>
-																		<div class="card-footer-item">
-
-																				<button class="button is-primary" onclick="cliedit({{item[0]}}, 'onoff{{item[0]}}', 'vendetor{{item[0]}}')">Enviar</button>
-																		</div>
-																</footer>
-
-														</div><br>
-														{%endif%}
-														{%endfor%}
-												</div>
-								</div>
-						</div>
-
-				</div>
-
-
-				
-				<div id="ventas" class="box content-tab {{oculto}} p-0 mr-0" style="display:none">
-						<div class="columns">
-								<div class="column">
-
-						<div class="box p-0 pb-2">
-								{% set numberserv = []%}
-								{% for serv in listaservicios %}
-								{% if serv[0] == userdat[0]%}
-								{% set b = numberserv.append(serv) %}
-								{% endif %}
-								{% endfor %}
-								{% if userdat[0] != 1%}
-								{% set oculto3 = 'is-hidden'%}
-								{% endif %}
-
-								<div class="is-primary">Numero de Servicios Disponibles:   {{numberserv|length}} <button class="button is-primary {{oculto3}}"><span class="material-icons">
-add
-</span></button></div>
-
-								<div class="table-container contraste snap-container snap-containermax">
-										<div id="listadotodovent" class=""> {%set listaserv=[]%}
-
-												{% for item in listaservicios %}
-												{% if item[0] == userdat[0] %}
-												<div class="card snap">
-														<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
-														<div class="card-content is-size-7-mobile has-text-left delineado">
-																<div class="content m-0 p-0">
-																		<div class="columns is-mobile">
-																				<div class="column m-0 p-0">
-																						<span class="has-text-weight-medium">ID:</span><span class="ml-4">{{item[0]}}</span><br>
-																						<span class="has-text-weight-medium">Servicio:</span><span class="ml-4">{{item[1]}}</span><br>
-																						<span class="has-text-weight-medium">Precio:</span><span class="ml-4">{{item[2]}}</span><br>
-																						<span class="has-text-weight-medium">Categoria:</span><span class="ml-4">{{item[3]}}</span>
-																				</div>
-																				<div class="column m-0">
-																						{% if userdat[0] != 1%}
-																						{% set imagelen = '32x32'%}
-																						{% else %}
-																						{% set imagelen = '64x64' %}
-																						{% endif %}
-																						<figure class="" >
-																								<img src="{{url_for('static', filename='img/img/{}.png'.format(item[1]))}}", alt="image" width="250" height="200">
-																						</figure>
-																				</div>
-																		</div>
-																</div>
-														</div>
-														<footer class="card-footer is-size-7-mobile delineadof mt-0">
-																<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
-																<div class="card-footer-item">
-
-																		<button class="button is-primary" onclick="servedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Editar Servicio</button>
-																</div>
-														</footer>
-
-												</div><br>
-												{%endif%}
-												{%endfor%}
-										</div>
-								</div>
-
-						</div>
-						</div>
-
-
-
-						{% if userdat[0] != 1%}
-						{% set oculto3 = 'is-hidden'%}
-						{% endif %}
-						<div class="column {{oculto3}}">
-
-						<div class="box p-0 pb-2 {{oculto3}}">
-								{% set numberrec = []%}
-								{% for rec in recargas %}
-								{% if rec[0] == userdat[0]%}
-								{% set b = numberrec.append(rec) %}
-								{% endif %}
-								{% endfor %}
-								<div class="">Numero de Recargas Disponibles:   {{numberrec|length}}</div>
-								<div class="table-container contraste snap-container snap-containermax">
-										<div id="listadotodorec" class=""> {%set listarec=[]%}
-
-												{% for item in recargas %}
-												{% if item[0] == userdat[0] %}
+												{% for item in listaclientes %}
+												{% if item[8] == userdat[0] %}
 												<div class="card snap">
 														<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
 														<div class="card-content is-size-7-mobile has-text-left delineado">
 																<div class="content">
-																		<span class="has-text-weight-medium">ID:</span><span class="ml-4">{{item[0]}}</span><br>
-																		<span class="has-text-weight-medium">Servicio:</span><span class="ml-4">{{item[1]}}</span><br>
-																		<span class="has-text-weight-medium">Precio:</span><span class="ml-4">{{item[2]}}</span><br>
-																		<span class="has-text-weight-medium">Categoria:</span><span class="ml-4">{{item[3]}}</span><br>
-																		<span class="has-text-weight-medium">Porcentaje:</span><span class="ml-4">{{item[4]}}</span>
+																		<span class="has-text-weight-medium">Nombre:</span><span class="ml-4">{{item[1]}}</span><br>
+																		<span class="has-text-weight-medium">Email:</span><span class="ml-4">{{item[2]}}</span><br>
+																		<span class="has-text-weight-medium">Status:</span><span class="ml-4">{{item[5]}}</span><br>
+																		<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">{{item[10]}}</span>
 
 																</div>
 														</div>
+														{% if item[5] == 'Activo'%}
+														{% set chestatus = 'checked'%}
+														{%else%}
+														{%set chestatus = ''%}
+														{% endif%}
+														{% if item[7] == 2 or item[7] == 1%}
+														{% set  chenivel= 'checked'%}
+														{%else%}
+														{%set chenivel = ''%}
+														{% endif%}
 														<footer class="card-footer is-size-7-mobile delineadof">
 																<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
 																<div class="card-footer-item">
+																		<label class="checkbox">
+																				<input type="checkbox" id="onoff{{item[0]}}" {{chestatus}}>
+																				Activar Cuenta
+																		</label>
+																</div>
+																{% if userdat[0] != 1%}
+																{% set oculto3 = 'is-hidden'%}
+																{% endif %}
+																<div class="card-footer-item {{oculto3}}">
+																		<label class="checkbox">
+																				<input type="checkbox" id="vendetor{{item[0]}}" {{chenivel}}>
+																				Convertir en Vendedor
+																		</label>
+																</div>
+																<div class="card-footer-item">
 
-																		<button class="button is-primary" onclick="recedit({{item[0]}}, '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Editar Recarga</button>
+																		<button class="button is-primary" onclick="cliedit({{item[0]}}, 'onoff{{item[0]}}', 'vendetor{{item[0]}}')">Enviar</button>
 																</div>
 														</footer>
 
@@ -276,21 +163,176 @@ add
 												{%endfor%}
 										</div>
 								</div>
+						</div>
 
+				</div>
+
+
+				<!--Edicion de datos de ventas-->
+				<div id="ventas" class="box content-tab {{oculto}} p-0 mr-0" style="display:none">
+						<div class="columns">
+								
+
+								<!--Servicios-->
+								<div class="column">
+										<div class="box p-0 pb-2">
+												{% set numberserv = []%}
+												{% for serv in listaservicios %}
+												{% if serv[0] == userdat[0]%}
+												{% set b = numberserv.append(serv) %}
+												{% endif %}
+												{% endfor %}
+												{% if userdat[0] != 1%}
+												{% set oculto3 = 'is-hidden'%}
+												{% endif %}
+
+												<div class="tag is-primary">Numero de Servicios Disponibles:   {{numberserv|length}}
+												</div>
+												<button class="button is-link ml-6 mr-0 is-small is-rounded {{oculto3}}" onclick="addserv('{{userdat[0]}}')">
+														<span class="material-icons">add</span>
+												</button>
+
+												<div class="table-container contraste snap-container snap-containermax is-clearfix">
+														<div id="listadotodovent" class=""> {%set listaserv=[]%}
+
+																{% for item in listaservicios %}
+																{% if item[0] == userdat[0] %}
+																<div class="card snap">
+																		<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
+																		<div class="card-content is-size-7-mobile has-text-left delineado">
+																				<div class="content m-0 p-0">
+																						<div class="columns is-mobile">
+																								<div class="column m-0 p-0">
+																										<span class="has-text-weight-medium">ID:</span><span class="ml-4">{{item[0]}}</span><br>
+																										<span class="has-text-weight-medium">Servicio:</span><span class="ml-4">{{item[1]}}</span><br>
+																										<span class="has-text-weight-medium">Precio:</span><span class="ml-4">{{item[2]}}</span><br>
+																										<span class="has-text-weight-medium">Categoria:</span><span class="ml-4">{{item[3]}}</span>
+																								</div>
+																								<div class="column m-0">
+																										{% if userdat[0] != 1%}
+																										{% set imagelen = '32x32'%}
+																										{% else %}
+																										{% set imagelen = '64x64' %}
+																										{% endif %}
+																										<figure class="" >
+																												<img src="{{url_for('static', filename='img/img/{}.png'.format(item[1]))}}", alt="image" width="250" height="200">
+																										</figure>
+																								</div>
+																						</div>
+																				</div>
+																		</div>
+																		<footer class="card-footer is-size-7-mobile delineadof mt-0">
+																				<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
+																				<div class="card-footer-item">
+
+																						<button class="button is-primary" onclick="servedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Editar Servicio</button>
+																						<span class="{{oculto3}}">&nbsp&nbsp|&nbsp&nbsp</span>
+																						<button class="button is-primary {{oculto3}}" onclick="servsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Borrar Servicio</button>
+																				</div>
+																		</footer>
+
+																</div><br>
+																{%endif%}
+																{%endfor%}
+														</div>
+												</div>
+
+										</div>
+								</div>
+
+
+
+								{% if userdat[0] != 1%}
+								{% set oculto3 = 'is-hidden'%}
+								{% endif %}
+								<!--Recargas-->
+								<div class="column {{oculto3}}">
+										<div class="box p-0 pb-2 {{oculto3}}">
+												{% set numberrec = []%}
+												{% for rec in recargas %}
+												{% if rec[0] == userdat[0]%}
+												{% set b = numberrec.append(rec) %}
+												{% endif %}
+												{% endfor %}
+												
+												<div class="tag is-primary">Numero de Recargas Disponibles:   {{numberrec|length}}
+												</div>
+												<button class="button is-link ml-6 mr-0 is-small is-rounded {{oculto3}}" onclick="addrec('{{userdat[0]}}')">
+														<span class="material-icons">add</span>
+												</button>
+												
+												<div class="table-container contraste snap-container snap-containermax is-clearfix">
+														<div id="listadotodorec" class=""> {%set listarec=[]%}
+
+																{% for item in recargas %}
+																{% if item[0] == userdat[0] %}
+																<div class="card snap">
+																		<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
+																		<div class="card-content is-size-7-mobile has-text-left delineado">
+																				<div class="content m-0 p-0">
+																						<div class="columns is-mobile">
+																								<div class="column m-0 p-0">
+																										<span class="has-text-weight-medium">ID:</span><span class="ml-4">{{item[0]}}</span><br>
+																										<span class="has-text-weight-medium">Servicio:</span><span class="ml-4">{{item[1]}}</span><br>
+																										<span class="has-text-weight-medium">Precio:</span><span class="ml-4">{{item[2]}}</span><br>
+																										<span class="has-text-weight-medium">Categoria:</span><span class="ml-4">{{item[3]}}</span><br>
+																										<span class="has-text-weight-medium">Porcentaje:</span><span class="ml-4">{{item[4]}}</span>
+																								</div>
+																								<div class="column m-0">
+																										{% if userdat[0] != 1%}
+																										{% set imagelen = '32x32'%}
+																										{% else %}
+																										{% set imagelen = '64x64' %}
+																										{% endif %}
+																										<figure class="" >
+																												<img src="{{url_for('static', filename='img/img/{}.png'.format(item[1]))}}", alt="image" width="250" height="200">
+																										</figure>
+																								</div>
+																						</div>
+																				</div>		
+																		</div>
+																		<footer class="card-footer is-size-7-mobile delineadof t-0">
+																				<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
+																				<div class="card-footer-item">
+
+																						<button class="button is-primary" onclick="recedit({{item[0]}}, '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Editar Recarga</button>
+																						<span class="{{oculto3}}">&nbsp&nbsp|&nbsp&nbsp</span>
+																						<button class="button is-primary {{oculto3}}" onclick="recsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Borrar Recarga</button>
+																				</div>
+																		</footer>
+
+																</div><br>
+																{%endif%}
+																{%endfor%}
+														</div>
+												</div>
+
+
+
+
+										</div>
+
+								</div>
+						
 
 
 
 						</div>
-
-				</div>
-				</div>
-
 				</div>
 
 
+				
+
+
+				<!--Metodos de Pago-->
 				<div id="pagos" class="box content-tab" style="display:none">
 						Pagos
 				</div>
+
+
+
+
+
 
 		</div>
 		<hr/>

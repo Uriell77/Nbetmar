@@ -11854,3 +11854,11 @@ border-bottom-style:groove;
 .snap-containermax{
 		max-height:290px;
 }
+
+
+
+
+.card_compacto{
+		max-width:"10px";
+		max-height:"10px";
+}

@@ -9,13 +9,13 @@
 				{% set center = 'is-offset-4'%}
 				{% endif %}#}
 
-		<div class="columns">
+		<div class="columns is-centered">
 						{% for service in services%}
 						<div class="column is-narrow">
-								<div class="card card_boom sombra contraste"id="{{service[1]}}" onclick="ClickCard(this.id)">
+								<div class="card card_boom sombra contraste card_compacto" id="{{service[1]}}" onclick="ClickCard(this.id)">
 								<div class="card-image">
 										<figure class="image">
-												<img src="{{url_for('static', filename='img/img/{}.png'.format(service[1]))}}", alt="image">
+												<img src="{{url_for('static', filename='img/img/{}.png'.format(service[1]))}}", alt="image" width="50" height="50">
 										</figure>
 								</div>
 								<div class="card-content">
