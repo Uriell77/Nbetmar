@@ -422,15 +422,14 @@ def api():
    # print(dato)
     vendedorident = request.args.get('ident')
    # print(vendedorident)
-   
-   if dato == 'ListaCuentasvend':
-        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status',
+    if dato == 'ListaCuentasvend':
+       keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status',
                 'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
-        cuentasN =  bd.ListaCuentasvend(vendedorident)
-        res = []
-        for cuent in cuentasN:
-            res.append(dict(zip(keysN, cuent)))
-        return jsonify(res)
+       cuentasN =  bd.ListaCuentasvend(vendedorident)
+       res = []
+       for cuent in cuentasN:
+           res.append(dict(zip(keysN, cuent)))
+           return jsonify(res)
     
     if dato == 'ListaRecargasvend':
         keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia', 'montoneto']
@@ -440,7 +439,7 @@ def api():
             res.append(dict(zip(keysN, rec)))
         return jsonify(res)
    
-   if dato == 'ListaUsers':
+    if dato == 'ListaUsers':
         keysN = ['id', 'nombre', 'email', 'password', 'log', 'status', 'saldo', 'nivel', 'vendedor', 'divisa', 'tlf']
         users =  bd.leertodo()
         res = []
