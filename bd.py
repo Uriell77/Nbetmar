@@ -392,7 +392,17 @@ def leer_banca(dato):
     return respuesta
 
 
+codi = {'venezuela':'0102', 'banesco':'0103', 'mercantil':'0105'}
 
+
+def editarbanca(aidi, titular, cedula, banco, codigo, cuenta, tipo, celular):
+    #print(datos)
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+    print(aidi, titular, cedula, banco, codigo, cuenta, tipo, celular)
+    cursor.execute("""UPDATE pagobanco SET titular ='{0}', cedula='{1}', banco='{2}',codigo='{3}', cuenta='{4}', tipodecuenta='{5}', telefono='{6}' WHERE id='{7}' AND cuenta='{4}'""".format(titular, cedula, banco, codigo, cuenta, tipo, celular, aidi))
+    base.commit()
+    base.close()
 
 
 def editarservicio(id, servicio, precio):

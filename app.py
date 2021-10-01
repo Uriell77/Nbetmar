@@ -146,7 +146,7 @@ def user(user):
             if nivel == 1:
                 flash('Bienvenido' + ' '+'administrador'+' '+user)
                 return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
-    
+
 
 @app.route('/<user>/clientes', methods=['GET', 'POST'])
 #@cross_origin()
@@ -190,7 +190,7 @@ def UserClients(user):
             elif nivel == 2:
                 flash('Bienvenido' + ' '+user)
                 return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
-            
+
 
 @app.route('/<user>/metricas', methods=['GET', 'POST'])
 #@cross_origin()
@@ -243,15 +243,16 @@ def UserAdmin(user):
     global banca
     banca = bd.leer_banca(userdat[8])
     global bancadmin
+    bancamia = bd.leer_banca(userdat[0])
     bancadmin = bd.leer_banca(1)
     servicios = bd.leertodoservi(userdat[0])
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a> <a class="navbar-item" href="/'+user+'/administracion">Administracion</a>'
     panelu = '<a class="navbar-item" href="/'+user+'/metricas">Metricas</a> <a class="navbar-item" href="/'+user+'/administracion">Administracion</a>'
-    
+
     if request.method == "POST":
         ter = request.form 
         userdat = bd.leeruserv(user)
-        
+
         #editar datos de usuario
         if ter['accion'] == 'editar':
             nombre = request.form['nombre']
@@ -269,7 +270,7 @@ def UserAdmin(user):
             except:
                 return 'no se pudo editar'
 
-        #editar clientes
+            #editar clientes
         elif ter['accion'] == 'cambiar':
             aidi = request.form['aidi']
             statuscli = request.form['status']
@@ -302,7 +303,7 @@ def UserAdmin(user):
             except:
                 return 'Cambios no realizados'
 
-            #agregar un servicio
+                #agregar un servicio
         elif ter['accion'] == 'addserv':
             aidi = request.form['aidi']
             servicio = request.form['servicio']
@@ -395,18 +396,37 @@ def UserAdmin(user):
             except:
                 return 'Cambios no realizados'
 
-    
+
+            #edicion de papgs
+        elif ter['accion'] == 'cambiopago':
+            aidi = request.form['aidi']
+            titular = request.form['titular']
+            cedula = request.form['cedula']
+            banco = request.form['banco']
+            cuenta = request.form['cuenta']
+            tipo = request.form['tipo']
+            celular = request.form['celular']
+            codigo = bd.codi[banco]
+            print(aidi)
+            try:
+                bd.editarbanca(aidi, titular, str(cedula), banco, str(codigo), str(cuenta), tipo, str(celular))
+                flash('Cambios Realizados' +' '+ titular +' '+ banco)
+                return redirect('/'+user+'/administracion')
+            except:
+                return 'Cambios no realizados'
+
+
     else:
         vendedor = bd.leervend(userdat[8])
         nivel = userdat[7]
 
         if nivel == 1:
             flash('Edicion  del Administrador')
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html", vendedores=vendedores,listaclientes=listaclientes,listaservicios = servicios, recargas= reca)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html", vendedores=vendedores,listaclientes=listaclientes,listaservicios = servicios, recargas= reca, bancamia=bancamia)
 
         elif nivel == 2:
             flash('Edicion del vendedor')
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes=listaclientes, listaservicios = servicios, recargas='a')
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes=listaclientes, listaservicios = servicios, recargas='a', bancamia=bancamia)
 
         elif nivel == 3:
             flash('Edicion del usuario')
@@ -423,14 +443,14 @@ def api():
     vendedorident = request.args.get('ident')
    # print(vendedorident)
     if dato == 'ListaCuentasvend':
-       keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status',
+        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status',
                 'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
-       cuentasN =  bd.ListaCuentasvend(vendedorident)
-       res = []
-       for cuent in cuentasN:
+        cuentasN =  bd.ListaCuentasvend(vendedorident)
+        res = []
+        for cuent in cuentasN:
            res.append(dict(zip(keysN, cuent)))
            return jsonify(res)
-    
+
     if dato == 'ListaRecargasvend':
         keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia', 'montoneto']
         recargasN =  bd.ListaRecargasvend(1)
@@ -438,7 +458,7 @@ def api():
         for rec in recargasN:
             res.append(dict(zip(keysN, rec)))
         return jsonify(res)
-   
+
     if dato == 'ListaUsers':
         keysN = ['id', 'nombre', 'email', 'password', 'log', 'status', 'saldo', 'nivel', 'vendedor', 'divisa', 'tlf']
         users =  bd.leertodo()
@@ -446,8 +466,8 @@ def api():
         for u in users:
             res.append(dict(zip(keysN, u)))
         return jsonify(res)
-        
-            
+
+
 
 
 

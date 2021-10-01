@@ -114,7 +114,7 @@
 
 												{% for item in listaclientes %}
 												{% if item[8] == userdat[0] %}
-												<div class="card snap">
+												<div class="card snap card_boom">
 														<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
 														<div class="card-content is-size-7-mobile has-text-left delineado">
 																<div class="content">
@@ -326,7 +326,76 @@
 
 				<!--Metodos de Pago-->
 				<div id="pagos" class="box content-tab" style="display:none">
-						Pagos
+						
+						<div class="columns">
+								
+
+								<div class="column">
+										<div class="box p-0 pb-2">
+												{% set numberpago = []%}
+												{% for pago in banacamia %}
+												{% if pago[0] == userdat[0]%}
+												{% set b = numberpago.append(pago) %}
+												{% endif %}
+												{% endfor %}
+												{% if userdat[0] != 1%}
+												{% set oculto3 = 'is-hidden'%}
+												{% endif %}
+
+												<div class="tag is-primary">Sistemas de pago  Disponibles:   {{bancamia|length}}
+												</div>
+												<button class="button is-link ml-6 mr-0 is-small is-rounded {{oculto3}}" onclick="addserv('{{userdat[0]}}')">
+														<span class="material-icons">add</span>
+												</button>
+
+												<div class="table-container contraste snap-container snap-containermax is-clearfix">
+														<div id="listadotodovent" class=""> {%set listapago=[]%}
+
+																{% for item in bancamia %}
+																{% if item[0] == userdat[0] %}
+																<div class="card snap">
+																		<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
+																		<div class="card-content is-size-7-mobile has-text-left delineado">
+																				<div class="content m-0 p-0">
+																						<div class="columns">
+																								<div class="column m-0 p-0">
+																										<span class="has-text-weight-medium">ID:</span><span class="ml-4 is-size-6">{{item[0]}}</span><br>
+																										<span class="has-text-weight-medium">Titular:</span><span class="ml-4 is-size-6">{{item[1]}}</span><br>
+																										<span class="has-text-weight-medium">Cedula:</span><span class="ml-4">{{item[2]}}</span><br>
+                                                                                                        <span class="has-text-weight-medium">Banco/Pasarela de Pago:</span><span class="ml-4">{{item[3]|capitalize}}</span><br>
+                                                                                                        <span class="has-text-weight-medium">Codigo de Banco:</span><span class="ml-4">{{item[4]}}</span><br>
+                                                                                                        <span class="has-text-weight-medium">Numero de Cuenta/Correo:</span><span class="ml-4">{{item[5]}}</span><br>
+                                                                                                        <span class="has-text-weight-medium">Tipo de Cuenta:</span><span class="ml-4">{{item[6]|capitalize}}</span><br>
+																										<span class="has-text-weight-medium">Celular Asociado:</span><span class="ml-4">{{item[7]}}</span>
+																								</div>
+																								<div class="column m-0">
+																										{% set imagelen = '32x32'%}
+																										<figure class="" >
+																												<img src="{{url_for('static', filename='img/img/{}.png'.format(item[3]))}}", alt="image" width="250" height="100">
+																										</figure>
+																								</div>
+																						</div>
+																				</div>
+																		</div>
+																		<footer class="card-footer is-size-7-mobile delineadof mt-0">
+																				<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
+																				<div class="card-footer-item">
+
+                                                                                    <button class="button is-primary" onclick="pagoedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[3]}}', '{{item[5]}}','{{item[6]}}', '{{item[7]}}')">Editar Pago</button>
+																						<span class="">&nbsp&nbsp|&nbsp&nbsp</span>
+																						<button class="button is-primary" onclick="pagosup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Borrar Pago</button>
+																				</div>
+																		</footer>
+
+																</div><br>
+																{%endif%}
+																{%endfor%}
+														</div>
+												</div>
+
+										</div>
+								</div>
+						</div>
 				</div>
 
 

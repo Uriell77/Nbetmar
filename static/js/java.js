@@ -1372,6 +1372,59 @@ function recsup(aidi, recarga, precio, porcentaje){
 
 
 
+
+
+
+function pagoedit(aidi, titular, cedula,  banco, cuenta, tipo, celular){
+    var titular = titular;
+    var cedula = cedula;
+	var banco = banco;
+    var cuenta = cuenta;
+    var aidi = aidi;
+    var tipo = tipo;
+    var celular = celular
+		var ventana = document.getElementById('modal1');
+		var botonenv = document.getElementById("CardEnvio");
+		botonenv.innerHTML= 'Editar';
+		botonenv.setAttribute('name', 'accion')
+		botonenv.setAttribute('value', 'cambiopago')
+		botonenv.setAttribute('form', 'cambiopago')
+		ventana.classList.toggle('is-active');
+		//if (statuscli.checked == true){
+		//		statuscli = 'Activo';
+		//}else{ statuscli = 'Inactivo'};
+		//if (nivelcli.checked == true){
+		//		nivelcli = '2';
+		//}else{ nivelcli = '3';}
+		ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${aidi}`;
+		ventana.childNodes[3].childNodes[3].innerHTML = `
+<div class="box"><em>Quieres editar los atributos del Metodo de Pago</em><br>
+				<form method="POST" id="cambiopago">
+					<fieldset class="fieldset"><legend align="left">Edicion</legend>ID: ${aidi}<br>
+					<input class="input is-small is-hidden" name="aidi" value="${aidi}"><br>
+					Titular:<br>
+					<input class="input is-small is-primary" name="titular" value="${titular}"><br>
+					Cedula:<br>
+					<input class="input is-small is-primary" name="cedula" value="${cedula}"><br>
+					Banco/Pasarela de Pagos:<br>
+					<input class="input is-small is-primary" name="banco" value="${banco}"><br>
+					Cuenta:<br>
+					<input class="input is-small is-primary" name="cuenta" value="${cuenta}"><br>
+					Tipo:<br>
+					<input class="input is-small is-primary" name="tipo" value="${tipo}"><br>
+					celular:<br>
+					<input class="input is-small is-primary" name="celular" value="${celular}"><br>
+					</fieldset>
+					</form>
+		</div>`;
+};
+
+
+
+
+
+
+
 //Ajax carga listado de usuarios
 function loaduser(div, page, aidi0) {
 		var donde = document.getElementById(div);
