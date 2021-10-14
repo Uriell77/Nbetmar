@@ -3,14 +3,16 @@
 
 				{% if userdat[7] == 3%}
 				{% set oculto = 'is-hidden'%}
+                {% else%}
+                {% set oculto = ''%}
 				{% endif %}
-				<div class="hero is-link mb-3">
-						<nav class="breadcrumb is-centered is-small-mobile has-bullet-separator is-size-7-mobile" aria-label="breadcrumbs">
-								<ul id="tabs">
-										<li class="tab is-active" onclick="openTab(event,'useradmin')"><a href="#">Datos de Usuario</a></li>
-										<li class="tab {{oculto}}" onclick="openTab(event, 'clientes')"><a href="#">Clientes</a></li>
-										<li class="tab {{oculto}}" onclick="openTab(event, 'ventas')"><a href="#">Ventas</a></li>
-										<li class="tab {{oculto}}" onclick="openTab(event, 'pagos')"><a href="#" aria-current="page">Metodos de Pago</a></li>
+				<div class="hero is-link mb-3 p-0">
+						<nav class="breadcrumb is-centered  has-bullet-separator is-size-7-mobile " aria-label="breadcrumbs">
+								<ul id="tabs" class="p-0 m-0">
+										<li class="tab is-active" onclick="openTab(event,'useradmin')"><div class="tag is-small is-link card_boom">Datos de Usuario</div></li>
+										<li class="tab {{oculto}}" onclick="openTab(event, 'clientes')"><div class="tag is-small is-link card_boom">Clientes</div></li>
+										<li class="tab {{oculto}}" onclick="openTab(event, 'ventas')"><div class="tag is-small is-link card_boom">Ventas</div></li>
+										<li class="tab {{oculto}}" onclick="openTab(event, 'pagos')"><div class="tag is-small is-link card_boom">Metodos de Pago</div></li>
 								</ul>
 						</nav>
 				</div>
@@ -122,7 +124,6 @@
 																		<span class="has-text-weight-medium">Email:</span><span class="ml-4">{{item[2]}}</span><br>
 																		<span class="has-text-weight-medium">Status:</span><span class="ml-4">{{item[5]}}</span><br>
 																		<span class="has-text-weight-medium">Telefono:</span><span class="ml-4">{{item[10]}}</span>
-
 																</div>
 														</div>
 														{% if item[5] == 'Activo'%}
@@ -169,8 +170,8 @@
 
 
 				<!--Edicion de datos de ventas-->
-				<div id="ventas" class="box content-tab {{oculto}} p-0 mr-0" style="display:none">
-						<div class="columns">
+				<div id="ventas" class="box content-tab {{oculto}} p-0 m-0" style="display:none">
+						<div class="columns is-centered">
 								
 
 								<!--Servicios-->
@@ -188,11 +189,12 @@
 
 												<div class="tag is-primary">Numero de Servicios Disponibles:   {{numberserv|length}}
 												</div>
-												<button class="button is-link ml-6 mr-0 is-small is-rounded {{oculto3}}" onclick="addserv('{{userdat[0]}}')">
+												<button class="button is-link m-0 p-0 is-small is-rounded {{oculto3}}" onclick="addserv('{{userdat[0]}}')">
+
 														<span class="material-icons">add</span>
 												</button>
 
-												<div class="table-container contraste snap-container snap-containermax is-clearfix">
+												<div class="table-container contraste snap-container  is-clearfix">
 														<div id="listadotodovent" class=""> {%set listaserv=[]%}
 
 																{% for item in listaservicios %}
@@ -208,7 +210,7 @@
 																										<span class="has-text-weight-medium">Precio:</span><span class="ml-4">{{item[2]}}</span><br>
 																										<span class="has-text-weight-medium">Categoria:</span><span class="ml-4">{{item[3]}}</span>
 																								</div>
-																								<div class="column m-0">
+																								<div class="column m-0 p-0">
 																										{% if userdat[0] != 1%}
 																										{% set imagelen = '32x32'%}
 																										{% else %}
@@ -225,9 +227,9 @@
 																				<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
 																				<div class="card-footer-item">
 
-																						<button class="button is-primary" onclick="servedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Editar Servicio</button>
+																						<button class="button is-primary is-small" onclick="servedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Editar Servicio</button>
 																						<span class="{{oculto3}}">&nbsp&nbsp|&nbsp&nbsp</span>
-																						<button class="button is-primary {{oculto3}}" onclick="servsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Borrar Servicio</button>
+																						<button class="button is-primary {{oculto3}} is-small" onclick="servsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Borrar Servicio</button>
 																				</div>
 																		</footer>
 
@@ -255,13 +257,13 @@
 												{% endif %}
 												{% endfor %}
 												
-												<div class="tag is-primary">Numero de Recargas Disponibles:   {{numberrec|length}}
+												<div class="tag is-primary">Numero de Recargas Disponibles:{{numberrec|length}}
 												</div>
-												<button class="button is-link ml-6 mr-0 is-small is-rounded {{oculto3}}" onclick="addrec('{{userdat[0]}}')">
+												<button class="button is-link p-0 m-0 is-small is-rounded {{oculto3}}" onclick="addrec('{{userdat[0]}}')">
 														<span class="material-icons">add</span>
 												</button>
 												
-												<div class="table-container contraste snap-container snap-containermax is-clearfix">
+												<div class="table-container contraste snap-container  is-clearfix">
 														<div id="listadotodorec" class=""> {%set listarec=[]%}
 
 																{% for item in recargas %}
@@ -278,7 +280,7 @@
 																										<span class="has-text-weight-medium">Categoria:</span><span class="ml-4">{{item[3]}}</span><br>
 																										<span class="has-text-weight-medium">Porcentaje:</span><span class="ml-4">{{item[4]}}</span>
 																								</div>
-																								<div class="column m-0">
+																								<div class="column m-0 p-0">
 																										{% if userdat[0] != 1%}
 																										{% set imagelen = '32x32'%}
 																										{% else %}
@@ -295,9 +297,9 @@
 																				<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
 																				<div class="card-footer-item">
 
-																						<button class="button is-primary" onclick="recedit({{item[0]}}, '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Editar Recarga</button>
+																						<button class="button is-primary is-small" onclick="recedit({{item[0]}}, '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Editar Recarga</button>
 																						<span class="{{oculto3}}">&nbsp&nbsp|&nbsp&nbsp</span>
-																						<button class="button is-primary {{oculto3}}" onclick="recsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Borrar Recarga</button>
+																						<button class="button is-primary {{oculto3}} is-small" onclick="recsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Borrar Recarga</button>
 																				</div>
 																		</footer>
 
@@ -325,7 +327,7 @@
 
 
 				<!--Metodos de Pago-->
-				<div id="pagos" class="box content-tab" style="display:none">
+				<div id="pagos" class="box content-tab m-0 p-0" style="display:none">
 						
 						<div class="columns">
 								
@@ -342,25 +344,24 @@
 												{% set oculto3 = 'is-hidden'%}
 												{% endif %}
 
-												<div class="tag is-primary">Sistemas de pago  Disponibles:   {{bancamia|length}}
-												</div>
-												<button class="button is-link ml-6 mr-0 is-small is-rounded {{oculto3}}" onclick="addserv('{{userdat[0]}}')">
+												<div class="tag is-primary">Sistemas de pago  Disponibles:   {{bancamia|length}}</div>
+												<button class="button is-link  p-0 m-0 is-small is-rounded" onclick="addpago('{{userdat[0]}}')">
 														<span class="material-icons">add</span>
 												</button>
 
-												<div class="table-container contraste snap-container snap-containermax is-clearfix">
+												<div class="table-container contraste snap-container snap-containerpago is-clearfix">
 														<div id="listadotodovent" class=""> {%set listapago=[]%}
 
 																{% for item in bancamia %}
 																{% if item[0] == userdat[0] %}
-																<div class="card snap">
+																<div class="card snap is-7-mobile">
 																		<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
 																		<div class="card-content is-size-7-mobile has-text-left delineado">
 																				<div class="content m-0 p-0">
 																						<div class="columns">
 																								<div class="column m-0 p-0">
-																										<span class="has-text-weight-medium">ID:</span><span class="ml-4 is-size-6">{{item[0]}}</span><br>
-																										<span class="has-text-weight-medium">Titular:</span><span class="ml-4 is-size-6">{{item[1]}}</span><br>
+																										<span class="has-text-weight-medium">ID:</span><span class="ml-4 ">{{item[0]}}</span><br>
+																										<span class="has-text-weight-medium">Titular:</span><span class="ml-4">{{item[1]}}</span><br>
 																										<span class="has-text-weight-medium">Cedula:</span><span class="ml-4">{{item[2]}}</span><br>
                                                                                                         <span class="has-text-weight-medium">Banco/Pasarela de Pago:</span><span class="ml-4">{{item[3]|capitalize}}</span><br>
                                                                                                         <span class="has-text-weight-medium">Codigo de Banco:</span><span class="ml-4">{{item[4]}}</span><br>
@@ -368,10 +369,10 @@
                                                                                                         <span class="has-text-weight-medium">Tipo de Cuenta:</span><span class="ml-4">{{item[6]|capitalize}}</span><br>
 																										<span class="has-text-weight-medium">Celular Asociado:</span><span class="ml-4">{{item[7]}}</span>
 																								</div>
-																								<div class="column m-0">
+																								<div class="column m-0 p-0">
 																										{% set imagelen = '32x32'%}
 																										<figure class="" >
-																												<img src="{{url_for('static', filename='img/img/{}.png'.format(item[3]))}}", alt="image" width="250" height="100">
+																												<img src="{{url_for('static', filename='img/img/{}.png'.format(item[3]))}}", alt="image" width="200" height="250">
 																										</figure>
 																								</div>
 																						</div>
@@ -381,9 +382,9 @@
 																				<input type="text" class="input is-hidden" name="aidi{{item[0]}}" value="{{item[0]}}">
 																				<div class="card-footer-item">
 
-                                                                                    <button class="button is-primary" onclick="pagoedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[3]}}', '{{item[5]}}','{{item[6]}}', '{{item[7]}}')">Editar Pago</button>
+                                                                                    <button class="button is-primary is-small" onclick="pagoedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[3]}}', '{{item[5]}}','{{item[6]}}', '{{item[7]}}')">Editar Pago</button>
 																						<span class="">&nbsp&nbsp|&nbsp&nbsp</span>
-																						<button class="button is-primary" onclick="pagosup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Borrar Pago</button>
+                                                                                        <button class="button is-primary is-small" onclick="pagosup('{{item[0]}}', '{{item[1]}}', '{{item[3]}}', '{{item[5]}}')">Borrar Pago</button>
 																				</div>
 																		</footer>
 

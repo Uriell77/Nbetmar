@@ -11814,7 +11814,7 @@ border-bottom-style:groove;
 
 
 .snap-container{
-		max-height:220px;
+		max-height:250px;
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
 }
@@ -11852,10 +11852,13 @@ border-bottom-style:groove;
 
 
 .snap-containermax{
-		max-height:290px;
+		max-height:200px;
 }
 
 
+.snap-containerpago{
+		max-height:22.0rem;
+}
 
 
 .card_compacto{

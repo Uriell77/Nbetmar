@@ -245,6 +245,7 @@ def UserAdmin(user):
     global bancadmin
     bancamia = bd.leer_banca(userdat[0])
     bancadmin = bd.leer_banca(1)
+    banconame = list(bd.codi.keys())
     servicios = bd.leertodoservi(userdat[0])
     panelv = '<a class="navbar-item" href="/'+user+'/clientes">Clientes</a><a class="navbar-item" href="/'+user+'/metricas">Metricas</a> <a class="navbar-item" href="/'+user+'/administracion">Administracion</a>'
     panelu = '<a class="navbar-item" href="/'+user+'/metricas">Metricas</a> <a class="navbar-item" href="/'+user+'/administracion">Administracion</a>'
@@ -397,7 +398,7 @@ def UserAdmin(user):
                 return 'Cambios no realizados'
 
 
-            #edicion de papgs
+            #edicion de pagos
         elif ter['accion'] == 'cambiopago':
             aidi = request.form['aidi']
             titular = request.form['titular']
@@ -407,7 +408,6 @@ def UserAdmin(user):
             tipo = request.form['tipo']
             celular = request.form['celular']
             codigo = bd.codi[banco]
-            print(aidi)
             try:
                 bd.editarbanca(aidi, titular, str(cedula), banco, str(codigo), str(cuenta), tipo, str(celular))
                 flash('Cambios Realizados' +' '+ titular +' '+ banco)
@@ -416,17 +416,58 @@ def UserAdmin(user):
                 return 'Cambios no realizados'
 
 
+            #eliminar pago
+        elif ter['accion'] == 'borrarpago':
+            aidi = request.form['aidi']
+            titular = request.form['titular']
+            banco = request.form['banco']
+            cuenta = request.form['cuenta']
+            try:
+                bd.DelPago(aidi, titular, banco, cuenta)
+                flash('Metodo de pago Borrado con exito' +' '+ titular + ' ' + banco +' '+cuenta)
+                return redirect('/'+user+'/administracion')
+            except:
+                return 'Cambios no realizados'
+
+            #agregar nuevo metodo de pago
+        elif ter['accion'] == 'addpago':
+            aidi = request.form['aidi']
+            titular = request.form['titular']
+            cedula = request.form['cedula']
+            nombre = request.form['nombre']
+            cuenta = request.form['cuenta']
+            if nombre not in bd.codi.keys():
+                bd.codi[nombre] = '0000'
+            codigo = bd.codi[nombre]
+            tipo = request.form['tipo']
+            celular = request.form['celular']
+            image = request.files['resume']
+            if image:
+                image_name = '{}.png'.format(nombre)
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], image_name))
+                img = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], image_name))
+                new_img = img.resize((300,150))
+                new_img.save(os.path.join(app.config['UPLOAD_FOLDER'], image_name), 'png')
+            else:
+                pass
+            try:
+                bd.AddPago(aidi, titular, cedula, nombre, cuenta, codigo, tipo, celular)
+                flash('Metodo de Pago  agregado' +' '+ titular +' '+ nombre+' '+tipo)
+                return redirect('/'+user+'/administracion')
+            except:
+                return 'Cambios no realizados'
+
     else:
         vendedor = bd.leervend(userdat[8])
         nivel = userdat[7]
 
         if nivel == 1:
             flash('Edicion  del Administrador')
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html", vendedores=vendedores,listaclientes=listaclientes,listaservicios = servicios, recargas= reca, bancamia=bancamia)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html", vendedores=vendedores,listaclientes=listaclientes,listaservicios = servicios, recargas= reca, bancamia=bancamia, banconame=banconame)
 
         elif nivel == 2:
             flash('Edicion del vendedor')
-            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes=listaclientes, listaservicios = servicios, recargas='a', bancamia=bancamia)
+            return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes=listaclientes, listaservicios = servicios, recargas='a', bancamia=bancamia, banconame=banconame)
 
         elif nivel == 3:
             flash('Edicion del usuario')

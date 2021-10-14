@@ -392,17 +392,46 @@ def leer_banca(dato):
     return respuesta
 
 
-codi = {'venezuela':'0102', 'banesco':'0103', 'mercantil':'0105'}
-
+codi = {'venezuela':'0102', 'banesco':'0134', 'mercantil':'0105',
+        'venezolano_de_credito':'0104', 'provincial':'0108', 'bancaribe':'0114',
+        'exterior':'0115', 'occidental_de_descuento':'0116', 'caroni':'0128',
+        'plaza':'0138', 'fondo_comun':'0151', '100%_banco':'0156',
+        'del_sur':'0157', 'del_tesoro':'0163', 'agricola_de_venezuela':'0166',
+        'bancrecer':'0168', 'mi_banco':'0169','bancamiga':'0172',
+        'banplus':'0174', 'bicentenario':'0175', 'banfanb':'0177',
+        'bnc':'0191', 'paypal':'0000', 'skill':'000', 'zelle':'000'}
 
 def editarbanca(aidi, titular, cedula, banco, codigo, cuenta, tipo, celular):
     #print(datos)
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
-    print(aidi, titular, cedula, banco, codigo, cuenta, tipo, celular)
+    #print(aidi, titular, cedula, banco, codigo, cuenta, tipo, celular)
     cursor.execute("""UPDATE pagobanco SET titular ='{0}', cedula='{1}', banco='{2}',codigo='{3}', cuenta='{4}', tipodecuenta='{5}', telefono='{6}' WHERE id='{7}' AND cuenta='{4}'""".format(titular, cedula, banco, codigo, cuenta, tipo, celular, aidi))
     base.commit()
     base.close()
+
+
+
+
+def DelPago(aidi, titular, banco, cuenta):
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("DELETE FROM pagobanco WHERE (id = '{0}' AND titular='{1}' AND banco='{2}' AND cuenta='{3}') ".format(aidi, titular, banco, cuenta))
+    base.commit()
+    base.close()
+
+
+def AddPago(aidi, titular, cedula, nombre, cuenta, codigo, tipo, celular):
+    """para agregar un metodo de pago  nuevo en base de datos
+    """
+    base = sqlite3.connect('user.db', check_same_thread=False)
+    cursor = base.cursor()
+
+    cursor.execute("INSERT INTO pagobanco(id, titular, cedula, banco, codigo, cuenta, tipodecuenta, telefono) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')".format(aidi, titular, cedula, nombre, codigo, cuenta, tipo, celular))
+    base.commit()
+    base.close()
+
 
 
 def editarservicio(id, servicio, precio):
