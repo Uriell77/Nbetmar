@@ -308,14 +308,14 @@ def ListaCuentas(id):
     return res
 
 
-def ListaCuentasvend(id):
+def ListaCuentasvend(aidi):
     """Consulta la lista de cuentass en bd de un usuario por medio del id del vendedor"""
 
     base = sqlite3.connect('user.db', check_same_thread=False)
     cursor = base.cursor()
 
-    datosu = leer(id)
-    cursor.execute("SELECT * FROM cuentas WHERE vendedor = '{0}'".format(id))
+    datosu = leer(aidi)
+    cursor.execute("SELECT * FROM cuentas WHERE vendedor = '{0}'".format(aidi))
 
     res = cursor.fetchall()
     base.close()

@@ -25,8 +25,8 @@ b = ["<div class='card is-primary'>esto se genero por horrible</div>", "es b"]
 #@cross_origin()
 def home():
     """Home de la aplicacion"""
-    flash('Bienvenido al home')
-    flash('Disfruta tu estadia')
+    #flash('Bienvenido al home')
+    #flash('Disfruta tu estadia')
     return render_template('index.html', navbar='navbarout.html', cont=b, contenido='home.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
 
 
@@ -484,13 +484,12 @@ def api():
     vendedorident = request.args.get('ident')
    # print(vendedorident)
     if dato == 'ListaCuentasvend':
-        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status',
-                'fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
+        keysN = ['id', 'nombre', 'time', 'orden', 'cantidad', 'status','fcorte', 'vendedor', 'dolar', 'bolivares', 'banco', 'referencia']
         cuentasN =  bd.ListaCuentasvend(vendedorident)
         res = []
         for cuent in cuentasN:
-           res.append(dict(zip(keysN, cuent)))
-           return jsonify(res)
+            res.append(dict(zip(keysN, cuent)))
+        return jsonify(res)
 
     if dato == 'ListaRecargasvend':
         keysN = ['id', 'nombre', 'time', 'orden', 'status', 'vendedor', 'banco', 'referencia', 'montoneto']

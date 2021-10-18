@@ -1,9 +1,41 @@
 {% block contenido %}
 
-<div class="notification is-link">
-		<div class="box">
-				aqui estoy en el contenido del home
-		</div>
-</div>
+<section class="hero is-dark">
+    <div class="hero-body">
+        <div class="columns is-mobile">
+            <div class="column">
+                <figure class="image is-2by3">
+                    <img  class="has-ratio" width="128" height="128" src="{{url_for('static', filename='img/img/posters/poster0.png')}}">
+                </figure>
+            </div>
+            <div class="column">
+                <figure class="image is-2by3">
+                    <img src="{{url_for('static', filename='img/img/posters/poster1.png')}}">
+                </figure>
+            </div>
+
+            <div class="column">
+                <figure class="image is-2by3">
+                    <img src="{{url_for('static', filename='img/img/posters/poster2.png')}}">
+                </figure>
+            </div>
+            <div class="column">
+                <figure class="image is-2by3">
+                    <img src="{{url_for('static', filename='img/img/posters/poster3.png')}}">
+                </figure>
+            </div>
+            <div class="column">
+                <figure class="image is-2by3">
+                    <img src="{{url_for('static', filename='img/img/posters/poster4.png')}}">
+                </figure>
+            </div>
+            <div class="column">
+                <figure class="image is-2by3">
+                    <img src="{{url_for('static', filename='img/img/posters/poster5.png')}}">
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock%}

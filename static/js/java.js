@@ -662,9 +662,8 @@ function factura(state) {
 
 //Ajax carga listado de cuentas
 function loadcuent(div, page) {
-		//console.log(ident);
+		//console.log(div);
 		if (div == null) {
-
 		} else {
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
@@ -702,6 +701,7 @@ function loadcuent(div, page) {
 								};
 
 								var lan = document.getElementById(div);
+
 								if (copy != lan.firstChild.nextSibling.textContent) {
 										var msg = document.getElementById("pancarta");
 										var mensaje = document.getElementById("notification");

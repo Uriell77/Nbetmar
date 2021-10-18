@@ -83,12 +83,12 @@
 								</p>
 								
 						</div>
-				</footer>
-				<!--fin del footer-->
-
 <a href="https://www.presearch.org/signup?rid=678544" target="_blank">
   <img src="https://www.presearch.org/images/rf/ban-5.jpg" title="Presearch" alt="presearch" />
 </a>
+				</footer>
+				<!--fin del footer-->
+
 		</body>
 
 
@@ -109,7 +109,7 @@
 				  el.setAttribute('content', 'upgrade-insecure-requests')
 				  document.head.append(el)
 }
-				setInterval("loadcuent('NotiListcuentas', '/api/?dato=ListaCuentasvend&ident={{userdat[0]}}')", 5000);
+                setInterval("loadcuent('NotiListcuentas', '/api/?dato=ListaCuentasvend&ident={{userdat[0]|safe}}')", 5000);
 				setInterval("loadrec('NotiListrecargas', '/api/?dato=ListaRecargasvend&ident=1')", 5000);
 		</script>
 </html>
