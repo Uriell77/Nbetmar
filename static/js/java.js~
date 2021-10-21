@@ -320,29 +320,29 @@ function ClickCard(aidi) {
 
 
 		var form_recarga = `
-	<div class="section is-darkt">
+	<div class="section">
 	<form id="formula" method="POST">
 
-	<label class="is-pulled-left">Operadora a Recargar</label>
-	<input class="input" type="text" name="solicitud" id="operadora" placeholder="${aidi}" value="${aidi}" readonly>
-	<label class="is-pulled-left">Numero a Recargar</label>
-	<input class="input" type="text" name="numero" id="numero" placeholder="Numero a ser Recargado">
+	<label>Operadora a Recargar</label>
+	<input class="input is-primary" type="text" name="solicitud" id="operadora" placeholder="${aidi}" value="${aidi}" readonly>
+	<label>Numero a Recargar</label>
+	<input class="input is-primary" type="text" name="numero" id="numero" placeholder="Numero a ser Recargado">
 
-	<label class="is-pulled-left">Monto a Recargar</label>
-	<input class="input" type="text" name="montoreca" id="monto" placeholder="Monto de Recarga">
+	<label>Monto a Recargar</label>
+	<input class="input is-primary" type="text" name="montoreca" id="monto" placeholder="Monto de Recarga">
 
 	</form>
 	</section>`
 
 
 		var form_servicio = `
-	<div class="section is-darkt">
+	<div class="section">
 	<form id="formula" method="POST">
-	<label class="is-pulled-left">Servicio a solicitar</label>
-	<input class="input" type="text" name="solicitud" placeholder="${aidi}" value="${aidi}" readonly id="servicioa">
+	<label>Servicio a solicitar</label>
+	<input class="input is-primary" type="text" name="solicitud" placeholder="${aidi}" value="${aidi}" readonly id="servicioa">
 
-	<label class="is-pulled-left">Numero de Pantallas</label>
-	<input class="input" type="text" name="pantallas" placeholder="Cantidad de Pantallas a solicitar" id="panta">
+	<label>Numero de Pantallas</label>
+	<input class="input is-primary" type="text" name="pantallas" placeholder="Cantidad de Pantallas a solicitar" id="panta">
 
 	</form>
 	</section>`
@@ -450,7 +450,7 @@ function ClickCard(aidi) {
 					<input class="input is-primary is-hidden" type="text" name="recarganeta" value="${mont.getNumber()}">
 					<div class="hero is-link">Datos de Deposito</div>
 					<div class="box">
-						<label class="label is-size-6 is-darkt" for="vendedor">Deposito en Banco</label>
+						<label class="label is-size-6" for="vendedor">Deposito en Banco</label>
 						<div class="select vendedores is-primary">
 							<select class='vendedores' name='vendedor' id="bancosladmin" placeholder="Elige un Banco">
 								${bancolistadmin}
@@ -460,7 +460,7 @@ function ClickCard(aidi) {
 					</div>
 
 					<label class="is-size-6">Referencia Bancaria</label>
-					<input class="input" type="text" name="referencia" required placeholder="Referencia de Deposito"></input>
+					<input class="input is-primary" type="text" name="referencia" required placeholder="Referencia de Deposito"></input>
 				</form>`;
 						var tasadmin = document.getElementById('bancosladmin');
 						var dbancoadmin = document.getElementById('dbancoadmin');
@@ -559,7 +559,7 @@ function ClickCard(aidi) {
 						${((parseInt(costoso.slice(0,1)) * pantala) * vendedor[9]).toFixed(0)}" readonly id="servicioa">
 						<div class="hero is-link">Datos de Deposito</div>
 						<div class="box p-0">
-							<label class="label is-darkt" for="vendedor">Deposito en Banco</label>
+							<label class="label" for="vendedor">Deposito en Banco</label>
 							<div class="select vendedores is-primary">
 								<select class='vendedores' name='vendedor' id="bancosl">
 									${bancolist}
@@ -567,8 +567,8 @@ function ClickCard(aidi) {
 							</div>
 							<div class="box" id="dbanco"></div>
 						</div>
-						<label class="label is-darkt">Referencia Bancaria</label>
-						<input class="input" type="text" name="referencia" required placeholder="Referencia de Deposito"></input>
+						<label class="label">Referencia Bancaria</label>
+						<input class="input is-primary" type="text" name="referencia" required placeholder="Referencia de Deposito"></input>
 					</form>
 				</div>`;
 						var tas = document.getElementById('bancosl');
@@ -676,9 +676,9 @@ function loadcuent(div, page) {
 												var itemer = JSON.stringify(item);
 												//console.log(itemer);
 												document.getElementById(div).innerHTML += `
-						<article class="message is-link mb-1 p-0">
-						<div class="message-body card_boom contraste listado2 pl-0 pr-0 ml-0 mr-0" id="${item['time']}" onclick='algo(this.id, ${itemer} )'>
-							<span class=""><span class="tag ">Banco:${item['banco']}</span>  <span class="tag">Ref:${item['referencia']}</span> <span class="tag"> Monto:${item['bolivares']}</span></span></div>
+						<article class="message is-link mb-1">
+						<div class="message-body card_boom contraste listado2" id="${item['time']}" onclick='algo(this.id, ${itemer} )'>
+							<span>${item['banco']} ${item['referencia']} ${item['monto']}</span></div>
 						</div>
 						</article>`
 
@@ -757,8 +757,8 @@ function loadrec(div, page) {
 										//console.log(itemer);
 										document.getElementById(div).innerHTML += `
 						<article class="message is-link mb-1">
-						<div class="message-body card_boom contraste listado2" id="${item['time']}" onclick='algodon(this.id, ${itemer2} )'>
-							<span><span class="tag ">Banco:${item['banco']}</span>  <span class="tag">Ref:${item['referencia']}</span> <span class="tag"> Monto:${item['montoneto']}</span></span></div>
+						<div class="message-body card_boom contraste" id="${item['time']}" onclick='algodon(this.id, ${itemer2} )'>
+							<span>${item['referencia']}</span></div>
 						</div>
 						</article>`
 								};
@@ -849,11 +849,11 @@ function algo(pulsado, contenidos) {
 		//var contenidos = JSON.parse(contenidos);
 		ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = pulsado;
 		ventana.childNodes[3].childNodes[3].innerHTML = `
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Nombre: ${contenidos.nombre}</div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Cuenta: ${contenidos.orden} Numero de Pantallas: ${contenidos.cantidad}</div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Monto Depositado: <span id="deposit">${contenidos.bolivares}</span></div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Banco Deposito: ${contenidos.banco}</div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Referencia de Deposito: ${contenidos.referencia}</div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Nombre: ${contenidos.nombre}</div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Cuenta: ${contenidos.orden} Numero de Pantallas: ${contenidos.cantidad}</div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Monto Depositado: <span id="deposit">${contenidos.bolivares}</span></div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Banco Deposito: ${contenidos.banco}</div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Referencia de Deposito: ${contenidos.referencia}</div>
 	<form id="aprobado" method="POST">
 		<input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},
 			${contenidos.nombre},
@@ -882,15 +882,15 @@ function algodon(pulsado2, contenidos) {
 		orden = contenidos.orden.split(',');
 		ventana.childNodes[3].childNodes[1].childNodes[1].innerHTML = `${pulsado2}`;
 		ventana.childNodes[3].childNodes[3].innerHTML = `
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Nombre: ${contenidos.nombre}</div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Orden de Recarga: 
-		<span class="card_boom_red is-darkt">${orden[0]} &nbsp</span>
-		<span class="card_boom_red is-darkt">${orden[1]} &nbsp</span>
-		<span class="card_boom_red is-darkt" id="deposit">${orden[2]} &nbsp</span>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Nombre: ${contenidos.nombre}</div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Orden de Recarga: 
+		<span class="card_boom_red">${orden[0]} &nbsp</span>
+		<span class="card_boom_red">${orden[1]} &nbsp</span>
+		<span class="card_boom_red" id="deposit">${orden[2]} &nbsp</span>
 	</div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Monto a Recargar: <span class="card_boom_red" id="montoneto">${contenidos.montoneto}</span></div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Banco Deposito: ${contenidos.banco}</div>
-	<div class="message has-text-weight-semibold mb-1 card_boom is-darkt">Referencia de Deposito: ${contenidos.referencia}</div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Monto a Recargar: <span class="card_boom_red" id="montoneto">${contenidos.montoneto}</span></div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Banco Deposito: ${contenidos.banco}</div>
+	<div class="message has-text-weight-semibold mb-1 card_boom">Referencia de Deposito: ${contenidos.referencia}</div>
 	<form id="aprobado" method="POST">
 	<input class="is-hidden" type="text" name="por_aprobar" action="aprobar" value="${contenidos.time},
 	${contenidos.nombre},
@@ -1011,14 +1011,14 @@ function servedit(aidi, servicio, precio){
     ventana.childNodes[3].childNodes[3].innerHTML = `
             <div class="box"><em>Quieres editar los atributos del Servicio</em><br>
             <form method="POST" id="cambioserv" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Edicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
-                <label class="label is-darkt is-pulled-left">Nombre del Servicio:</label>
-                <input class="input is-small" name="servicio" title="El nombre del servicio no debe tener espacios en blanco" value="${servicio}" ${lectura}><br>
-                <label class="label is-darkt is-pulled-left">Precio en $:</label>
-                <input class="input is-small" name="precio" value="${precio}"><br><br>
+                Nombre del Servicio:
+                <input class="input is-small is-primary" name="servicio" title="El nombre del servicio no debe tener espacios en blanco" value="${servicio}" ${lectura}><br>
+                Precio en $:
+                <input class="input is-small is-primary" name="precio" value="${precio}"><br><br>
 
-                    <div class="file is-small is-boxed has-name  is-centered ${oculto3}">
+                    <div class="file is-small is-boxed has-name is-primary is-centered ${oculto3}">
                       <label class="file-label">
                         <input class="file-input" type="file" name="resume" id="resume" form="cambioserv" onchange="processfile(this)">
                         <span class="file-cta">
@@ -1082,14 +1082,14 @@ function addserv(aidi){
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Agregar un Nuevo Servicio</em><br>
             <form method="POST" id="addserv" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Adicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
-                <label class="label is-pulled-left is-darkt">Nombre del Servicio:</label>
-                <input class="input is-small" name="servicio" title="El nombre del servicio no debe tener espacios en blanco" placeholder="Nombre del nuevo Servicio" ${lectura}><br>
-                <label class="label is-darkt is-pulled-left">Precio en $:</label>
-                <input class="input is-small" name="precio" placeholder="Precio en $ del nuevo Servicio"><br><br>
+                Nombre del Servicio:
+                <input class="input is-small is-primary" name="servicio" title="El nombre del servicio no debe tener espacios en blanco" placeholder="Nombre del nuevo Servicio" ${lectura}><br>
+                Precio en $:
+                <input class="input is-small is-primary" name="precio" placeholder="Precio en $ del nuevo Servicio"><br><br>
 
-                    <div class="file is-small is-boxed has-name  is-centered ${oculto3}">
+                    <div class="file is-small is-boxed has-name is-primary is-centered ${oculto3}">
                       <label class="file-label">
                         <input class="file-input" type="file" name="resume" id="resume" form="addserv" onchange="processfile(this)">
                         <span class="file-cta">
@@ -1143,7 +1143,7 @@ function servsup(aidi, servicio, precio){
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Seguro de Borrar este Servicio?</em>
             <form method="POST" id="borrarserv" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Suprimir</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
                 Nombre del Servicio: <span class="tag">${servicio}</span><br>
                 <input class="input is-small is-primary is-hidden" name="servicio" title="Servicio a Borrar" value="${servicio}" readonly>
@@ -1209,16 +1209,16 @@ function addrec(aidi){
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Agregar un Nueva Recarga</em>
             <form method="POST" id="addrec" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Adicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
-                <label class="label is-darkt is-pulled-left">Nombre de la Recarga:</label>
-                <input class="input is-small" name="recarga" title="El nombre de la recarga no debe tener espacios en blanco" placeholder="Nombre de la Nueva Recarga" ${lectura}><br>
-                <label class="label is-darkt is-pulled-left">Precio en $:</label>
-                <input class="input is-small" name="precio" placeholder="Precio en $ de la Nueva Recarga"><br>
-                <label class="label is-darkt is-pulled-left">Porcentaje de Recarga:</label>
-                <input class="input is-small" name="porcentaje" placeholder="Porcentaje de ganancia  de la Nueva Recarga"><br><br>
+                Nombre de la Recarga:
+                <input class="input is-small is-primary" name="recarga" title="El nombre de la recarga no debe tener espacios en blanco" placeholder="Nombre de la Nueva Recarga" ${lectura}><br>
+                Precio en $:
+                <input class="input is-small is-primary" name="precio" placeholder="Precio en $ de la Nueva Recarga"><br>
+                Porcentaje de Recarga:
+                <input class="input is-small is-primary" name="porcentaje" placeholder="Porcentaje de ganancia  de la Nueva Recarga"><br><br>
 
-                    <div class="file is-small is-boxed has-name is-centered ${oculto3}">
+                    <div class="file is-small is-boxed has-name is-primary is-centered ${oculto3}">
                       <label class="file-label">
                         <input class="file-input" type="file" name="resume" id="resume" form="addrec" onchange="processfile(this)">
                         <span class="file-cta">
@@ -1273,16 +1273,16 @@ function recedit(aidi, recarga, precio, porcentaje){
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Quieres editar los atributos la Recarga</em>
             <form method="POST" id="cambiorec" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Edicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
-                <label class="label is-darkt is-pulled-left">Nombre de la Recarga:</label>
-                <input class="input is-small" name="recarga" title="El nombre de la Recarga no debe tener espacios en blanco" value="${recarga}" readonly><br>
-                <label class="label is-darkt is-pulled-left">Precio en $:</label>
-                <input class="input is-small" name="precio" value="${precio}"><br>
-                <label class="label is-darkt is-pulled-left">Porcentaje de Recarga:</label>
-                <input class="input is-small" name="porcentaje" value="${porcentaje}"><br><br>
+                Nombre de la Recarga:
+                <input class="input is-small is-primary" name="recarga" title="El nombre de la Recarga no debe tener espacios en blanco" value="${recarga}" readonly><br>
+                Precio en $:
+                <input class="input is-small is-primary" name="precio" value="${precio}"><br>
+                Porcentaje de Recarga:
+                <input class="input is-small is-primary" name="porcentaje" value="${porcentaje}"><br><br>
 
-                    <div class="file is-small is-boxed has-name is-centered ${oculto3}">
+                    <div class="file is-small is-boxed has-name is-primary is-centered ${oculto3}">
                       <label class="file-label">
                         <input class="file-input" type="file" name="resume" id="resume" form="cambiorec" onchange="processfile(this)">
                         <span class="file-cta">
@@ -1338,7 +1338,7 @@ function recsup(aidi, recarga, precio, porcentaje){
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Seguro de Borrar esta Recarga?</em>
             <form method="POST" id="borrarrec" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Edicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
                 Nombre de la Recarga: ${recarga}
                 <input class="input is-small is-primary is-hidden" name="recarga" title="Recarga a Borrar" value="${recarga}" readonly><br>
@@ -1400,20 +1400,20 @@ var celular = celular
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Quieres editar los atributos del Metodo de Pago</em>
             <form method="POST" id="cambiopago">
-                <fieldset class="fieldset is-darkt"><legend align="left">Edicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
-                <label class="label is-darkt is-pulled-left">Titular:</label>
-                <input class="input is-small" name="titular" value="${titular}"><br>
-                <label class="label is-darkt is-pulled-left">Cedula:</label>
-                <input class="input is-small" name="cedula" value="${cedula}"><br>
-                <label class="label is-darkt is-pulled-left">Banco/Pasarela de Pagos:</label>
-                <input class="input is-small" name="banco" value="${banco}"><br>
-                <label class="label is-darkt is-pulled-left">Cuenta:</label>
-                <input class="input is-small" name="cuenta" value="${cuenta}"><br>
-                <label class="label is-darkt is-pulled-left">Tipo:</label>
-                <input class="input is-small" name="tipo" value="${tipo}"><br>
-                <label class="label is-darkt is-pulled-left">celular:</label>
-                <input class="input is-small" name="celular" value="${celular}"><br>
+                Titular:
+                <input class="input is-small is-primary" name="titular" value="${titular}"><br>
+                Cedula:
+                <input class="input is-small is-primary" name="cedula" value="${cedula}"><br>
+                Banco/Pasarela de Pagos:
+                <input class="input is-small is-primary" name="banco" value="${banco}"><br>
+                Cuenta:
+                <input class="input is-small is-primary" name="cuenta" value="${cuenta}"><br>
+                Tipo:
+                <input class="input is-small is-primary" name="tipo" value="${tipo}"><br>
+                celular:
+                <input class="input is-small is-primary" name="celular" value="${celular}"><br>
                 </fieldset>
                 </form>
     </div>`;
@@ -1452,7 +1452,7 @@ function pagosup(aidi, titular, banco, cuenta){
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Seguro de Borrar este metodo de pago?</em>
             <form method="POST" id="borrarpago" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Edicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
                 Metodo de pago: ${banco}<br>
                 <input class="input is-small is-primary is-hidden" name="banco" title="Metodo a Borrar" value="${banco}" readonly>
@@ -1500,22 +1500,22 @@ function addpago(aidi){
     ventana.childNodes[3].childNodes[3].innerHTML = `
 <div class="box"><em>Agregar un nuevo metodo de pago</em>
             <form method="POST" id="addpago" enctype="multipart/form-data">
-                <fieldset class="fieldset is-darkt"><legend align="left">Edicion</legend>
+                <fieldset class="fieldset"><legend align="left">Edicion</legend>
                 <input class="input is-small is-hidden" name="aidi" value="${aidi}">
-                <label class="label is-darkt is-pulled-left">Titular:</label>
-                <input class="input is-small" name="titular" placeholder="Nombre del Titular" ${lectura}><br>
-                <label class="label is-darkt is-pulled-left">Cedula:</label>
-                <input class="input is-small" name="cedula" placeholder="Documento del Titular"><br>
-                <label class="label is-darkt is-pulled-left">Banco/Pasarela de Pagos:</label>
-                <input class="input is-small" name="nombre" placeholder="Banco/Pasarela de Pagos"><br>
-                <label class="label is-darkt is-pulled-left">Numero de Cuenta/Correo:</label>
-                <input class="input is-small" name="cuenta" placeholder="Cuenta/Correo"><br>
-                <label class="label is-darkt is-pulled-left">Tipo de Cuenta:</label>
-                <input class="input is-small" name="tipo" placeholder="Tipo de Cuenta"><br>
-                <label class="label is-darkt is-pulled-left">Celular:</label>
-                <input class="input is-small" name="celular" placeholder="Num. de Celular"><br><br>
+                Titular:
+                <input class="input is-small is-primary" name="titular" placeholder="Nombre del Titular" ${lectura}><br>
+                Cedula:
+                <input class="input is-small is-primary" name="cedula" placeholder="Documento del Titular"><br>
+                Banco/Pasarela de Pagos:
+                <input class="input is-small is-primary" name="nombre" placeholder="Banco/Pasarela de Pagos"><br>
+                Numero de Cuenta/Correo:
+                <input class="input is-small is-primary" name="cuenta" placeholder="Cuenta/Correo"><br>
+                Tipo de Cuenta:
+                <input class="input is-small is-primary" name="tipo" placeholder="Tipo de Cuenta"><br>
+                Celular:
+                <input class="input is-small is-primary" name="celular" placeholder="Num. de Celular"><br><br>
 
-                    <div class="file is-small is-boxed has-name is-centered ${oculto3}">
+                    <div class="file is-small is-boxed has-name is-primary is-centered ${oculto3}">
                       <label class="file-label">
                         <input class="file-input" type="file" name="resume" id="resume" form="addpago" onchange="processfile(this)">
                         <span class="file-cta">
@@ -1578,7 +1578,7 @@ function loaduser(div, page, aidi0) {
                                             //console.log(item['id']);
                                             donde.innerHTML += `
 
-                                            <div class="card snap is-darkt">
+                                            <div class="card snap">
                                                     <div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
                                                     <div class="card-content is-size-7-mobile has-text-left delineado">
                                                             <div class="content">
@@ -1620,7 +1620,7 @@ function loaduser(div, page, aidi0) {
                                                     //console.log('mierc')
                                                     donde.innerHTML += `
 
-                                            <div class="card snap is-darkt">
+                                            <div class="card snap">
                                                     <div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:${item['id']}</div>
                                                     <div class="card-content is-size-7-mobile has-text-left delineado">
                                                             <div class="content">

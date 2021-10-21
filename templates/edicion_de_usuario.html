@@ -1,13 +1,13 @@
 <div class="column">
-		<div class="card contraste p-0 ">
+		<div class="card is-transparente p-0 ">
 
 				{% if userdat[7] == 3%}
 				{% set oculto = 'is-hidden'%}
                 {% else%}
                 {% set oculto = ''%}
 				{% endif %}
-				<div class="hero is-link mb-3 p-0">
-						<nav class="breadcrumb is-centered  has-bullet-separator is-size-7-mobile " aria-label="breadcrumbs">
+				<div class="hero mb-3 p-1">
+						<nav class="breadcrumb  is-centered  has-bullet-separator is-size-7-mobile p-1" aria-label="breadcrumbs">
 								<ul id="tabs" class="p-0 m-0">
 										<li class="tab is-active" onclick="openTab(event,'useradmin')"><div class="tag is-small is-link card_boom">Datos de Usuario</div></li>
 										<li class="tab {{oculto}}" onclick="openTab(event, 'clientes')"><div class="tag is-small is-link card_boom">Clientes</div></li>
@@ -18,34 +18,30 @@
 				</div>
 
 				<!--Edicion de datos de Usuario-->
-				<div id="useradmin" class="box content-tab p-0 mr-0" style="display:block">
-						<div class="card p-0 pb-2">
+				<div id="useradmin" class="box content-tab p-2 mr-0" style="display:block">
+						<div class="card p-2 pb-2 is-darkt">
 								<form method="POST" id="usuarios" value="edicion_de_usuarios">
 										<div class="columns">
 												<div class="column">
-														<label class="label">Nombre de Usuario: 
+                                                    <label class="label is-darkt is-pulled-left">Nombre de Usuario:</label> 
 																<input class="input is-link" type="text" name="nombre" placeholder={{user}} value={{user}}>
-														</label>
 												</div>
 												<div class="column">
-														<label class="label">Email: 
+                                                    <label class="label is-darkt is-pulled-left">Email:</label>
 																<input class="input is-link" type="text" name="email" placeholder={{userdat[2]}} value={{userdat[2]}}>
-														</label>
 												</div>
 										</div>
 
 
 										<div class="columns">
 												<div class="column">
-														<label class="label">Password: 
+                                                    <label class="label is-darkt is-pulled-left">Password:</label>
 																<input class="input is-link" type="text" name="password" placeholder={{userdat[3]}} value={{userdat[3]}}>
-														</label>
 												</div>
 
 												<div class="column">
-														<label class="label">Telefono Movil: 
+                                                    <label class="label is-darkt is-pulled-left">Telefono Movil:</label>
 																<input class="input is-link" type="text" name="mobil" placeholder={{userdat[10]}} value={{userdat[10]}}>
-														</label>
 												</div>
 										</div>
 				
@@ -55,9 +51,8 @@
 														{% if userdat[7] == 1%}
 														{% set oculto2 = 'is-hidden'%}
 														{% endif %}
-														<label class="label {{oculto2}}">Vendedor: 
+                                                        <label class="label is-darkt is-pulled-left {{oculto2}}">Vendedor:</label>
 
-																<div>
 																		<div class="select vendedores is-link {{oculto2}}">
 																				<select class='vendedores' name='vendedor'>
 																						{% for vendedors in vendedores %}
@@ -73,14 +68,11 @@
 																						{% endfor %}
 																				</select>
 																		</div>
-														</label>
-																</div>
 												</div>
 
 												<div class="column">
-														<label class="label {{oculto}}">Valor de Divisa: 
+                                                    <label class="label is-darkt is-pulled-left {{oculto}}">Valor de Divisa: </label>
 																<input class="input is-link {{oculto}}" type="text" name="divisa" placeholder={{userdat[9]}} value={{userdat[9]}} id="divise2">
-														</label>
 												</div>
 										</div>
 
@@ -95,21 +87,21 @@
 				<div id="clientes" class="box content-tab {{oculto}} p-0 mr-0" style="display:none">
 						<div class="panel-block">
 								<p class="control has-icons-left">
-								<input class="input is-primary" id="buscador" type="text" placeholder="Buscar Cliente">
+								<input class="input" id="buscador" type="text" placeholder="Buscar Cliente">
 								<span class="icon is-left">
 										<i class="material-icons" aria-hidden="true">search</i>
 								</span>
 								</p>
 						</div>
 
-						<div class="box p-0 pb-2">
+						<div class="box p-2 pb-2">
 								{% set numbercli = []%}
 								{% for cli in listaclientes %}
 								{% if cli[8] == userdat[0]%}
 								{% set b = numbercli.append(cli) %}
 								{% endif %}
 								{% endfor %}
-								<div class="">Numero de Clientes:   {{numbercli|length}}</div>
+								<div class="tag is-primary">Numero de Clientes:   {{numbercli|length}}</div>
 
 								<div class="table-container contraste snap-container">
 										<div id="listadotodocli" class=""> {%set listacompleta=[]%}
@@ -176,7 +168,7 @@
 
 								<!--Servicios-->
 								<div class="column">
-										<div class="box p-0 pb-2">
+										<div class="box p-2 pb-2">
 												{% set numberserv = []%}
 												{% for serv in listaservicios %}
 												{% if serv[0] == userdat[0]%}
@@ -199,7 +191,7 @@
 
 																{% for item in listaservicios %}
 																{% if item[0] == userdat[0] %}
-																<div class="card snap">
+																<div class="card snap is-darkt">
 																		<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
 																		<div class="card-content is-size-7-mobile has-text-left delineado">
 																				<div class="content m-0 p-0">
@@ -229,7 +221,7 @@
 
 																						<button class="button is-primary is-small" onclick="servedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Editar Servicio</button>
 																						<span class="{{oculto3}}">&nbsp&nbsp|&nbsp&nbsp</span>
-																						<button class="button is-primary {{oculto3}} is-small" onclick="servsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Borrar Servicio</button>
+																						<button class="button is-danger {{oculto3}} is-small" onclick="servsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}')">Borrar Servicio</button>
 																				</div>
 																		</footer>
 
@@ -249,7 +241,7 @@
 								{% endif %}
 								<!--Recargas-->
 								<div class="column {{oculto3}}">
-										<div class="box p-0 pb-2 {{oculto3}}">
+										<div class="box p-2 pb-2 {{oculto3}}">
 												{% set numberrec = []%}
 												{% for rec in recargas %}
 												{% if rec[0] == userdat[0]%}
@@ -268,7 +260,7 @@
 
 																{% for item in recargas %}
 																{% if item[0] == userdat[0] %}
-																<div class="card snap">
+																<div class="card snap is-darkt">
 																		<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
 																		<div class="card-content is-size-7-mobile has-text-left delineado">
 																				<div class="content m-0 p-0">
@@ -299,7 +291,7 @@
 
 																						<button class="button is-primary is-small" onclick="recedit({{item[0]}}, '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Editar Recarga</button>
 																						<span class="{{oculto3}}">&nbsp&nbsp|&nbsp&nbsp</span>
-																						<button class="button is-primary {{oculto3}} is-small" onclick="recsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Borrar Recarga</button>
+																						<button class="button is-danger {{oculto3}} is-small" onclick="recsup('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[4]}}')">Borrar Recarga</button>
 																				</div>
 																		</footer>
 
@@ -333,7 +325,7 @@
 								
 
 								<div class="column">
-										<div class="box p-0 pb-2">
+										<div class="box p-2 pb-2">
 												{% set numberpago = []%}
 												{% for pago in banacamia %}
 												{% if pago[0] == userdat[0]%}
@@ -354,7 +346,7 @@
 
 																{% for item in bancamia %}
 																{% if item[0] == userdat[0] %}
-																<div class="card snap is-7-mobile">
+																<div class="card snap is-7-mobile is-darkt">
 																		<div class="card-header is-size-7-mobile card-header-contrast">&nbsp&nbspID:{{item[0]}}</div>
 																		<div class="card-content is-size-7-mobile has-text-left delineado">
 																				<div class="content m-0 p-0">
@@ -384,7 +376,7 @@
 
                                                                                     <button class="button is-primary is-small" onclick="pagoedit('{{item[0]}}', '{{item[1]}}', '{{item[2]}}', '{{item[3]}}', '{{item[5]}}','{{item[6]}}', '{{item[7]}}')">Editar Pago</button>
 																						<span class="">&nbsp&nbsp|&nbsp&nbsp</span>
-                                                                                        <button class="button is-primary is-small" onclick="pagosup('{{item[0]}}', '{{item[1]}}', '{{item[3]}}', '{{item[5]}}')">Borrar Pago</button>
+                                                                                        <button class="button is-danger is-small" onclick="pagosup('{{item[0]}}', '{{item[1]}}', '{{item[3]}}', '{{item[5]}}')">Borrar Pago</button>
 																				</div>
 																		</footer>
 

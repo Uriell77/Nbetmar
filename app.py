@@ -54,7 +54,7 @@ def registro():
             flash('No se pudo registrar')
             return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='')
     else:    
-        flash('Bienvenido al registro')
+        #flash('Bienvenido al registro')
         return render_template('index.html', navbar='navbarout.html', cont=a, contenido='registro.html', vendedores=vendedores, vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='a')
 
 
@@ -78,7 +78,7 @@ def login():
             flash('Error en Correo')
             return redirect(request.path)
     else:
-        flash('Ingresa a la Plataforma')
+        #flash('Ingresa a la Plataforma')
         return render_template('index.html', navbar='navbarout.html', cont=a, contenido='login.html', vendedor='admin', reca='recas', banca='banca', bancadmin=1, userdat='a')
 
 
@@ -140,11 +140,11 @@ def user(user):
                 return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelu)
 
             if nivel == 2:
-                flash('Bienvenido' + ' '+'vendedor'+' '+user)
+                flash('Bienvenido' + ' '+ user)
                 return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='vendedor.html', servi=servi, reca=reca, listareca=listareca, listacuenta=listacuentas, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
 
             if nivel == 1:
-                flash('Bienvenido' + ' '+'administrador'+' '+user)
+                flash('Bienvenido' + ' '+ user)
                 return render_template('index.html', navbar='navbarin.html', cont=a, contenido='user.html', user=user, userdat=userdat, tabla='admin.html', servi=servi, reca=reca, vendedor=vendedor, banca=banca, bancadmin=bancadmin, PanelClient=panelv)
 
 
@@ -185,10 +185,10 @@ def UserClients(user):
                 return redirect(request.path)
         else:
             if nivel == 1:
-                flash('Bienvenido' + ' ' +user)
+                #flash('Bienvenido' + ' ' +user)
                 return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
             elif nivel == 2:
-                flash('Bienvenido' + ' '+user)
+                #flash('Bienvenido' + ' '+user)
                 return render_template('index.html', navbar='navbarin.html', cont=a, contenido='clientes.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
 
 
@@ -213,13 +213,13 @@ def UserMetric(user):
     vendedor = bd.leervend(userdat[8])
     nivel = userdat[7]
     if nivel == 1:
-        flash('estadisticas del Administrador')
+        #flash('estadisticas del Administrador')
         return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html")
     elif nivel == 2:
-        flash('Estadisticas del vendedor')
+        #flash('Estadisticas del vendedor')
         return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
     elif nivel == 3:
-        flash('Estadisticas del usuario')
+        #flash('Estadisticas del usuario')
         return render_template('index.html', navbar='navbarin.html', cont=a, contenido='metricas.html', user=user, userdat=userdat, PanelClient=panelu, vendedor=vendedor, reca=reca, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html")
 
 
@@ -462,15 +462,15 @@ def UserAdmin(user):
         nivel = userdat[7]
 
         if nivel == 1:
-            flash('Edicion  del Administrador')
+            #flash('Edicion  del Administrador')
             return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="recarga1.html", vendedores=vendedores,listaclientes=listaclientes,listaservicios = servicios, recargas= reca, bancamia=bancamia, banconame=banconame)
 
         elif nivel == 2:
-            flash('Edicion del vendedor')
+            #flash('Edicion del vendedor')
             return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelv, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes=listaclientes, listaservicios = servicios, recargas='a', bancamia=bancamia, banconame=banconame)
 
         elif nivel == 3:
-            flash('Edicion del usuario')
+            #flash('Edicion del usuario')
             return render_template('index.html', navbar='navbarin.html', cont=a, contenido='administra.html', user=user, userdat=userdat, PanelClient=panelu, vendedor=vendedor, reca=recal, banca=banca, bancadmin=bancadmin, listacuenta=listacuenta, listareca = listareca, listas="cuenta1.html", vendedores=vendedores, listaclientes='no')
 
 

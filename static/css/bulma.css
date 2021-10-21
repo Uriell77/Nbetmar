@@ -11906,3 +11906,42 @@ background: linear-gradient(to bottom, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, 
 
 }
 
+
+
+.listado2{
+    background: #34495E !important;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #d7d2cc, #34495E) !important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #d7d2cc, #304352) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #ffffff !important;
+}
+
+
+.box{
+     background-color: rgba(23,34,12,0);
+  border-color: transparent;
+  color: #fff;
+
+}
+
+
+.is-darkt {
+  background-color: #363636;
+  border-color: transparent;
+  color: white;
+}
+
+
+
+
+.card.is-transparente {
+  background-color: rgba(2,3,4,0);
+  border-color: transparent;
+  color: #fff;
+}
+
+
+.fieldset.is-transparente {
+  background-color: rgba(2,3,4,0);
+  border-color: transparent;
+  color: #fff;
+}
