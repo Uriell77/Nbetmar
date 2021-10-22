@@ -43,7 +43,7 @@
 				<!--inicio del modal-->
 				<div class="modal" id="modal1">
 						<div class="modal-background" id="modalback"></div>
-						<div class="modal-card is-size-6-mobile is-darkt">
+						<div class="modal-card is-size-6-mobile is-darkt m-3">
 								<header class="modal-card-head is-darkt">
 										<p class="modal-card-title is-size-6 is-darkt">{{cont[1]|safe}}</p>
 										<button class="delete" id="del" aria-label="close"></button>
@@ -91,25 +91,26 @@
 
 		</body>
 
-
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.1.0/autoNumeric.min.js"></script>
+		<script src="{{url_for('static', filename='js/push.min.js')}}"></script>
 		<script src="{{url_for('static', filename='js/java.js')}}"></script>
 		<script>
 				borrado();
 				loaduser('listadotodocli', '/api/?dato=ListaUsers', {{userdat[0]|safe}})
 				var aidy = {{userdat[0]|safe}};
-				{#var nivel = {{userdat[7]|tojson}};#}
-				var vendedor = {{vendedor|tojson}};
-				var recas = {{reca|tojson}};
-				var banca = {{banca|tojson}};
-				var bancadmin = {{bancadmin|tojson}};
+				var nivel = {{userdat[7]|tojson}};
+                var vendedor = {{vendedor|tojson}};
+                var recas = {{reca|tojson}};
+                var banca = {{banca|tojson}};
+                var bancadmin = {{bancadmin|tojson}};
 				if (window.location.protocol.indexOf('https') == 0){
 				  var el = document.createElement('meta')
 				  el.setAttribute('http-equiv', 'Content-Security-Policy')
 				  el.setAttribute('content', 'upgrade-insecure-requests')
 				  document.head.append(el)
 }
+                noti('/api/?dato=ListaCuentasvend&ident={{userdat[0]|safe}}');
                 setInterval("loadcuent('NotiListcuentas', '/api/?dato=ListaCuentasvend&ident={{userdat[0]|safe}}')", 5000);
-				setInterval("loadrec('NotiListrecargas', '/api/?dato=ListaRecargasvend&ident=1')", 5000);
+                setInterval("loadrec('NotiListrecargas', '/api/?dato=ListaRecargasvend&ident=1')", 5000);
 		</script>
 </html>

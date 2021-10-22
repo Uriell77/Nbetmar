@@ -705,14 +705,14 @@ function loadcuent(div, page) {
 								if (copy != lan.firstChild.nextSibling.textContent) {
 										var msg = document.getElementById("pancarta");
 										var mensaje = document.getElementById("notification");
-										msg.classList.toggle('is-link');
-										msg.className = 'intermit';
-										msg.classList.add('message', 'flasher');
+										//msg.classList.toggle('is-link');
+										//msg.className = 'intermit';
+										//msg.classList.add('message', 'flasher');
 										//console.log(lan.firstChild.nextSibling.textContent);
-										mensaje.style.display = "block";
-										mensaje.innerHTML = `nueva compra ${lan.firstChild.nextSibling.textContent} <audio id="audio" autoplay volume=0>
-<source type="audio/wav" src="../static/sound/bell.wav">
-</audio>`;
+										//mensaje.style.display = "block";
+										//mensaje.innerHTML = `nueva compra ${lan.firstChild.nextSibling.textContent} <audio id="audio" autoplay volume=0>
+//<source type="audio/wav" src="../static/sound/bell.wav">
+//</audio>`;
 
 										//var ventana = document.getElementById('modal1');
 										//ventana.classList.toggle('is-active');
@@ -720,13 +720,28 @@ function loadcuent(div, page) {
 										//ventana.childNodes[3].childNodes[3].innerHTML = `Se a creado una nueva orden de cuentas <br>Referencia: <span>${item['referencia']}</span></div>`
 										copy = lan.firstChild.nextSibling.textContent;
 										var audio = document.getElementById("audio");
-										audio.play();
+										//audio.play();
 										let promise = Notification.requestPermission();
-										var notification = new Notification("Nueva Compra de Servicio", { body: `nueva compra ${lan.firstChild.nextSibling.textContent}` });
+										//var notification = new Notification("Nueva Compra de Servicio", { body: `nueva compra ${lan.firstChild.nextSibling.textContent.trim()}`,
+                                        //icon: '../img/img/betmarlogo1.jpeg',
+                                        //});
+                                        const img = "../static/img/img/betmarlog.png";
+                                        const op ={
+                                                body: `${lan.firstChild.nextSibling.textContent.trim()}`,
+                                                icon: img,
+                                                image: img,
+                                                timeout: 5000,
+                                                vibrate: [200, 100, 200],
+                                                tag: "Nueva Compra", 
+                                        };
+
+                                        Push.create("nueva orden", op);                                   
+
+
 										setTimeout(() => {
 												var mensaje = document.getElementById("notification");
 												mensaje.style.display = "none";
-										}, 3000);
+										}, 2000);
 										//msg.classList.toggle('intermit');
 								}
 
@@ -1678,3 +1693,14 @@ const filtro = ()=>{
 
 
 buscador.addEventListener('keyup', filtro);
+
+
+
+
+
+
+
+function noti(pag){
+    var a = fetch(pag);
+    console.log(a)
+}

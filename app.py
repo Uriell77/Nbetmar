@@ -125,7 +125,7 @@ def user(user):
             return redirect(url_for('user', user=user))
         elif formulario['action'] == 'servicio':
             solicitudes = solicitudes.split(',')
-            bd.cuentas(userdat[0], solicitudes[1], solicitudes[0], solicitudes[2], solicitudes[3], vend, ref)
+            bd.cuentas(userdat[0], solicitudes[1].strip(), solicitudes[0].strip(), solicitudes[2].strip(), solicitudes[3].strip(), vend.strip(), ref.strip())
             flash('solicitud de cuenta enviada')
             return redirect(url_for('user', user=user))
 
